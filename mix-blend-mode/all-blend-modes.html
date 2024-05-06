@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="nl-nl">
+
+<head>
+  <meta charset="UTF-8">
+
+  <title>blend modes</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    html,
+    body {
+      height: 100%;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .wrapper {
+      position: relative;
+      /* display: flex;
+      flex-direction: column;
+      justify-content: space-around; */
+      height: 100%;
+      width: 20rem;
+    }
+
+    .bg-wrapper {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      justify-content: space-around;
+    }
+
+    .bg-sample {
+      width: 3rem;
+      border: 1px dotted black;
+    }
+
+    .bg-sample:nth-child(1) {
+      background: #169EFB;
+    }
+
+    .bg-sample:nth-child(2) {
+      background: #3CA872;
+    }
+
+    .bg-sample:nth-child(3) {
+      background: #2F3046;
+    }
+
+    .bg-sample:nth-child(4) {
+      background: #fff;
+    }
+
+    .sample {
+      position: relative;
+      width: 20rem;
+      height: 2rem;
+      background: hsl(120 100% 100%);
+      background: #666;
+      margin: 0.5rem 0;
+      border: 1px dashed black;
+      --mode: '';
+    }
+
+    .sample::after {
+      position: absolute;
+      display: block;
+      content: var(--mode);
+      top: 50%;
+      transform: translateY(-50%);
+      left: calc(100% + 1em);
+      width: 20rem;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="wrapper" class="wrapper">
+    <div class="bg-wrapper">
+      <div class="bg-sample"></div>
+      <div class="bg-sample"></div>
+      <div class="bg-sample"></div>
+      <div class="bg-sample"></div>
+    </div>
+  </div>
+
+
+  <script>
+    const modes = [
+      'normal',
+      'multiply',
+      'screen',
+      'overlay',
+      'darken',
+      'lighten',
+      'color-dodge',
+      'color-burn',
+      'hard-light',
+      'soft-light',
+      'difference',
+      'exclusion',
+      'hue',
+      'saturation',
+      'color',
+      'luminosity',
+    ];
+    const wrapper = document.getElementById(`wrapper`);
+    modes.forEach(mode => {
+      const sample = document.createElement('div');
+      sample.classList.add('sample');
+      sample.style.mixBlendMode = mode;
+      sample.style.setProperty('--mode', `'${mode}'`);
+      wrapper.appendChild(sample);
+    })
+  </script>
+</body>
+
+</html>

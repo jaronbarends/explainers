@@ -1,0 +1,24 @@
+:root {
+	--sample-w: 200px;
+}
+
+.o-content-width {
+	margin: 0 auto;
+	max-width: 95vw;
+}
+
+.sample-section {
+	display: grid;
+	grid-template-columns: 1fr auto;
+	grid-gap: 2em;
+}
+
+.samples {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-gap: 2em;
+}
+
+.sample {
+	margin-bottom: 1em;
+}

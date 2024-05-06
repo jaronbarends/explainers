@@ -1,0 +1,153 @@
+:root {
+}
+
+.box {
+  width: 200px;
+  height: 100px;
+  background: hotpink;
+
+  .samples--alt  & {
+    background: yellowgreen; 
+  }
+}
+
+.move {
+  .samples--alt  & {
+    transform: translateX(100%);
+  }
+}
+
+/* section 2: targeting individual elements */
+
+.move.has-transition-name { view-transition-name: box-move; }
+
+/* section 3: adjusting duration */
+
+.adjusted-duration { view-transition-name: adjusted-duration; }
+.adjusted-duration-2 { view-transition-name: adjusted-duration-2; }
+
+::view-transition-group(adjusted-duration),
+::view-transition-group(adjusted-duration-2) {
+  /* --duration-section-3: 250ms; */
+  animation-duration: var(--duration-section-3);
+}
+
+.move.has-transition-name-2 { view-transition-name: box-move-2; }
+
+
+/* section 4 */
+.move.has-transition-name-section-4 { view-transition-name: section-4-sample-1; }
+
+::view-transition-group(section-4-sample-1),
+::view-transition-group(box-move-scale),
+::view-transition-group(box-move-scale-has-outline),
+::view-transition-group(box-move-scale-old-new-has-outline),
+::view-transition-group(scale-old-new-independently) {
+  animation-duration: var(--duration-section-4);
+}
+
+@keyframes scale-down {
+  0%,
+  100% { scale: 1; }
+  50% { scale: 0.7; }
+}
+
+@keyframes scale-up {
+  0%,
+  100% { scale: 1; }
+  50% { scale: 1.25; }
+}
+
+@keyframes scale-rotated {
+  0%,
+  100% { scale: 1; rotate: 90deg; }
+  50% { scale: 0.7; }
+}
+
+.move.scale {
+  view-transition-name: box-move-scale;
+}
+
+::view-transition-image-pair(box-move-scale) {
+  animation: scale-down ease-in-out;
+  /* animation-duration must be specified separately, because in the shorthand notation, the browser can't know what property inherit refers to */
+  animation-duration: inherit;
+}
+
+.move.scale.has-outline {
+  view-transition-name: box-move-scale-has-outline;
+}
+
+::view-transition-group(box-move-scale-has-outline) {
+  outline: 4px solid black;
+}
+
+::view-transition-image-pair(box-move-scale-has-outline) {
+  animation: scale-down ease-in-out;
+  animation-duration: inherit;
+  outline: 4px solid deepskyblue;
+}
+
+/* section 4.4 */
+  .move.scale-old-new.has-outline {
+    view-transition-name: box-move-scale-old-new-has-outline;
+  }
+
+  ::view-transition-group(box-move-scale-old-new-has-outline) {
+    outline: 4px solid black;
+  }
+
+  ::view-transition-old(box-move-scale-old-new-has-outline),
+  ::view-transition-new(box-move-scale-old-new-has-outline) {
+    animation: scale-down ease-in-out;
+    animation-duration: inherit;
+    outline: 4px solid deepskyblue;
+  }
+  ::view-transition-new(box-move-scale-old-new-has-outline) {
+    outline-color: orange;
+  }
+
+/* section 4.5 */
+  .move.scale-old-new-independently.has-outline {
+    view-transition-name: scale-old-new-independently;
+  }
+
+  ::view-transition-group(scale-old-new-independently) {
+    outline: 4px solid black;
+  }
+
+  ::view-transition-old(scale-old-new-independently),
+  ::view-transition-new(scale-old-new-independently) {
+    animation: scale-up ease-in-out;
+    animation-duration: inherit;
+    outline: 4px solid deepskyblue;
+    opacity: 0.7;
+  }
+  ::view-transition-new(scale-old-new-independently) {
+    animation-name: scale-down;
+    outline-color: orange;
+  }
+
+
+/* section 5 */
+
+@keyframes scale-down-bounce {
+  0% { scale: 1; }
+  25% { scale: 0.8; }
+  60% { scale: 1.1; }
+  80% { scale: 0.95; }
+  100% { scale: 1; }
+}
+
+.move.scale-async {
+  view-transition-name: box-move-scale-async;
+}
+
+/* ::view-transition-old(box-move-scale-async),
+::view-transition-new(box-move-scale-async) { */
+::view-transition-image-pair(box-move-scale-async) {
+  /* animation: scale-down-bounce 0.6s ease-in-out; */
+  animation: scale-down-bounce var(--duration-async-section-5, inherit) ease-in-out;
+}
+
+

@@ -1,0 +1,46 @@
+/* very basic reset css - only meant as quick-start for small playground projects */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100dvh;
+}
+
+body {
+	font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.5;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top: 0;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: inherit;
+  font-size: 100%;
+  line-height: 1.15;
+}
+
+button
+input[type=checkbox],
+input[type=image],
+input[type=radio],
+input[type=submit],
+label{
+  cursor:pointer;
+}

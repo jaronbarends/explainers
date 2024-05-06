@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="nl-nl">
+<head>
+	<meta charset="UTF-8">
+	
+	<title>Gooey</title>
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/prism.css">
+	<link rel="stylesheet" href="css/samples.css">
+	<link rel="stylesheet" href="css/gooey.css">
+
+	<style>
+		
+
+.example {
+  .zup-blob-wrapper {
+    min-height: 400px;
+    display: grid;
+    place-content: center;
+    background-color: #000;
+    filter: blur(20px) contrast(40);
+  }
+
+  .zup-blob {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    background: white;
+    border-radius: 50%;
+  }
+}
+	</style>
+</head>
+<body>
+	<div class="o-content-width">
+		<h2>Gooey shapes</h2>
+		<p>
+		</p>
+		<div class="sample-section">
+			<div class="samples">
+				<div class="sample">
+					<div class="blob-container">
+						<div class="blob"></div>
+						<div class="blob"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="sample-section">
+			<div class="samples">
+				<div class="sample">
+					<div class="blob-container" style="
+						filter: blur(20px);
+					">
+						<div class="blob"></div>
+						<div class="blob"></div>
+					</div>
+				</div>
+			</div>
+			<div class="explanation">
+				<p>
+				</p>
+				<pre
+><code class="language-css">.blob-container {
+	filter: blur(20px);
+}</code></pre>
+			</div>
+		</div>
+		
+		<div class="sample-section">
+			<div class="samples">
+				<div class="sample">
+					<div class="blob-container" style="
+						filter: blur(20px) contrast(10)a;
+					">
+						<div class="blob"></div>
+						<div class="blob"></div>
+					</div>
+				</div>
+			</div>
+			<div class="explanation">
+				<p>
+				</p>
+				<pre
+><code class="language-css">.blob-container {
+	filter: blur(20px);
+}</code></pre>
+			</div>
+		</div>
+
+		<div class="example">
+			
+  <div class="zup-blob-wrapper">
+    <div class="zup-blob"></div>
+    <div class="zup-blob"></div>
+  </div>
+		</div>
+		
+		https://codepen.io/imhalid/pen/wvOXaXG?editors=0100
+		https://codepen.io/thebabydino/project/full/ZjwjBe
+		https://codepen.io/thebabydino/pen/YzPEgrz?editors=0100
+	</div>
+	
+	<script>
+		const samples = document.querySelectorAll(`.sample`);
+		samples.forEach(sample => {
+			const clone = sample.cloneNode(true);
+			sample.after(clone);
+		})
+	</script>
+  <script src="js/prism.js"></script>
+</body>
+</html>

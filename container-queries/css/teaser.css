@@ -1,0 +1,55 @@
+main {
+	container-type: inline-size;
+}
+
+/* @container size(min-width: 60ch) { */
+@container (min-width: 200px) {
+  .article--post {
+    color: red;
+  }
+}
+
+.article--post {
+  display: grid;
+  grid-template-areas:
+    'header'
+    'stats'
+    'content';
+  gap: 0.5rem;
+}
+
+.article--post__header {
+  grid-area: header;
+}
+
+.article--post__stats {
+  grid-area: stats;
+}
+
+.article--post__content {
+  grid-area: content;
+}
+
+.article--post__header {
+  display: grid;
+  grid-template-areas:
+    'avatar   name'
+    'headline headline';
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  column-gap: 1rem;
+  row-gap: 0.5rem;
+}
+
+.article--post__image {
+  grid-area: avatar;
+}
+
+.article--post__author-name {
+  grid-area: name;
+}
+
+.article--post__title {
+  grid-area: headline;
+  font-size: 1.5rem;
+}

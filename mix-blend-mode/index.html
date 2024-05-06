@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="nl-nl">
+<head>
+	<meta charset="UTF-8">
+	
+	<title>mix-blend-mode</title>
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/prism.css">
+	<link rel="stylesheet" href="css/samples.css">
+	<link rel="stylesheet" href="css/mix-blend-mode.css">
+</head>
+<body>
+	<div class="o-content-width">
+		<h2>mix-blend-mode: multiply</h2>
+		<p>
+			The mix-blend-mode CSS property sets how an element's content should blend with the content of the element's parent and the element's background. <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/mix-blend-mode">mix-blend-mode on MDN</a>
+		</p>
+		<div class="sample-section">
+			<div class="samples">
+				<div class="sample">
+					<div class="parent">
+						<div class="sibling-elm">preceding sibling</div>
+						<div class="elm">
+							element
+							<div class="child" style="background: grey;">
+								child
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="explanation">
+				<p>
+					You can think of this as if you have one image consisting of the element with its background and content, and one image consiting of the parent with its background and content (including any of the element's siblings that are on a lower plane).<br />
+		Then the element-image is multiplied on the parent-image.
+		There is no blending between the element itself and its content, nor with the parent and its content.
+				</p>
+				<pre
+><code class="language-css">.element {
+	mix-blend-mode: multiply;
+}</code></pre>
+			</div>
+		</div>
+		
+		<div class="sample-section">
+			<div class="samples">
+				<div class="sample">
+					<div class="parent">
+						<div class="sibling-elm">preceding sibling</div>
+						<div class="elm">
+							element
+							<div class="child">
+								child
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<div class="explanation">
+				<p>
+					When the child element is white, its <code class="language-css">multiply</code> blending effect with the parent will always be just the parent, making it look as if the child was cut out off the element.
+			</div>
+		</div>
+	
+		<div class="sample-section">
+			<div class="samples">
+				<div class="sample">
+					<div class="parent">
+						<div class="elm parent-size parent-bg">
+							element
+							<div class="child">
+								child
+							</div>
+						</div>
+	
+					</div>
+				</div>
+			</div>
+			<div class="explanation">
+				<p>
+					When we make the element's background the same color and size as its parent, and remove the sibling element, it looks as if the child was cut out off the element.
+				</p>
+					<pre
+><code class="language-css">.parent {
+	background: red;
+	&::before { background: #fc0;/* yellow */ }
+}
+.element { background: inherit; }</code></pre>
+			</div>
+		</div>
+	
+		<div class="sample-section">
+			<div class="samples">
+				<div class="sample">
+					<div class="parent bg-gradient-red-blue" style="background: black">
+						<div class="elm parent-size parent-bg">
+							<div class="child parent-size" style="
+								display: grid;
+								grid-template-columns: repeat(4, 1fr);
+								grid-gap: 5px;
+								background: transparent;"
+							>
+								<div class="dot"></div>
+								<div class="dot"></div>
+								<div class="dot"></div>
+								<div class="dot"></div>
+								<div class="dot"></div>
+								<div class="dot"></div>
+								<div class="dot"></div>
+								<div class="dot"></div>
+								<div class="dot"></div>
+								<div class="dot"></div>
+								<div class="dot"></div>
+								<div class="dot"></div>
+								<div class="dot"></div>
+								<div class="dot"></div>
+								<div class="dot"></div>
+								<div class="dot"></div>
+							</div>
+						</div>
+	
+					</div>
+				</div>
+			</div>
+			<div class="explanation">
+				<p>
+					This works especially nice with a black background.
+				</p>
+				<pre
+><code class="language-css">.parent {
+background: black;
+&::before { linear-gradient(to bottom right, red, blue); }
+}
+.element { background: inherit; }
+.dot { background: white; }</code></pre>
+<pre
+><code class="language-html">&lt;div class="child"&gt;
+	&lt;div class="dot"&gt;&lt;/div&gt;&lt;!-- 20 times --&gt;
+&lt;/div&gt;</code></pre>
+			</div>
+		</div>
+	
+		<div class="sample-section">
+			<div class="samples">
+				<div class="sample">
+					<div class="parent reverse">
+						<div class="elm parent-size parent-bg">
+							element
+							<div class="child" style="background: white;">
+								child
+							</div>
+						</div>
+	
+					</div>
+				</div>
+			</div>
+			<div class="explanation">
+				<p>
+					This only works if the parent's (and thus the element's) background are darker than the parent's content, because then their color "wins" in the multiply blend. When the background is lighter, you'll just see the parent's content
+				</p>
+				<pre
+><code class="language-css">.parent {
+background: #fc0;/* yellow */
+&::before { background:  red;}
+}
+.element { background: inherit; }</code></pre>
+			</p>
+			</div>
+		</div>
+			
+	</div>
+	
+	<script>
+		const samples = document.querySelectorAll(`.sample`);
+		samples.forEach(sample => {
+			const clone = sample.cloneNode(true);
+			sample.after(clone);
+		})
+	</script>
+  <script src="js/prism.js"></script>
+</body>
+</html>

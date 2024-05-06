@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="nl-nl">
+<head>
+	<meta charset="UTF-8">
+	
+	<title>Gooey</title>
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/prism.css">
+	<link rel="stylesheet" href="css/samples.css">
+	<link rel="stylesheet" href="css/gooey.css">
+</head>
+<body>
+	<div class="o-content-width">
+		<h2>Gooey shapes</h2>
+		<p>
+		</p>
+		
+		<div class="sample-section">
+			<div class="samples">
+				
+				<!-- UNFILTERED VARIANT --------------------------->
+				<div class="sample">
+					<div class="blob-container no-filter">
+						<div class="blob no-filter"></div>
+						<div class="blob no-filter"></div>
+					</div>
+					<div class="explanation">
+						<p>
+						</p>
+				<pre
+><code class="language-html">&lt;div class=&quot;blob-container&quot;&gt;
+	&lt;div class=&quot;blob&quot;&gt;&lt;/div&gt;
+	&lt;div class=&quot;blob&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+					</div>
+				</div>
+				<!-- UNFILTERED VARIANT --------------------------->
+				
+				<!-- ONLY BLUR --------------------------->
+				<div class="sample">
+					<div class="blob-container no-filter">
+						<div class="blob"></div>
+						<div class="blob"></div>
+					</div>
+					<div class="explanation">
+						<p>
+						</p>
+				<pre
+><code class="language-css">.blob {
+	filter: blur(0.1 * var(--blob-size));
+}</code></pre>
+					</div>
+				</div>
+				<!-- ONLY BLUR --------------------------->
+		
+				<!-- OPTIMAL EXAMPLE --------------------------->
+				<div class="sample">
+					<div class="blob-container">
+						<div class="blob"></div>
+						<div class="blob"></div>
+					</div>
+					<div class="explanation">
+						<p>
+						</p>
+				<pre
+><code class="language-css">.blob-container {
+	filter: contrast(25);
+	background: white;
+}
+
+.blob {
+	filter: blur(0.1 * var(--blob-size));
+}</code></pre>
+			</div>
+				</div>
+				<!-- OPTIMAL EXAMPLE --------------------------->
+		
+				<!-- ANIMATED EXAMPLE --------------------------->
+				<div class="sample">
+					<div class="blob-container">
+						<div class="blob"></div>
+						<div class="blob animated"></div>
+					</div>
+					<div class="explanation">
+						<p>
+							Animated example
+						</p>
+				<pre
+><code class="language-css">.blob-container {
+	filter: contrast(25);
+	background: white;
+}
+
+.blob {
+	filter: blur(0.1 * var(--blob-size));
+}</code></pre>
+			</div>
+				</div>
+				<!-- ANIMATED EXAMPLE --------------------------->
+		
+				<!-- CONTRAST TOO LOW --------------------------->
+				<div class="sample">
+					<div class="blob-container" style="--contrast: 10;">
+						<div class="blob"></div>
+						<div class="blob"></div>
+					</div>
+					<div class="explanation">
+						<p>
+							When contrast value is too low, you get ugly anti-aliasing at the overlap
+						</p>
+						<pre
+><code class="language-css">.blob-container {
+	filter: contrast(10);
+	background: white;
+}
+
+.blob {
+	filter: blur(0.1 * var(--blob-size));
+}</code></pre>
+					</div>
+				</div>
+				<!-- CONTRAST TOO LOW --------------------------->
+		
+				<!-- CONTRAST TOO HIGH --------------------------->
+				<div class="sample">
+					<div class="blob-container" style="--contrast: 50;">
+						<div class="blob"></div>
+						<div class="blob"></div>
+					</div>
+					<div class="explanation">
+						<p>
+							When contrast value becomes to high, edges get pixelated
+						</p>
+						<pre
+><code class="language-css">.blob-container {
+	filter: contrast(50);
+	background: white;
+}
+
+.blob {
+	filter: blur(0.1 * var(--blob-size));
+}</code></pre>
+			</div>
+				</div>
+				<!-- CONTRAST TOO HIGH --------------------------->
+		
+				<!-- BLUR TOO HIGH --------------------------->
+				<div class="sample">
+					<div class="blob-container" style="--blur-factor: 0.4;">
+						<div class="blob"></div>
+						<div class="blob"></div>
+					</div>
+					<div class="explanation">
+						<p>
+							When blur-radius becomes too big, contrast turns pixels near the outer edge to white. When radius is really big, this may even turn entire blob white. Use a blur-radus that is depending on the blob's size.
+						</p>
+						<pre
+><code class="language-css">.blob-container {
+	filter: contrast(25);
+	background: white;
+}
+
+.blob {
+	filter: blur(0.4 * var(--blob-size));
+}</code></pre>
+			</div>
+				</div>
+				<!-- BLUR TOO HIGH --------------------------->
+		
+				<!-- NON-WORKING COLOR --------------------------->
+				<div class="sample">
+					<div class="blob-container" style="--blob-color: purple;">
+						<div class="blob"></div>
+						<div class="blob"></div>
+					</div>
+					<div class="explanation">
+						<p>
+							When using colors, contrast changes the color values too. It only works correctly when rgb channel values of 0 and 255. Using different colors is possible with svg-filters (not part of this explainer).
+						</p>
+				<pre
+><code class="language-css">.blob {
+	background: purple;
+}</code></pre>
+			</div>
+				</div>
+				<!-- NON-WORKING COLOR --------------------------->
+		
+				<!-- MIX-BLEND-MODE EXAMPLE --------------------------->
+				<div class="sample">
+					<div class="bg-container">
+						<div class="blob-container">
+							<div class="blob"></div>
+							<div class="blob animated"></div>
+						</div>
+					</div>
+					<div class="explanation">
+						<p>
+							You can use any color you want on a black background using <code>mix-blend-mode</code>
+						</p>
+				<pre
+><code class="language-css">.blob-container {
+	filter: contrast(25);
+	background: white;
+}
+
+.blob {
+	filter: blur(0.1 * var(--blob-size));
+}</code></pre>
+			</div>
+				</div>
+				<!-- MIX-BLEND-MODE EXAMPLE --------------------------->
+
+			</div>
+	</div>
+
+	
+	<p>
+		Links I used as reference:
+	</p>
+	<p>
+		https://codepen.io/imhalid/pen/wvOXaXG?editors=0100<br>
+		https://codepen.io/thebabydino/project/full/ZjwjBe<br>
+		https://codepen.io/thebabydino/pen/YzPEgrz?editors=0100
+	</p>
+	<script>
+		// const samples = document.querySelectorAll(`.sample`);
+		// samples.forEach(sample => {
+		// 	const clone = sample.cloneNode(true);
+		// 	sample.after(clone);
+		// })
+	</script>
+  <script src="js/prism.js"></script>
+</body>
+</html>

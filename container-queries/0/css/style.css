@@ -1,0 +1,36 @@
+.o-content-width {
+	margin: 0 auto;
+	max-width: 65rem;
+}
+
+.grid {
+	display: grid;
+	grid-template-columns: 2fr 1fr;
+	gap: 2rem;
+	margin-bottom: 3rem;
+}
+
+.cell {
+	container-type: inline-size;/* setting container-type: size unsets height? */
+	background: #f0f0f0;
+
+	& h2 {
+		color: blue;
+	}
+}
+
+@container (min-width: 300px) {
+	.cell h2 {
+		background: orange;
+	}
+}
+
+.cell--type-size {
+	container-type: size;/* setting container-type: size unsets height? */
+}
+
+@container (min-height: 20px) {
+	.cell--type-size h2 {
+		background: orange;
+	}
+}

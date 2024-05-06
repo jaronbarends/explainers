@@ -1,0 +1,160 @@
+:root {
+  --near-transparent: rgba(0,0,0,0.03);
+  --mask-rectangle-landscape: linear-gradient(
+    var(--near-transparent),
+    var(--near-transparent) 40%,
+    black 0,
+    black 60%,
+    var(--near-transparent) 0
+  );
+  --mask-rectangle-portrait: linear-gradient(
+    to right,
+    var(--near-transparent),
+    var(--near-transparent) 70%,
+    black 0,
+    black 90%,
+    var(--near-transparent) 0
+  );
+  --mask-circle: radial-gradient(
+    black,
+    black 50%,
+    var(--near-transparent) 0
+  );
+}
+
+body {
+  margin: 0;
+}
+
+section {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  justify-content: center;
+}
+
+.sample {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.box-wrapper,
+.box {
+  --radius: 30px;
+  width: 200px;
+  height: 200px;
+  border-radius: var(--radius);
+}
+
+.box-wrapper {
+  position: relative;
+}
+
+.box {
+  margin-bottom: 1rem;
+  background: #fc0;
+  border: 10px dashed currentColor;
+  padding: 30px;
+}
+
+.content {
+  width: 100%;
+  height: 100%;
+  background: hotpink;
+}
+
+.mask-25 {
+  mask:
+    linear-gradient(black, black 25%, var(--near-transparent) 0, var(--near-transparent) 50%, white 0, white 75%, var(--near-transparent) 0);
+}
+
+.mask-gradient {
+  mask: linear-gradient(black, transparent);
+}
+
+.mask-repeat {
+  mask: repeating-linear-gradient(black, transparent 50px);
+}
+
+.mask-rectangle-landscape {
+  mask: var(--mask-rectangle-landscape);
+}
+
+.mask-rectangle-portrait {
+  mask: var(--mask-rectangle-portrait);
+}
+
+.mask-circle {
+  mask: var(--mask-circle);
+}
+
+.mask-rectangle-landscape-outline,
+.mask-rectangle-portrait-outline,
+.mask-circle-outline {
+  position: absolute;
+  inset: 0;
+  border: 1px dotted black;
+  /* pointer-events: none; */
+}
+
+.mask-rectangle-landscape-outline {
+  top: 40%;
+  height: 20%;
+}
+
+.mask-rectangle-portrait-outline {
+  left: 70%;
+  width: 20%;
+}
+
+.mask-circle-outline {
+  --perc: 14.5%;
+  top: var(--perc);
+  left: var(--perc);
+  width: calc(100% - 2 * var(--perc));
+  height: calc(100% - 2 * var(--perc));
+  border-radius: 50%;
+}
+
+.mask-two {
+  mask:
+    var(--mask-rectangle-landscape),
+    var(--mask-circle);
+}
+
+.mask-three {
+  mask:
+    var(--mask-rectangle-landscape),
+    var(--mask-rectangle-portrait),
+    var(--mask-circle);
+}
+
+.mask-clip-padding {
+  mask-clip: padding-box;
+}
+
+.mask-clip-content {
+  mask-clip: content-box;
+}
+
+.mask-origin-padding {
+  mask-origin: padding-box;
+}
+
+.mask-origin-content {
+  mask-origin: content-box;
+}
+
+.img {
+  background: url(400.jpeg);
+  background-size: cover;
+}
+
+.bg-padding {
+  background-clip: padding-box;
+}
+
+.bg-content {
+  background-clip: content-box;
+}

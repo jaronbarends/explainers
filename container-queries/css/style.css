@@ -1,0 +1,37 @@
+.o-content-width {
+	margin: 0 auto;
+	max-width: 65rem;
+}
+
+main {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.container {
+	container-type: inline-size;
+	background: beige;
+}
+
+.article {
+	flex: 1 1 30ch;
+	padding: 1rem;
+	font-size: 1rem;
+}
+
+@container (min-width: 60ch) {
+	.article {
+		color: red;
+	}
+}
+
+@container (min-width: 60ch) {
+	article {
+		padding: 2rem;
+		font-size: 1.25rem;
+	}
+
+	.container:nth-child(odd) > article {
+		border: 1px solid;
+	}
+}

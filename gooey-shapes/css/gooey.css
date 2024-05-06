@@ -1,0 +1,76 @@
+body {
+  background: white;
+}
+
+.blob-container {
+  --container-h: 200px;
+  --blob-size: 80px;
+  --blur-factor: 0.1;
+  --blur: calc(var(--blur-factor) * var(--blob-size));
+  --contrast: 25;
+  --blob-color: black;
+  display: grid;
+  place-content: center;
+  height: var(--container-h);
+  background: white;
+  filter: contrast(var(--contrast));
+  /* you can also chose to add blur to the container */
+  /* filter: blur(var(--blur)) contrast(var(--contrast)); */
+}
+
+.no-filter {
+  filter: none !important;/* make independent of rule's position in this file */
+}
+
+@keyframes loop {
+  from {
+    translate: -125% 0;
+  }
+  to {
+    translate: 125% 0;
+  }
+}
+
+.blob {
+  /* position blobs at same position */
+  grid-row: 1;
+  grid-column: 1;
+  width: var(--blob-size);
+  height: var(--blob-size);
+  border-radius: 50%;
+  background: var(--blob-color);
+  filter: blur(var(--blur));
+}
+
+.blob:nth-child(2) {
+  translate: 105% 0;
+}
+
+.animated {
+  animation: loop 3s alternate infinite ease-in-out;
+}
+
+code[class*="language"] {
+  tab-size: 2;
+}
+
+.bg-container {
+  position: relative;
+  background: black;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom right, yellow, purple);
+    background: linear-gradient(to bottom right, #ffff7a, #d10000);
+    background: linear-gradient(to bottom right, #fcb045 20%, #fd1d1d 50%, #833ab4 80%);
+    background: linear-gradient(to bottom right, #fdbb2d 20%, #22c1c3 80%);
+  }
+
+  .blob-container {
+    --blob-color: white;
+    background: inherit;
+    mix-blend-mode: multiply;
+  }
+}
