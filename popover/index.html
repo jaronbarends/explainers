@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="nl-nl">
+<head>
+  <meta charset="UTF-8">
+  
+  <title>popover</title>
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<link rel="stylesheet" href="../lib/prism/prism.css">
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/popover.css">
+  
+  <style>
+  </style>
+</head>
+<body>
+	<div class="o-content-width">
+    <a href="../">&laquo; Back to explainers</a>
+		<h1>Popover</h1>
+
+		<section class="sample-section">
+      <h2>Basic popover - auto state</h2>
+      <div class="samples">
+        
+        <div class="sample">
+          <h3>basic popover</h3>
+          <div id="popover-basic-auto" popover>
+            basic auto popover content
+          </div>
+          <div id="popover-basic-auto-2" popover>
+            2nd basic auto popover content
+          </div>
+          <button popovertarget="popover-basic-auto">
+            toggle popover
+          </button>
+          <button popovertarget="popover-basic-auto-2">
+            toggle popover #2
+          </button>
+
+          <div class="explanation">
+            <p>
+              Simplest example just needs an element with a <code>popover</code> attribute (or <code>popover="auto"</code>) and an <code>id</code>, and a button with a <code>popovertarget</code> attribute referencing the id. The button toggles the popover.
+            </p>
+          </div>
+          <pre
+><code class="language-html">&lt;div id=&quot;popover-basic-auto&quot; popover&gt;
+  basic auto popover content
+&lt;/div&gt;
+&lt;button popovertarget=&quot;popover-basic-auto&quot;&gt;
+  toggle popover
+&lt;/button&gt;</code></pre>
+        </div>
+        
+        <div class="sample">
+          <h3>basic popover - auto state with action</h3>
+          <div id="popover-basic-auto-action" popover>
+            basic auto action popover content
+          </div>
+          <button popovertarget="popover-basic-auto-action" popovertargetaction="show">
+            show popover
+          </button>
+          <button popovertarget="popover-basic-auto-action" popovertargetaction="hide">
+            hide popover
+          </button>
+          <button popovertarget="popover-basic-auto-action" popovertargetaction="toggle">
+            toggle popover
+          </button>
+
+          <div class="explanation">
+            <p>
+              Adding a <code>popovertargetaction</code> attribute of <code>show</code>, <code>hide</code> or <code>toggle</code>. Without <code>popovertargetaction</code>, behavior defaults to <code>toggle</code>.
+            </p>
+          </div>
+        </div>
+
+      </div>
+      <h3>auto popover behavior</h3>
+      <p>
+        Popovers with auto state automatically close other auto popovers; they can be dismissed with <kbd>esc</kbd> or by clicking outside of the popover.
+      </p>
+    </section>
+      
+    <section class="sample-section">
+      <h2>Basic popover - manual</h2>
+      <div class="samples">
+        <div class="sample">
+          <h3>basic popover - manual</h3>
+          <div id="popover-basic-manual" popover="manual">
+            basic manual popover content
+          </div>
+          <button popovertarget="popover-basic-manual" popovertargetaction="show">
+            popovertargetaction="show"
+          </button>
+          <button popovertarget="popover-basic-manual" popovertargetaction="hide">
+            popovertargetaction="hide"
+          </button>
+          <button popovertarget="popover-basic-manual" popovertargetaction="toggle">
+            popovertargetaction="toggle"
+          </button>
+          <br>
+          <button id="basic-manual-button-show">
+            showPopover()
+          </button>
+          <button id="basic-manual-button-hide">
+            hidePopover()
+          </button>
+          <button id="basic-manual-button-toggle">
+            togglePopover()
+          </button>
+
+          <div class="explanation">
+            <p>
+              With <code>popover="manual"</code>, you can control the popover with <code>popovertargetaction</code> just like with the auto popovers, but you can also call the <code>showPopover</code>, <code>hidePopover</code> and <code>togglePopover</code> methods on the popover element.
+            </p>
+          </div>
+        </div>
+
+        <div class="sample">
+          <h3>Multiple manual popovers</h3>
+          <div id="popover-multiple-1" popover="manual">multiple popover #1</div>
+          <div id="popover-multiple-2" popover="manual" style="translate: 0 3rem;">multiple popover #2</div>
+          <button popovertarget="popover-multiple-1">toggle #1</button>
+          <button popovertarget="popover-multiple-2">toggle #2</button>
+          <div class="explanation">
+            With <code>popover="manual"</code> you can have multiple popovers open at the same time
+          </div>
+        </div>
+        
+      </div>
+    </section>
+
+    <section class="sample-section">
+      <h2>Styling popovers</h2>
+      <div class="samples">
+        <div class="sample">
+          <div popover id="popover-basic-styling" class="popover-basic-styling">
+            Basic styling example
+          </div>
+          <button popovertarget="popover-basic-styling">toggle popover</button>
+
+          <div class="explanation">
+            You can style the popover just like any normal element. As an extra, it has the <code>:popover-open</code> pseudo-class, and the <code>::backdrop</code> pseudo-element.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sample-section">
+      <h2>Popover behavior</h2>
+      <div class="samples">
+        <div class="sample">
+          <h3>focus trap?</h3>
+          <div id="popover-focus" class="popover-focus" popover>
+            <ul>
+              <li><a href="#">list item</a></li>
+              <li><a href="#">list item</a></li>
+              <li><a href="#">list item</a></li>
+            </ul>
+          </div>
+          <button popovertarget="popover-focus">toggle popover</button>
+          <div class="explanation">a popover does <strong>not</strong> trap the user's focus</div>
+        </div>
+      </div>
+    </section>
+
+  <script src="js/main.js" type="module"> </script>
+  <script src="../lib/prism/prism.js"></script>
+</body>
+</html>

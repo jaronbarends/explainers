@@ -1,0 +1,48 @@
+
+/*-- Start reset --*/
+	html, body {
+		margin: 0;
+		padding: 0;
+	}
+	input {
+		font: inherit;
+	}
+/*-- End reset --*/
+
+body {
+	font-family: Arial, Helvetica, sans-serif;
+	line-height: 1.5;
+	color: #333;
+}
+
+h1, h2 {
+	margin-bottom: 0.5em;
+	font-weight: bold;
+}
+
+h1 {
+	font-size: 2rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+}
+
+.wrapper {
+	margin: 0 auto;
+	width: 100%;
+	max-width: 60rem;
+}
+
+p {
+	margin-bottom: 1em;
+}
+
+code {
+	display: inline-block;
+	padding: 0 0.4em;
+	border-radius: 0.25em;
+	color: hsl(0deg 80% 40%);
+	background: hsl(0deg 80% 97%);
+	font-family: 'lucida console', monospace;
+}

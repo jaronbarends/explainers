@@ -1,0 +1,72 @@
+.o-content-width {
+  margin: 0 auto;
+  max-width: 65rem;
+}
+
+.sample-section {
+  position: relative;
+  margin-bottom: 4rem;
+}
+
+.section-controls {
+  position: sticky;
+  top: 0.5rem;
+  z-index: 1;
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  width: fit-content;
+}
+
+.section-control {
+  padding: 0.5rem;
+  background: white;
+  border-radius: 0.25rem;
+  box-shadow: 0 0 5px rgba(0 0 0 / 20%);
+  font-size: 1rem;
+}
+
+.samples {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+.explanation {
+  margin-top: 1em;
+  font-size: 1rem;
+}
+
+h3 {
+  font-size: 1.25rem;
+  font-weight: normal;
+}
+
+p {
+  margin: 0 0 1em;
+  font-size: 1rem;
+}
+
+code,
+pre {
+  position: relative;
+  padding: 0.5em;
+  font-size: inherit;
+  font-weight: normal;
+  tab-size: 2;
+
+  &::after {
+    position: absolute;
+    content: "";
+    display: block;
+    inset: 0.1em 0;
+    border-radius: 0.25em;
+    z-index: -1;
+    background: hsl(79.74deg 60.78% 90%);
+  }
+}
+
+code {
+  display: inline-block;
+  padding: 0 0.25em;
+}

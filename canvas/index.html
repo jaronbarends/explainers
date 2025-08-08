@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="nl-nl">
+<head>
+  <meta charset="UTF-8">
+  
+  <title>Canvas</title>
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<link rel="stylesheet" href="../lib/prism/prism.css">
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/canvas.css">
+  
+  <style>
+  </style>
+</head>
+<body>
+	<div class="o-content-width">
+    <a href="../">&laquo; Back to explainers</a>
+		<h1>Canvas</h1>
+
+
+		<section class="sample-section">
+      <div class="samples">
+        
+        <div class="sample">
+          <canvas width="200" height="200" id="canvas-fillRect">
+            fallback content
+          </canvas>
+          <div class="explanation">
+            <h2><code>rect</code></h2>
+            Basic example: <code class="language-js">fillRect(x, y, width, height);</code>
+						<pre
+><code class="language-js">const canvas = document.getElementById('canvas-1a');
+const ctx = canvas.getContext('2d');
+
+ctx.fillStyle = 'rgb(200, 0, 0)';
+ctx.fillRect(10, 10, 100, 100);
+
+ctx.fillStyle = 'rgb(0 0 200 / 50%)';
+ctx.fillRect(60, 60, 100, 100);
+</code></pre>
+
+          </div>
+        </div>
+        
+        <div class="sample">
+          <canvas width="200" height="200" id="canvas-lineTo">
+            fallback content
+          </canvas>
+          <div class="explanation">
+            <h2><code>moveTo</code>, <code>lineTo</code></h2>
+            <code class="language-js">moveTo(x, y);</code>
+            <code class="language-js">lineTo(x, y);</code>
+						<pre
+><code class="language-js">ctx.strokeStyle = 'hotpink';
+ctx.lineWidth = 4;
+ctx.beginPath();
+ctx.moveTo(10, 10);
+ctx.lineTo(110, 10);
+ctx.lineTo(110, 60);
+ctx.lineTo(40, 60);
+ctx.stroke();
+</code></pre>
+          </div>
+        </div>
+        
+        <div class="sample">
+          <canvas width="200" height="200" id="canvas-arc">
+            fallback content
+          </canvas>
+          <div class="explanation">
+            <h2>(part of) circle: <code>arc</code></h2>
+            <code class="language-js">arc(cx, cy, startAngle, endAngle [, couterclockwise]);</code>
+						<pre
+><code class="language-js">ctx.strokeStyle = 'hotpink';
+ctx.lineWidth = 4;
+ctx.beginPath();
+ctx.arc(100, 100, 40, 0, 2 * Math.PI);
+ctx.stroke();
+</code></pre>
+          </div>
+        </div>
+        
+        <div class="sample">
+          <canvas width="200" height="200" id="canvas-arc-no-beginPath">
+            fallback content
+          </canvas>
+          <div class="explanation">
+            <h2><code>beginPath</code></h2>
+						<pre
+><code class="language-js">ctx.strokeStyle = 'hotpink';
+ctx.lineWidth = 4;
+ctx.beginPath();
+ctx.arc(50, 50, 40, 0, 2 * Math.PI)
+ctx.stroke();
+
+ctx.strokeStyle = 'deepskyblue';
+ctx.arc(150, 80, 40, 0, 2 * Math.PI)
+ctx.stroke();
+
+ctx.beginPath();
+ctx.strokeStyle = 'darkorange';
+ctx.arc(70, 150, 40, 0, 2 * Math.PI)
+ctx.stroke();
+</code></pre>
+            <p>
+              If you don't use <code>beginPath()</code>, a connecting line will be drawn from the end of the first arc to the start of the next arc, and the previously drawn path will get the redefined <code>strokeStyle</code>
+            </p>
+          </div>
+        </div>
+        
+        <div class="sample">
+          <canvas width="200" height="200" id="canvas-bezierCurveTo">
+            fallback content
+          </canvas>
+          <div class="explanation">
+            <h2><code>bezierCurveTo</code></h2>
+            <code class="language-js">bezierCurveTo(cp1x, cp1y, cp2x, cp2y, xEnd, yEnd);</code>
+						<pre
+><code class="language-js">const xStart = 20;
+const yStart =100;
+const xEnd = 180;
+const yEnd = 100;
+const cp1x = 60;
+const cp1y = 20;
+const cp2x = 120;
+const cp2y = 160;
+
+ctx.beginPath();
+ctx.moveTo(xStart, yStart);
+ctx.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, xEnd, yEnd);
+ctx.strokeStyle = 'hotpink';
+ctx.lineWidth = 4;
+ctx.stroke();
+</code></pre>
+          </div>
+        </div>
+        
+      </div>
+    </section>
+
+  <script src="js/main.js" type="module"> </script>
+  <script src="../lib/prism/prism.js"></script>
+</body>
+</html>

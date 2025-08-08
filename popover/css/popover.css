@@ -1,0 +1,7 @@
+.popover-basic-styling {
+  padding: 2rem;
+
+  &:popover-open::backdrop {
+    background-color: rgba(0 0 0 / 50%);
+  }
+}

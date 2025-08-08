@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="nl-nl">
+<head>
+  <meta charset="UTF-8">
+  
+  <title>Modal</title>
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<link rel="stylesheet" href="../lib/prism/prism.css">
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/dialog.css">
+  
+  <style>
+  </style>
+</head>
+<body>
+	<div class="o-content-width">
+    <a href="../">&laquo; Back to explainers</a>
+		<h1>Dialog</h1>
+
+		<section class="sample-section">
+      <h2>Basic dialog</h2>
+      <div class="samples">
+        <div class="sample">
+          <dialog id="basic-dialog">
+            I'm a basic modal dialog
+            <form method="dialog">
+              <button>close</button>
+            </form>
+          </dialog>
+          <button id="basic-dialog-btn">open dialog</button>
+          <div class="explanation">
+            <p>
+              <code>dialog</code> element; <code>button</code> that calls its <code>dialog.showModal</code> method.
+              a <code>&lt;form method="dialog"&gt;</code> with a <code>button</code> inside closes the dialog.
+            </p>
+            <p>
+              hitting <kbd>Esc</kbd> also closes the dialog; clicking outside of it does not.
+            </p>
+            <p>The dialog is rendered in the top-layer.</p>
+          </div>
+        </div>
+        
+        <div class="sample">
+          <dialog id="basic-non-modal-dialog">
+            I'm a basic modal dialog
+            <form method="dialog">
+              <button>close</button>
+            </form>
+          </dialog>
+          <button id="basic-non-modal-dialog-btn">open dialog</button>
+          <div class="explanation">
+            <p>
+              using <code>dialog.show()</code> instead of <code>dialog.showModal()</code> opens the dialog non-modally.
+            </p>
+            <p>
+              The dialog is not rendered in the top-layer; it gets <code>position: absolute</code>, but no placement or <code>z-index</code> is added by default.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+      
+  <script src="js/main.js" type="module"> </script>
+  <script src="../lib/prism/prism.js"></script>
+</body>
+</html>

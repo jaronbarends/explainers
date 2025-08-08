@@ -1,0 +1,12 @@
+# Enable URL rewriting
+RewriteEngine On
+
+# If the requested URL is a directory and doesn't end with a trailing slash,
+# redirect to the same URL with a trailing slash
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^(.+[^/])$ $1/ [R=301,L]
+
+# For any URL ending in a slash, attempt to serve index.html within that directory
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteCond %{REQUEST_FILENAME}/index.html -f
+RewriteRule ^(.*)/$ $1/index.html [L]

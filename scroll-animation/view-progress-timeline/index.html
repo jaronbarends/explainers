@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="nl-nl">
+<head>
+	<meta charset="UTF-8">
+	
+	<title>View progress timeline 101</title>
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<link rel="stylesheet" href="../css/default.css">
+	<!-- <link rel="stylesheet" href="css/animation.css"> -->
+	<style>
+		:root {
+			--example-height: 300px;
+		}
+		
+		.examples {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			margin: 0 auto;
+			width: 90vw;
+			gap: 2rem;
+		}
+
+		.scroll-container {
+			margin: 0 0 1em;
+			height: var(--example-height);
+			background: rgba(0,0,0,0.1);
+			overflow-y: scroll;
+		}
+
+		.current-css {
+			position: absolute;
+			font-family: 'lucida console', monospace;
+			font-size: 0.75rem;
+			opacity: 0.5;
+		}
+
+		@keyframes grow {
+			from {
+				width: 0;
+			}
+			to {
+				width: 100%;
+			}
+		}
+		
+		.subject {
+			position: relative;
+			margin: var(--example-height) 0;
+			border: 1px dotted;
+			height: 100px;
+			background: rgba(0,0,0,0.1);
+		}
+
+		.grower {
+			margin: 0 auto;
+			width: 0;
+			height: 100%;
+			background: green;
+			animation: grow forwards;
+			animation-timeline: view();
+		}
+
+		.range-entry .grower {
+			animation-range: entry; /* equals entry 100% exit 0% */
+		}
+
+		.range-exit .grower {
+			animation-range: exit; /* equals exit 0% exit 100% */
+		}
+
+		.range-entry-20-exit-80 .grower {
+			animation-range: entry 20% exit 80%;
+		}
+
+		.area-20-80 {
+			position: absolute;
+			margin: 0;
+			border: 1px dashed;
+			border-right: none;
+			border-left: none;
+			inset: 20% 0 20%;
+
+			&::before,
+			&::after {
+				content: '20%';
+				position: absolute;
+				top: 0;
+				left: 2rem;
+				translate: 0 -50%;
+			}
+
+			&::after {
+				content: '80%';
+				top: 100%;
+			}
+		}
+
+	</style>
+</head>
+<body>
+	<a href="../../">&laquo; Back to explainers</a>
+	<h1>View progress scrolling</h1>
+	<div class="examples">
+		<div class="example">
+			<div class="scroll-container">
+				<div class="current-css">
+					animation-timeline: view();
+				</div>
+				<div class="subject">
+					<div class="grower"></div>
+				</div>
+			</div>
+			<h2>Default</h2>
+			<p>
+				With view progress, the element's bounding box is used as the reference for the animation. By default, the timeline starts as soon as the element enters the scroller, and finishes as soon as it has completely left the scroller.
+			</p>
+		</div>
+		
+		<div class="example">
+			<h2>Using animation-range</h2>
+			<p>
+				You can finetune when the animation starts and finishes by adding an <code>animation-range: [starting moment] [ending moment]</code>. For both the starting and ending moment, you can use two keywords <code>entry</code> and <code>exit</code> or a comination thereof, combined with a value (percentage, px etc)
+				
+			</p>
+		</div>
+
+		<div class="example range-entry">
+			<div class="scroll-container">
+				<div class="current-css">
+					animation-timeline: view();<br>
+					animation-range: entry; /* equals entry 100% exit 0% */
+				</div>
+				<div class="subject">
+					<div class="grower"></div>
+				</div>
+			</div>
+			<h2>animation-range: entry</h2>
+			<p>
+				<code>animation-range: entry</code> is short for <code>animation-range: entry 0% entry 100%</code>. It starts when the subject first enters the scroller, and ends when it has completely entered.
+			</p>
+		</div>
+
+		<div class="example range-exit">
+			<div class="scroll-container">
+				<div class="current-css">
+					animation-timeline: view();<br>
+					animation-range: exit; /* equals exit 0% exit 100% */
+				</div>
+				<div class="subject">
+					<div class="grower"></div>
+				</div>
+			</div>
+			<h2>animation-range: exit</h2>
+			<p>
+				<code>animation-range: exit</code> is short for <code>animation-range: exit 0% exit 100%</code>. It starts when the subject first leaves the scroller, and ends when it has completely left.
+			</p>
+		</div>
+
+		<div class="example range-entry-20-exit-80">
+			<div class="scroll-container">
+				<div class="current-css">
+					animation-timeline: view();<br>
+					animation-range: entry 20% exit 80%;
+				</div>
+				<div class="subject">
+					<div class="grower"></div>
+					<div class="area-20-80"></div>
+				</div>
+			</div>
+			<h2>animation-range: entry 20% exit 80%;</h2>
+			<p>
+				Adding a percentage to <code>entry</code> or <code>exit</code> starts or ends the animation as soon as the that percentage of the element has entered or left the scroller.
+			</p>
+		</div>
+
+	</div><!-- /.o-content-width -->
+	<script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+html {
+  scroll-timeline: --page-scroll block;
+}
+
+@keyframes grow-progress {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+.progress-bar {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  color: hotpink;
+  border: 1px dotted;
+}
+
+.progress-bar::before {
+  content: '';
+  display: block;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+  transform-origin: 0 0;
+  animation: grow-progress linear;
+  /* compare with normal animation: it just misses duration: */
+  /* animation: grow-progress 3s linear; */
+  animation-timeline: scroll(); /* by default, the nearest scroll container is used */
+  /* animation-timeline: --page-scroll; */
+}
+
+.progress-bar::after {
+  position: relative;
+  content: '.progress-bar';
+  font-family: 'lucida console', 'Courier New', Courier, monospace;
+}
+
+.progress-bar-old {
+  position: sticky;
+  width: 100%;
+  height: 0.5em;
+
+  &::after {
+    display: block;
+    content: '';
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: 0 0;
+    animation: grow-progress auto linear;
+    animation-timeline: scroll(); /* by default, the nearest scroll container is used */
+  }
+}
+
+.overflow-section {
+  overflow-x: hidden;
+  overflow-y: scroll;
+  max-height: 20rem;
+}
+
+.overflow-section--page-timeline {
+  .progress-bar::before {
+    animation-timeline: --page-scroll;
+  }
+}

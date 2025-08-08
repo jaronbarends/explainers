@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="nl-nl">
+<head>
+  <meta charset="UTF-8">
+  
+  <title>mdn example</title>
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <style>
+    #container {
+      margin-top: 200px;
+      height: 300px;
+      overflow-y: scroll;
+      scroll-timeline: squareTimeline block;
+      position: relative;
+    }
+
+    #square {
+      background-color: deeppink;
+      width: 100px;
+      height: 100px;
+      animation-name: rotateAnimation;
+      animation-duration: 1ms;
+      animation-timeline: squareTimeline;
+      position: absolute;
+      bottom: 0;
+    }
+
+    #stretcher {
+      height: 600px;
+      background: #dedede;
+    }
+
+    .progress-bar {
+      /* position: relative; 
+      width: 100%;
+      height: 2em; */
+      background: #eee;
+      height: 300px;
+      overflow-y: scroll;
+      /* scroll-timeline: squareTimeline vertical; */
+      position: relative;
+    }
+
+    .bar {
+      background-color: deeppink;
+      width: 40px;
+      height: 40px;
+      animation-name: rotateAnimation;
+      animation-duration: 1ms;
+      animation-timeline: squareTimeline;
+      position: absolute;
+      bottom: 0;
+      right: 300px;
+    }
+
+    @keyframes rotateAnimation {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="progress-bar">
+    <div class="bar"></div>
+  </div>
+  
+  <div id="container">
+    <div id="square"></div>
+    <div id="stretcher"></div>
+    <div class="bar"></div>
+  </div>
+
+  <script>
+  </script>
+</body>
+</html>

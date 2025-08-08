@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="nl-nl">
+<head>
+	<meta charset="UTF-8">
+	
+	<title>Scroll progress timeline 101</title>
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<link rel="stylesheet" href="../css/default.css">
+	<link rel="stylesheet" href="../css/prism.css">
+	<link rel="stylesheet" href="animation.css">
+	<link rel="stylesheet" href="article.css">
+	<style>
+
+	</style>
+</head>
+<body>
+	<div class="progress-bar"></div>
+	<a href="../../">&laquo; Back to explainers</a>
+	<div class="code-section code-section-1">
+
+
+	</div>
+	<div class="wrapper">
+		<div class="scroll-container">
+			<h1>Using scroll timeline</h1>
+			<p>
+				Tie an animation to the scroll-progress of its nearest scrolling ancestor (in this case, the <code>body</code>)
+			</p>
+			<!-- <p>
+				When using <code>scroll-timeline</code> with <code>animation-timeline</code>, the element with <code>scroll-timeline</code> has to be an ancestor of <code>animation-timeline</code>. (From Chrome 116, you can use <code>timeline-scope</code> which does allow non-ancestor timelines)
+			</p> -->
+<pre><code class="language-html"
+>&lt;body&gt;
+	&lt;div class="progress-bar"&gt;&lt;/div&gt;
+	&lt;div class="wrapper"&gt;...&lt;/div&gt;
+&lt;/body&gt;
+</code></pre>
+<pre><code class="language-css"
+	>
+	@keyframes width-animation {
+		from { transform: scaleX(0); }
+		to { transform: scaleX(1); }
+	}
+	
+	.progress-bar {
+		position: sticky;
+		top: 0;
+		width: 100%;
+	}
+
+	.progress-bar::before {
+		content: '';
+		display: block;
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		background: black;
+		transform-origin: 0 0;
+		animation: grow-progress linear;
+		/* compare with normal animation - it just misses duration: */
+		/* animation: grow-progress 3s linear; */
+		animation-timeline: scroll(); /* by default, the nearest scroll container is used */
+		/* animation-timeline: --page-scroll; */
+	}
+	</code></pre>
+			<p class="lorem">
+				Lorem ipsum dolor sit amet consectetur adipisicing elit. Error, placeat. Consectetur dicta animi voluptates iure eum! Dolores repellendus cupiditate odit. Porro provident itaque voluptate iusto. Tenetur officia vero animi aspernatur! Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet rem fugiat dolore, mollitia exercitationem ullam harum consectetur. Quaerat ratione, consectetur, ex cupiditate dolor porro sequi dolorum veniam, laborum iusto necessitatibus? Lorem ipsum dolor sit amet consectetur, adipisicing elit. Error sit placeat voluptas dolores sapiente sint libero ipsa ipsum cum reprehenderit praesentium fuga sequi quaerat modi, recusandae consequuntur iure est molestias!
+			</p>
+			<section class="overflow-section">
+
+				<h2>Section with overflow</h2>
+				<div class="progress-bar"></div>
+				<p>
+					It doesn't just work on the <code>body</code>, but on any scroll container. When you just use <code>animation-timeline: scroll()</code>, the elements nearest scroll-container is used (here it is this <code>section</code>)
+<pre><code class="language-html"
+>&lt;section class="overflow-section"&gt;
+	&lt;div class="progress-bar"&gt;&lt;/div&gt;
+&lt;/section&gt;
+	</code></pre>
+				</p>
+				<p class="lorem">
+					Lorem ipsum dolor sit amet consectetur adipisicing elit. Error, placeat. Consectetur dicta animi voluptates iure eum! Dolores repellendus cupiditate odit. Porro provident itaque voluptate iusto. Tenetur officia vero animi aspernatur! Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet rem fugiat dolore, mollitia exercitationem ullam harum consectetur. Quaerat ratione, consectetur, ex cupiditate dolor porro sequi dolorum veniam, laborum iusto necessitatibus? Lorem ipsum dolor sit amet consectetur, adipisicing elit. Error sit placeat voluptas dolores sapiente sint libero ipsa ipsum cum reprehenderit praesentium fuga sequi quaerat modi, recusandae consequuntur iure est molestias!
+				</p>
+				<p class="lorem">
+					Lorem ipsum dolor sit amet consectetur adipisicing elit. Error, placeat. Consectetur dicta animi voluptates iure eum! Dolores repellendus cupiditate odit. Porro provident itaque voluptate iusto. Tenetur officia vero animi aspernatur! Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet rem fugiat dolore, mollitia exercitationem ullam harum consectetur. Quaerat ratione, consectetur, ex cupiditate dolor porro sequi dolorum veniam, laborum iusto necessitatibus? Lorem ipsum dolor sit amet consectetur, adipisicing elit. Error sit placeat voluptas dolores sapiente sint libero ipsa ipsum cum reprehenderit praesentium fuga sequi quaerat modi, recusandae consequuntur iure est molestias!
+				</p>
+			</section>
+			
+			<p class="lorem">
+				Lorem ipsum dolor sit amet consectetur adipisicing elit. Error, placeat. Consectetur dicta animi voluptates iure eum! Dolores repellendus cupiditate odit. Porro provident itaque voluptate iusto. Tenetur officia vero animi aspernatur! Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet rem fugiat dolore, mollitia exercitationem ullam harum consectetur. Quaerat ratione, consectetur, ex cupiditate dolor porro sequi dolorum veniam, laborum iusto necessitatibus? Lorem ipsum dolor sit amet consectetur, adipisicing elit. Error sit placeat voluptas dolores sapiente sint libero ipsa ipsum cum reprehenderit praesentium fuga sequi quaerat modi, recusandae consequuntur iure est molestias!
+			</p>
+			<p class="lorem">
+				Lorem ipsum dolor sit amet consectetur adipisicing elit. Error, placeat. Consectetur dicta animi voluptates iure eum! Dolores repellendus cupiditate odit. Porro provident itaque voluptate iusto. Tenetur officia vero animi aspernatur! Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet rem fugiat dolore, mollitia exercitationem ullam harum consectetur. Quaerat ratione, consectetur, ex cupiditate dolor porro sequi dolorum veniam, laborum iusto necessitatibus? Lorem ipsum dolor sit amet consectetur, adipisicing elit. Error sit placeat voluptas dolores sapiente sint libero ipsa ipsum cum reprehenderit praesentium fuga sequi quaerat modi, recusandae consequuntur iure est molestias!
+			</p>
+
+			<section class="overflow-section overflow-section--page-timeline">
+				<h2>Using another scroll-containers timeline</h2>
+				<div class="progress-bar"></div>
+				<p>When you set the <code>animation-timeline</code> to another ancestor's <code>scroll-timeline</code>, that element's scroll-progress will be used. This <code>section</code> doesn't use it's own scroll-progress, but the <code>html</code> element's one</p>
+				<p class="lorem">
+					Lorem ipsum dolor sit amet consectetur adipisicing elit. Error, placeat. Consectetur dicta animi voluptates iure eum! Dolores repellendus cupiditate odit. Porro provident itaque voluptate iusto. Tenetur officia vero animi aspernatur! Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet rem fugiat dolore, mollitia exercitationem ullam harum consectetur. Quaerat ratione, consectetur, ex cupiditate dolor porro sequi dolorum veniam, laborum iusto necessitatibus? Lorem ipsum dolor sit amet consectetur, adipisicing elit. Error sit placeat voluptas dolores sapiente sint libero ipsa ipsum cum reprehenderit praesentium fuga sequi quaerat modi, recusandae consequuntur iure est molestias!
+				</p>
+				<p class="lorem">
+					Lorem ipsum dolor sit amet consectetur adipisicing elit. Error, placeat. Consectetur dicta animi voluptates iure eum! Dolores repellendus cupiditate odit. Porro provident itaque voluptate iusto. Tenetur officia vero animi aspernatur! Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet rem fugiat dolore, mollitia exercitationem ullam harum consectetur. Quaerat ratione, consectetur, ex cupiditate dolor porro sequi dolorum veniam, laborum iusto necessitatibus? Lorem ipsum dolor sit amet consectetur, adipisicing elit. Error sit placeat voluptas dolores sapiente sint libero ipsa ipsum cum reprehenderit praesentium fuga sequi quaerat modi, recusandae consequuntur iure est molestias!
+				</p>
+			</section>
+			<h2>And yet another heading</h2>
+			<p class="lorem">
+				Lorem ipsum dolor sit amet consectetur adipisicing elit. Error, placeat. Consectetur dicta animi voluptates iure eum! Dolores repellendus cupiditate odit. Porro provident itaque voluptate iusto. Tenetur officia vero animi aspernatur! Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet rem fugiat dolore, mollitia exercitationem ullam harum consectetur. Quaerat ratione, consectetur, ex cupiditate dolor porro sequi dolorum veniam, laborum iusto necessitatibus? Lorem ipsum dolor sit amet consectetur, adipisicing elit. Error sit placeat voluptas dolores sapiente sint libero ipsa ipsum cum reprehenderit praesentium fuga sequi quaerat modi, recusandae consequuntur iure est molestias!
+			</p>
+			<p class="lorem">
+				Lorem ipsum dolor sit amet consectetur adipisicing elit. Error, placeat. Consectetur dicta animi voluptates iure eum! Dolores repellendus cupiditate odit. Porro provident itaque voluptate iusto. Tenetur officia vero animi aspernatur! Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet rem fugiat dolore, mollitia exercitationem ullam harum consectetur. Quaerat ratione, consectetur, ex cupiditate dolor porro sequi dolorum veniam, laborum iusto necessitatibus? Lorem ipsum dolor sit amet consectetur, adipisicing elit. Error sit placeat voluptas dolores sapiente sint libero ipsa ipsum cum reprehenderit praesentium fuga sequi quaerat modi, recusandae consequuntur iure est molestias!
+			</p>
+		</div>
+
+	</div><!-- /.o-content-width -->
+	<script src="../js/prism.js"></script>
+</body>
+</html>
