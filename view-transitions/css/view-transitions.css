@@ -17,6 +17,10 @@
   }
 }
 
+/* ::view-transition-group(root) {
+  animation-duration: 2s;
+} */
+
 /* section 2: targeting individual elements */
 
 .move.has-transition-name { view-transition-name: box-move; }

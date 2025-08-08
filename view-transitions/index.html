@@ -77,11 +77,18 @@ function toggleSamplesClass(samples) {
 				<code>view-transition-name</code>.
 			</p>
 
+			<h3>Basic transitions of the root group</h3>
+			<p>
+				For the root group, the browser doesn't animate any properties other than opacity, using a cross-fade.
+				Translations like in the sample below are not animated.
+			</p>
+
 			<div class="section-controls">
 				<div class="section-control">
 					<button class="trigger-button">Toggle state</button> (or press <key>1</key>)
 				</div>
 			</div>
+
 
 			<div class="samples">
 				<div class="sample">
@@ -126,7 +133,32 @@ here without view-transition-name */
 
 
 		<section class="sample-section" data-sample-section-2>
-			<h2>Targeting individual elements</h2>
+			<h2>Targeting individual elements and animating more props</h2>
+			<p>
+				You can exclude elements from the root view-transition-group by giving them a <code>view-transition-name</code>.
+				Doing that will create a separate view-transition-group for that element.
+				This has two advantages: you can specify a different animation for that element, and you can animate more of its
+				properties.
+			</p>
+			<p>
+				The resulting tree that looks like this:
+			</p>
+			<pre>
+::view-transition
+├─ ::view-transition-group(root)
+│  └─ ::view-transition-image-pair(root)
+│     ├─ ::view-transition-old(root)
+│     └─ ::view-transition-new(root)
+└─ ::view-transition-group(some-name)
+   └─ ::view-transition-image-pair(some-name)
+      ├─ ::view-transition-old(some-name)
+      └─ ::view-transition-new(some-name)
+			</pre>
+			<p>
+				Every view-transition-groups will be animated separately. For every group, the browser will check if their
+				position or size changes, and tries to animate that. If the position or size doesn't change, it will animate the
+				opacity.
+			</p>
 
 			<div class="section-controls">
 				<div class="section-control">
@@ -136,6 +168,7 @@ here without view-transition-name */
 
 			<div class="samples">
 				<div class="sample">
+					<h3>root: animate opacity</h3>
 					<div class="box move"></div>
 					<div class="explanation">
 						<pre>
@@ -147,17 +180,21 @@ here without view-transition-name */
   }
 }</pre>
 						Every element that doesn't have a <code>view-transition-name</code> will be part of the root
-						view-transition: this animates the <code>::view-transition-old(root)</code>'s opacity from <code>1</code> to
+						view-transition, which contains the entire page. Since the page's position won't change, this only animates
+						the
+						<code>::view-transition-old(root)</code>'s opacity from <code>1</code> to
 						<code>0</code>, and the <code>::view-transition-new(root)</code>'s opacity from <code>0</code> to
 						<code>1</code>.
 					</div>
 				</div>
 
 				<div class="sample">
+					<h3>specific name: animate animatable props</h3>
 					<div class="box move has-transition-name"></div>
 					<div class="explanation">
 						<pre>
 .box.move.has-transition-name {
+	/* every view-transition-name has to be unique */
 	view-transition-name: box-move;
 }</pre>
 						<p>
@@ -246,8 +283,8 @@ here without view-transition-name */
 						<h3>Default duration</h3>
 						<pre>
 .box.move.has-transition-name-2 {
-	/* every view-transition-name has to be unique */
 	view-transition-name: box-move-2;
+	/* no animation-duration specified for this group so will use default value */
 }</pre>
 					</div>
 				</div>
@@ -260,7 +297,7 @@ here without view-transition-name */
 .box.move.adjusted-duration-2 {
 	/* every view-transition-name has to be unique */
 	::view-transition-group(adjusted-duration-2) {
-		animation-duration: 1s;
+		animation-duration: var(--duration);
 	}
 }</pre>
 					</div>

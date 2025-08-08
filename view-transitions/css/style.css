@@ -54,6 +54,7 @@ pre {
 	font-size: inherit;
 	font-weight: normal;
 	tab-size: 2;
+	white-space: break-spaces;
 
 	&::after {
 		position: absolute;
