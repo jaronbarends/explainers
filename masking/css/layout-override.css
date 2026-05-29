@@ -3,6 +3,5 @@
     --samples-per-row: 2;
   }
   @media (min-width: 75rem) {
-		--samples-per-row: 3;
-	}
-}
+    --samples-per-row: 3;
+  }}

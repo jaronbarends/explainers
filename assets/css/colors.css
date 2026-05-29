@@ -1,0 +1,7 @@
+:root {
+  --color-primary: hotpink;
+  --color-secondary: yellowgreen;
+  --bg-color-secondary: hsl(from var(--color-secondary) h s 92%);
+
+  --bg-color-code: var(--bg-color-secondary);
+}

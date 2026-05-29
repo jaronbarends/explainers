@@ -36,7 +36,8 @@ textarea {
   line-height: 1.15;
 }
 
-button input[type="checkbox"],
+button,
+input[type="checkbox"],
 input[type="image"],
 input[type="radio"],
 input[type="submit"],

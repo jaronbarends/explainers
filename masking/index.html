@@ -97,7 +97,7 @@
 ><code class="language-css">mask: repeating-linear-gradient(black, transparent 50px);
 mask-clip: padding-box;</code></pre>
         <p>
-          mask with <code>background-clip</code><br>
+          mask with <code>mask-clip</code><br>
           <ul>
             <li>when <code>mask-origin</code> is not set, mask is applied to entire element</li>
             <li>everything outside of mask-clip-area is masked</li>
@@ -278,8 +278,8 @@ mask: var(--mask-rectangle-portrait); </code></pre>
       <div>
         <pre
 ><code class="language-css">mask:
-  var(--mask-rectangle-landscape),
-  var(--mask-circle);
+  var(--mask-circle),
+  var(--mask-rectangle-landscape);
 mask-composite: subtract;</code></pre>
         <p>
         </p>

@@ -4,10 +4,10 @@
 .box {
   width: 200px;
   height: 100px;
-  background: hotpink;
+  background: var(--color-primary);
 
   .samples--alt  & {
-    background: yellowgreen; 
+    background: var(--color-secondary); 
   }
 }
 
