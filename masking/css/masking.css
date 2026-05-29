@@ -1,5 +1,5 @@
 :root {
-  --near-transparent: rgba(0,0,0,0.03);
+  --near-transparent: rgba(0, 0, 0, 0.03);
   --mask-rectangle-landscape: linear-gradient(
     var(--near-transparent),
     var(--near-transparent) 40%,
@@ -15,28 +15,7 @@
     black 90%,
     var(--near-transparent) 0
   );
-  --mask-circle: radial-gradient(
-    black,
-    black 50%,
-    var(--near-transparent) 0
-  );
-}
-
-body {
-  margin: 0;
-}
-
-section {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-  justify-content: center;
-}
-
-.sample {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+  --mask-circle: radial-gradient(black, black 50%, var(--near-transparent) 0);
 }
 
 .box-wrapper,
@@ -65,8 +44,15 @@ section {
 }
 
 .mask-25 {
-  mask:
-    linear-gradient(black, black 25%, var(--near-transparent) 0, var(--near-transparent) 50%, white 0, white 75%, var(--near-transparent) 0);
+  mask: linear-gradient(
+    black,
+    black 25%,
+    var(--near-transparent) 0,
+    var(--near-transparent) 50%,
+    white 0,
+    white 75%,
+    var(--near-transparent) 0
+  );
 }
 
 .mask-gradient {
@@ -118,15 +104,12 @@ section {
 }
 
 .mask-two {
-  mask:
-    var(--mask-rectangle-landscape),
-    var(--mask-circle);
+  mask: var(--mask-rectangle-landscape), var(--mask-circle);
 }
 
 .mask-three {
   mask:
-    var(--mask-rectangle-landscape),
-    var(--mask-rectangle-portrait),
+    var(--mask-rectangle-landscape), var(--mask-rectangle-portrait),
     var(--mask-circle);
 }
 

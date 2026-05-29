@@ -1,0 +1,33 @@
+:root {
+	--sample-width: 200px;
+	--samples-per-row: 2;
+	--samples-column-width: calc(2 * var(--sample-width) + var(--samples-gap));
+}
+
+.o-content-width {
+	margin: 0 auto;
+	max-width: 95vw;
+}
+
+
+.sample-section {
+	/*
+	In most explainers:
+	.sample-section
+		.samples
+			.sample
+				.explanation
+	Here:
+		.sample-section
+			.samples
+				.sample
+				.sample
+		.explanation
+	*/
+	display: flex;
+	gap: var(--samples-gap);
+
+	@media (max-width: 50rem) {
+		flex-direction: column;
+	}
+}
