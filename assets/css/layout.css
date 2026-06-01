@@ -7,6 +7,12 @@
   }
 }
 
+.back-link {
+  display: inline-block;
+  margin-block: 1rem;
+  color: var(--color-link);
+}
+
 .o-content-width {
   margin: 0 auto;
   max-width: 65rem;

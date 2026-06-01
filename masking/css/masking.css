@@ -32,7 +32,7 @@
 
 .box {
   margin-bottom: 1rem;
-  background: #fc0;
+  background: var(--color-secondary);
   border: 10px dashed currentColor;
   padding: 30px;
 }

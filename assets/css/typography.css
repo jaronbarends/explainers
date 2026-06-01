@@ -40,6 +40,10 @@ p {
   font-size: 1rem;
 }
 
+p a {
+  color: var(--color-link);
+}
+
 code,
 pre {
   position: relative;
