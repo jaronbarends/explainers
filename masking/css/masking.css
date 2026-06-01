@@ -33,7 +33,7 @@
 .box {
   margin-bottom: 1rem;
   background: var(--color-secondary);
-  border: 10px dashed currentColor;
+  border: 10px dashed currentcolor;
   padding: 30px;
 }
 
@@ -108,9 +108,7 @@
 }
 
 .mask-three {
-  mask:
-    var(--mask-rectangle-landscape), var(--mask-rectangle-portrait),
-    var(--mask-circle);
+  mask: var(--mask-rectangle-landscape), var(--mask-rectangle-portrait), var(--mask-circle);
 }
 
 .mask-clip-padding {
