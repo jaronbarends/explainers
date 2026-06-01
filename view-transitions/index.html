@@ -12,7 +12,7 @@
 
   <body>
     <div class="o-content-width">
-      <a href="../"class="back-link">&laquo; Back to explainers</a>
+      <a href="../" class="back-link">&laquo; Back to explainers</a>
       <h1>View transitions</h1>
       <h2>How the examples work</h2>
       <p>
@@ -134,8 +134,6 @@ here without view-transition-name */
     transform: translateX(100%);
   }
 }</code></pre>
-              You might thinks it's only the elements that are changed that are
-              part of the view transition, but it's actually a crossfade of a
               You might think it's only the elements that are changed that are
               part of the view transition, but it's actually a crossfade of a
               page-wide snapshot of all elements without a
@@ -502,7 +500,8 @@ here without view-transition-name */
                 the <code>...-new</code> pseud-element with the orange outline.
               </p>
               <pre
-><code class="language-css">                the <code>...-new</code> pseudo-element with the orange outline.  view-transition-name: box-move-scale-old-new-has-outline;
+><code class="language-css">.box.move.scale-old-new.has-outline {
+  view-transition-name: box-move-scale-old-new-has-outline;
 }
 
 ::view-transition-old(box-move-scale-old-new-has-outline),

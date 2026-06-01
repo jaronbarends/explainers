@@ -44,7 +44,7 @@
 .samples {
   display: grid;
   grid-template-columns: repeat(var(--samples-per-row), 1fr);
-  grid-gap: var(--samples-gap);
+  gap: var(--samples-gap);
 }
 
 .explanation {
