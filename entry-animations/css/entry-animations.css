@@ -19,7 +19,7 @@
   transition: 0.5s ease-in-out;
   transition-property: opacity, display;
   transition-behavior: allow-discrete;
-  
+
   &.is-visible {
     display: block;
     opacity: 1;
@@ -28,7 +28,7 @@
 
 @starting-style {
   .box--tldr.is-visible {
-    opacity: 0; 
+    opacity: 0;
   }
 }
 
@@ -54,7 +54,7 @@
   transition-property: opacity, transform;
   opacity: 0;
   transform: translateY(50%);
-  
+
   &.is-visible {
     display: block;
     transform: translateY(0);
@@ -69,8 +69,6 @@
   }
 }
 
-
-
 /* Will transition on entry and exit */
 .box--with-starting-style-display-transition-allow-discrete {
   display: none;
@@ -80,7 +78,7 @@
   transition-property: opacity, transform, display;
   opacity: 0;
   transform: translateY(50%);
-  
+
   &.is-visible {
     display: block;
     transform: translateY(0);
@@ -95,4 +93,45 @@
   }
 }
 
-/* transition: 0.5s ease-in-out allow-discrete; */
+@keyframes entry-animation {
+  0% {
+    display: block;
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+    rotate: 30deg;
+  }
+  100% {
+    rotate: 0deg;
+  }
+}
+
+@keyframes exit-animation {
+  0% {
+    display: block;
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+    rotate: 30deg;
+  }
+  100% {
+    opacity: 0;
+    display: none;
+    rotate: 0deg;
+  }
+}
+
+.box--with-keyframes {
+  display: none;
+
+  &.is-visible {
+    display: block;
+    animation: entry-animation 0.5s ease-in-out forwards;
+  }
+
+  &.is-hidden {
+    animation: exit-animation 0.5s ease-in-out forwards;
+  }
+}
