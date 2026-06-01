@@ -1,0 +1,53 @@
+:root {
+  --samples-per-row: 1;
+  --samples-gap: 2rem;
+
+  @media (min-width: 50rem) {
+    --samples-per-row: 2;
+  }
+}
+
+.back-link {
+  display: inline-block;
+  margin-block: 1rem;
+  color: var(--color-link);
+}
+
+.o-content-width {
+  margin: 0 auto;
+  max-width: 65rem;
+}
+
+.sample-section {
+  position: relative;
+  margin-bottom: 4rem;
+}
+
+.section-controls {
+  position: sticky;
+  top: 0.5rem;
+  z-index: 1;
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  width: fit-content;
+}
+
+.section-control {
+  padding: 0.5rem;
+  background: white;
+  border-radius: 0.25rem;
+  box-shadow: 0 0 5px rgba(0 0 0 / 20%);
+  font-size: 1rem;
+}
+
+.samples {
+  display: grid;
+  grid-template-columns: repeat(var(--samples-per-row), 1fr);
+  gap: var(--samples-gap);
+}
+
+.explanation {
+  margin-top: 1em;
+  font-size: 1rem;
+}

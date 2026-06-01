@@ -1,0 +1,86 @@
+:root {
+  --example-height: 300px;
+}
+
+.examples {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin: 0 auto;
+  width: 90vw;
+  gap: 2rem;
+}
+
+.scroll-container {
+  margin: 0 0 1em;
+  height: var(--example-height);
+  background: rgba(0, 0, 0, 0.1);
+  overflow-y: scroll;
+}
+
+.current-css {
+  position: absolute;
+  font-family: "lucida console", monospace;
+  font-size: 0.75rem;
+  opacity: 0.5;
+}
+
+@keyframes grow {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+.subject {
+  position: relative;
+  margin: var(--example-height) 0;
+  border: 1px dotted;
+  height: 100px;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.grower {
+  margin: 0 auto;
+  width: 0;
+  height: 100%;
+  background: green;
+  animation: grow forwards;
+  animation-timeline: view();
+}
+
+.range-entry .grower {
+  animation-range: entry; /* equals entry 100% exit 0% */
+}
+
+.range-exit .grower {
+  animation-range: exit; /* equals exit 0% exit 100% */
+}
+
+.range-entry-20-exit-80 .grower {
+  animation-range: entry 20% exit 80%;
+}
+
+.area-20-80 {
+  position: absolute;
+  margin: 0;
+  border: 1px dashed;
+  border-right: none;
+  border-left: none;
+  inset: 20% 0 20%;
+
+  &::before,
+  &::after {
+    content: "20%";
+    position: absolute;
+    top: 0;
+    left: 2rem;
+    translate: 0 -50%;
+  }
+
+  &::after {
+    content: "80%";
+    top: 100%;
+  }
+}

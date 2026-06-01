@@ -1,0 +1,75 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.5;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: 1;
+}
+
+h1 {
+  font-size: 2rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+}
+
+h3 {
+  font-size: 1.25rem;
+  font-weight: normal;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: inherit;
+  font-size: 100%;
+  line-height: 1.15;
+}
+
+p {
+  margin: 0 0 1em;
+  font-size: 1rem;
+}
+
+p a {
+  color: var(--color-link);
+}
+
+code,
+pre {
+  position: relative;
+  padding: 0.5em;
+  font-size: inherit;
+  font-weight: normal;
+  tab-size: 2;
+
+  &::after {
+    position: absolute;
+    content: "";
+    display: block;
+    inset: 0.1em 0;
+    border-radius: 0.25em;
+    z-index: -1;
+    background: var(--bg-color-code);
+  }
+}
+
+code {
+  display: inline-block;
+  padding: 0 0.25em;
+}
+
+pre,
+pre > code[class*="language-"] {
+  /* override prism.css white-space: pre; */
+  white-space: pre-wrap;
+}

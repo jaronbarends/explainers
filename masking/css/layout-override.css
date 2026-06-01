@@ -1,0 +1,7 @@
+:root {
+  @media (min-width: 50rem) {
+    --samples-per-row: 2;
+  }
+  @media (min-width: 75rem) {
+    --samples-per-row: 3;
+  }}

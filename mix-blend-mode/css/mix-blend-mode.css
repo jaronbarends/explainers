@@ -2,10 +2,6 @@
   --blend-mode: multiply;
 }
 
-.sample-section {
-	grid-template-columns: calc(2 * var(--sample-w) + 2em) auto;
-}
-
 .parent {
   background: red;
   font-size: 0.75em;
