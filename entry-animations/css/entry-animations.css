@@ -1,0 +1,98 @@
+.preview {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  justify-content: flex-end;
+  align-items: flex-start;
+  min-height: 150px;
+}
+
+.box {
+  width: 200px;
+  height: 100px;
+  background: var(--color-primary);
+}
+
+.box--tldr {
+  display: none;
+  opacity: 0;
+  transition: 0.5s ease-in-out;
+  transition-property: opacity, display;
+  transition-behavior: allow-discrete;
+  
+  &.is-visible {
+    display: block;
+    opacity: 1;
+  }
+}
+
+@starting-style {
+  .box--tldr.is-visible {
+    opacity: 0; 
+  }
+}
+
+.box--default {
+  /* Does not transition */
+  display: none;
+  transition: 0.5s ease-in-out;
+  transition-property: opacity, transform;
+  opacity: 0;
+  transform: translateY(50%);
+
+  &.is-visible {
+    display: block;
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Will transition on entry only */
+.box--with-starting-style {
+  display: none;
+  transition: 0.5s ease-in-out;
+  transition-property: opacity, transform;
+  opacity: 0;
+  transform: translateY(50%);
+  
+  &.is-visible {
+    display: block;
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@starting-style {
+  .box--with-starting-style.is-visible {
+    opacity: 0;
+    transform: translateY(50%);
+  }
+}
+
+
+
+/* Will transition on entry and exit */
+.box--with-starting-style-display-transition-allow-discrete {
+  display: none;
+  transition: 0.5s ease-in-out;
+  /* allow-discrete can also be added to the shorthand, but then you'll also need to add a fallback-shorthand for browsers that don't support it */
+  transition-behavior: allow-discrete;
+  transition-property: opacity, transform, display;
+  opacity: 0;
+  transform: translateY(50%);
+  
+  &.is-visible {
+    display: block;
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@starting-style {
+  .box--with-starting-style-display-transition-allow-discrete.is-visible {
+    opacity: 0;
+    transform: translateY(50%);
+  }
+}
+
+/* transition: 0.5s ease-in-out allow-discrete; */

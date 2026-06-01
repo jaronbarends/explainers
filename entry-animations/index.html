@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="nl-nl">
+<head>
+  <meta charset="UTF-8">
+  
+  <title>Entry animations</title>
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+  <link rel="stylesheet" href="../assets/css/shared.css">
+  <link rel="stylesheet" href="css/layout-override.css">
+	<link rel="stylesheet" href="css/entry-animations.css">
+  
+  <style>
+  </style>
+</head>
+<body>
+	<div class="o-content-width">
+    <a href="../"class="back-link">&laquo; Back to explainers</a>
+		<h1>Entry animations with <code>display</code></h1>
+
+    <section class="sample-section sample-section--rows">
+      <h2>TL;DR: add 3 things</h2>
+      <div class="samples">
+      <!-- ------------------------------------------
+      Entry and exit: @starting-style, display transition, allow-discrete
+      ------------------------------------------- -->
+      <div class="sample">
+        <div class="preview">
+          <div class="box box--tldr" id="box-tldr"></div>
+
+          <button aria-controls="box-tldr" aria-expanded="false">Add <code>class="is-visible"</code></button>
+        </div>
+
+        <div class="explanation">
+          <p>
+            To make the element transition on entry and exit when toggling <code>display</code>:
+            <ol>
+              <li>Add <code>@starting-style</code> to the element's visible state</li>
+              <li>Add <code>transition-property: display</code> to the element</li>
+              <li>Add <code>transition-behavior: allow-discrete</code> to the element</li>
+            </ol>
+          </p>
+          <pre
+><code class="language-css">.some-element {
+  display: none;
+  opacity: 0;
+  transition: 0.5s ease-in-out;
+  transition-property: opacity, display;
+  transition-behavior: allow-discrete;
+  
+  &.is-visible {
+    display: block;
+    opacity: 1;
+  }
+}
+
+@starting-style {
+  .some-element.is-visible {
+    opacity: 0; 
+  }
+}</code></pre>
+        </div>
+      </div>
+      </div>
+    </section>
+
+    <h2>About discrete properties</h2>
+    <p>
+      Some properties in css are <em>discrete</em>, meaning they can't interpolate between values. You can think of these like an on/off switch. Examples include <code>display</code>, <code>visibility</code>, <code>font-family</code>, <code>mix-blend-mode</code>.
+    </p>
+    <h3>Why you can't just use <code>transition</code> on <code>display</code></h3>
+    <p>
+      When you set <code>display: none;</code> on an element, the browser completely removes the element from its render tree. Because the element is no longer visually rendered or taking up physical space, a transition or animation has no value to work with.
+    </p>
+
+		<section class="sample-section sample-section--rows">
+      <h2>Step by step</h2>
+        
+      <!-- ------------------------------------------
+      Default - no transition
+      ------------------------------------------- -->
+      <div class="samples">
+        
+        <div class="sample">
+          <h3>Default <code>display</code> toggle &mdash; no transition</h3>
+          <div class="preview">
+            <div class="box box--default" id="box-1"></div>
+
+            <button aria-controls="box-1" aria-expanded="false">Add <code>class="is-visible"</code></button>
+          </div>
+
+          <div class="explanation">
+            <p>Default: switch between <code>display: none;</code> and <code>display: block;</code> is immediate</p>
+          <pre
+><code class="language-css">/* Does not transition*/
+.box {
+  display: none;
+  ...
+  transition: 0.5s ease-in-out;
+  transition-property: opacity, transform;
+  opacity: 0;
+  transform: translateY(50%);
+
+  &.is-visible {
+    display: block;
+    transform: translateY(0);
+    opacity: 1;
+  }
+}</code></pre>
+        </div>
+        </div>
+        
+        <!-- ------------------------------------------
+        Entry only: add @starting-style
+        ------------------------------------------- -->
+        <div class="sample">
+          <h3>Transition on entry only: add <code>@starting-style</code></h3>
+          <div class="preview">
+            <div class="box box--with-starting-style" id="box-2"></div>
+
+            <button aria-controls="box-2" aria-expanded="false">Add <code>class="is-visible"</code></button>
+          </div>
+
+          <div class="explanation">
+            <p>
+              When you add a <code>@starting-style</code>, you define the <em>before first paint</em> state of an element. (Make sure to apply this to <code>.box.is-visible</code>, and not to <code>.box</code>; otherwise, the styles of <code>&.is-visible</code> will overrule the starting styles because of higher specificity.)
+            </p>
+            <p>
+              Note that we do not transition <code>display</code> here. The flip from <code>display: none;</code> to <code>display: block;</code> is still immediate. The <code></code>@starting-style</code> then gives <code>opacity</code> and <code>transform</code> their before-first-paint values, and those two properties transition normally. The switch back to <code>display: none;</code> is still immediate too, so there's nothing left to animate.
+            </p>
+            <pre
+><code class="language-css">/* Will transition on entry only */
+.box {
+  display: none;
+  ...
+  transition: 0.5s ease-in-out;
+  transition-property: opacity, transform;
+  opacity: 0;
+  transform: translateY(50%);
+
+  &.is-visible {
+    display: block;
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@starting-style {
+  .box.is-visible {
+    opacity: 0;
+    transform: translateY(50%);
+  }
+}</code></pre>
+          </div>
+        </div>
+        
+        <!-- ------------------------------------------
+        Entry and exit: @starting-style, display transition, allow-discrete
+        ------------------------------------------- -->
+        <div class="sample">
+          <h3>Transition on entry and exit: 
+            add <code>transition-property: display</code> and <code>transition-behavior: allow-discrete</code></h3>
+          <div class="preview">
+            <div class="box box--with-starting-style-display-transition-allow-discrete" id="box-3"></div>
+
+            <button aria-controls="box-3" aria-expanded="false">Add <code>class="is-visible"</code></button>
+          </div>
+
+          <div class="explanation">
+            <p>
+              To make the element transition on exit, we need to add <code>display</code> to the <code>transition-property</code> list. And because <code>display</code> is a discrete property, we need to add <code>transition-behavior: allow-discrete</code> as well.
+            </p>
+            <pre
+><code class="language-css">/* Will transition on entry and exit */
+.box {
+  transition: 0.5s ease-in-out;
+  /* allow-discrete can also be added to the shorthand, but then you'll also need to add a fallback-shorthand for browsers that don't support it */
+  transition-behavior: allow-discrete;
+  transition-property: opacity, transform, display;
+  opacity: 0;
+  transform: translateY(50%);
+  
+  &.is-visible {
+    display: block;
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@starting-style {
+  .box.is-visible {
+    opacity: 0;
+    transform: translateY(50%);
+  }
+}</code></pre>
+          </div>
+        </div>
+        </div>
+    </section>
+  <script src="js/main.js" type="module"> </script>
+  <script src="../lib/prism/prism.js"></script>
+</body>
+</html>
