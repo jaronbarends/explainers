@@ -51,3 +51,31 @@
   margin-top: 1em;
   font-size: 1rem;
 }
+
+.sample-section--rows {
+  .samples {
+    display: flex;
+    flex-direction: column;
+    gap: var(--samples-gap);
+  }
+
+  .sample {
+    display: grid;
+    grid-template-areas:
+      "preview heading"
+      "preview explanation";
+
+      h3 {
+        grid-area: heading;
+      }
+    .preview {
+      grid-area: preview;
+    }
+
+    .explanation {
+      grid-area: explanation;
+      margin-top: 1em;
+      font-size: 1rem;
+    }
+  }
+}

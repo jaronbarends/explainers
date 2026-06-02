@@ -22,10 +22,16 @@ h6 {
 }
 
 button,
-input[type="checkbox"],
-input[type="image"],
-input[type="radio"],
-input[type="submit"],
+input[type='checkbox'],
+input[type='image'],
+input[type='radio'],
+input[type='submit'],
 label {
   cursor: pointer;
+}
+
+ul,
+ol {
+  padding-left: 0;
+  list-style: none;
 }
