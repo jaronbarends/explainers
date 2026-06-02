@@ -12,7 +12,10 @@
 
   <body>
     <div class="o-content-width">
-      <a href="../" class="back-link">&laquo; Back to explainers</a>
+      <header>
+        <a href="../" class="back-link">&laquo; Back to explainers</a>
+      </header>
+      <main>
       <h1>View transitions</h1>
       <h2>How the examples work</h2>
       <p>
@@ -21,7 +24,7 @@
         of the boxes.
       </p>
 
-      <section class="sample-section" data-sample-section-0>
+      <section class="samples-section" data-samples-section-0>
         <h2>View transitions 101</h2>
         <p>
           (A lot of this page's info comes from
@@ -69,7 +72,7 @@ function toggleSamplesClass(samples) {
 }</code></pre>
       </section>
 
-      <section class="sample-section" data-sample-section-1>
+      <section class="samples-section" data-samples-section-1>
         <h2>Basic transitions - transitioning all elements</h2>
         <p>
           If you don't specify anything, all elements of the page will be part
@@ -140,7 +143,7 @@ here without view-transition-name */
               <code>view-transition-name</code>, no matter the type of change.        </div>
       </section>
 
-      <section class="sample-section" data-sample-section-2>
+      <section class="samples-section" data-samples-section-2>
         <h2>Targeting individual elements and animating more props</h2>
         <p>
           You can exclude elements from the root view-transition-group by giving
@@ -239,7 +242,7 @@ here without view-transition-name */
         </div>
       </section>
 
-      <section class="sample-section" data-sample-section-3>
+      <section class="samples-section" data-samples-section-3>
         <h2>Adjusting duration</h2>
 
         <div class="section-controls">
@@ -341,7 +344,7 @@ here without view-transition-name */
         </p>
       </section>
 
-      <section class="sample-section" data-sample-section-4>
+      <section class="samples-section" data-samples-section-4>
         <h2>Pseudo-elements that can be animated</h2>
         <div class="section-controls">
           <div class="section-control">
@@ -565,7 +568,7 @@ here without view-transition-name */
         </p>
       </section>
 
-      <section class="sample-section" data-sample-section-5>
+      <section class="samples-section" data-samples-section-5>
         <h2>Custom duration for <code>::...-image-pair</code></h2>
         <div class="section-controls">
           <div class="section-control">
@@ -643,6 +646,7 @@ here without view-transition-name */
           value);</code
         >
       </p>
+      </main>
     </div>
     <script src="js/main.js"></script>
     <script src="../lib/prism/prism.js"></script>

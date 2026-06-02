@@ -13,39 +13,41 @@
   </head>
   <body>
     <div class="o-content-width">
-      <a href="../" class="back-link">&laquo; Back to explainers</a>
+      <header>
+        <a href="../" class="back-link">&laquo; Back to explainers</a>
+      </header>
+      <main>
+        <section class="samples-section">
+          <h2>Simple masks</h2>
+          <p>used throughout this page: <code>--near-transparent: rgba(0, 0, 0, 0.03);</code></p>
+          <div class="samples">
+            <div class="sample">
+              <div class="box">
+                <div class="content">content</div>
+              </div>
+              <div class="">no <code>mask</code></div>
+            </div>
 
-      <h2>Simple masks</h2>
-      <p>used throughout this page: <code>--near-transparent: rgba(0, 0, 0, 0.03);</code></p>
-      <section class="sample-section">
-        <div class="samples">
-          <div class="sample">
-            <div class="box">
-              <div class="content">content</div>
+            <div class="sample">
+              <div class="box mask-gradient">
+                <div class="content">content</div>
+              </div>
+              <div>
+                <pre><code class="language-css">mask: linear-gradient( black, transparent ); </code></pre>
+                <p><code>mask</code> only</p>
+                <ul>
+                  <li>Everything beneath the transparent part gets masked</li>
+                  <li>Everything beneath opaque part is shown</li>
+                </ul>
+              </div>
             </div>
-            <div class="">no mask</div>
-          </div>
 
-          <div class="sample">
-            <div class="box mask-gradient">
-              <div class="content">content</div>
-            </div>
-            <div>
-              <pre><code class="language-css">mask: linear-gradient( black, transparent ); </code></pre>
-              <p>mask</p>
-              <ul>
-                <li>Everything beneath the transparent part gets masked</li>
-                <li>Everything beneath opaque part is shown</li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="sample">
-            <div class="box mask-25">
-              <div class="content">content</div>
-            </div>
-            <div>
-              <pre><code class="language-css">mask: linear-gradient(
+            <div class="sample">
+              <div class="box mask-25">
+                <div class="content">content</div>
+              </div>
+              <div>
+                <pre><code class="language-css">mask: linear-gradient(
   black,
   black 25%,
   var(--near-transparent) 0,
@@ -54,120 +56,126 @@
   white 75%,
   var(--near-transparent) 0
 ); </code></pre>
-              <p>mask</p>
-              <ul>
-                <li>Everything beneath the transparent part gets masked</li>
-                <li>Everything beneath opaque part is shown - mask color does not matter</li>
-              </ul>
+                <p><code>mask</code> only</p>
+                <ul>
+                  <li>Everything beneath the transparent part gets masked</li>
+                  <li>Everything beneath opaque part is shown - mask color does not matter</li>
+                </ul>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <!-- masks without mask-origin -->
-      <h2>Masks with <code>mask-clip</code></h2>
-      <section class="sample-section">
-        <div class="samples">
-          <div class="sample">
-            <div class="box mask-repeat">
-              <div class="content">content</div>
+        <!-- masks without mask-origin -->
+        <section class="samples-section">
+          <h2>Masks with <code>mask-clip</code></h2>
+          <div class="samples">
+            <div class="sample">
+              <div class="box mask-repeat">
+                <div class="content">content</div>
+              </div>
+              <div>
+                <pre><code class="language-css">mask: repeating-linear-gradient(black, transparent 50px);</code></pre>
+              </div>
             </div>
-            <div>
-              <pre><code class="language-css">mask: repeating-linear-gradient(black, transparent 50px);</code></pre>
-            </div>
-          </div>
 
-          <div class="sample">
-            <div class="box mask-repeat mask-clip-padding">
-              <div class="content">content</div>
-            </div>
-            <div>
-              <pre><code class="language-css">mask: repeating-linear-gradient(black, transparent 50px);
+            <div class="sample">
+              <div class="box mask-repeat mask-clip-padding">
+                <div class="content">content</div>
+              </div>
+              <div>
+                <pre><code class="language-css">mask: repeating-linear-gradient(black, transparent 50px);
 mask-clip: padding-box;</code></pre>
-              <p>mask with <code>mask-clip</code></p>
-              <ul>
-                <li>when <code>mask-origin</code> is not set, mask is applied to entire element</li>
-                <li>everything outside of mask-clip-area is masked</li>
-              </ul>
+                <p><code>mask</code> and <code>mask-clip</code></p>
+                <ul>
+                  <li>
+                    when <code>mask-origin</code> is not set, mask is applied to entire element
+                  </li>
+                  <li>everything outside of mask-clip-area is masked</li>
+                </ul>
+              </div>
             </div>
-          </div>
 
-          <div class="sample">
-            <div class="box mask-repeat mask-clip-content">
-              <div class="content">content</div>
-            </div>
-            <div>
-              <pre><code class="language-css">mask: repeating-linear-gradient(black, transparent 50px);
+            <div class="sample">
+              <div class="box mask-repeat mask-clip-content">
+                <div class="content">content</div>
+              </div>
+              <div>
+                <pre><code class="language-css">mask: repeating-linear-gradient(black, transparent 50px);
 mask-clip: content-box;</code></pre>
-              <p>mask with <code>background-clip</code></p>
-              <ul>
-                <li>when <code>mask-origin</code> is not set, mask is applied to entire element</li>
-                <li>everything outside of mask-clip-area is masked</li>
-              </ul>
+                <p><code>mask</code> and <code>background-clip</code></p>
+                <ul>
+                  <li>
+                    when <code>mask-origin</code> is not set, mask is applied to entire element
+                  </li>
+                  <li>everything outside of mask-clip-area is masked</li>
+                </ul>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <!-- masks without mask-origin -->
+        <!-- masks without mask-origin -->
 
-      <!-- masks with mask-origin -->
-      <h2>Masks with <code>mask-clip</code> and <code>mask-origin</code></h2>
-      <section class="sample-section">
-        <div class="samples">
-          <div class="sample">
-            <div class="box mask-repeat">
-              <div class="content">content</div>
+        <!-- masks with mask-origin -->
+        <section class="samples-section">
+          <h2>Masks with <code>mask-clip</code> and <code>mask-origin</code></h2>
+          <div class="samples">
+            <div class="sample">
+              <div class="box mask-repeat">
+                <div class="content">content</div>
+              </div>
+              <div>
+                <pre><code class="language-css">mask: repeating-linear-gradient(black, transparent 50px);</code></pre>
+              </div>
             </div>
-            <div>
-              <pre><code class="language-css">mask: repeating-linear-gradient(black, transparent 50px);</code></pre>
-            </div>
-          </div>
 
-          <div class="sample">
-            <div class="box mask-repeat mask-clip-padding mask-origin-padding">
-              <div class="content">content</div>
-            </div>
-            <div>
-              <pre><code class="language-css">mask: repeating-linear-gradient(black, transparent 50px);
+            <div class="sample">
+              <div class="box mask-repeat mask-clip-padding mask-origin-padding">
+                <div class="content">content</div>
+              </div>
+              <div>
+                <pre><code class="language-css">mask: repeating-linear-gradient(black, transparent 50px);
 mask-clip: padding-box;
 mask-origin: padding-box;</code></pre>
-              <p>mask with <code>background-clip</code></p>
-              <ul>
-                <li>when <code>mask-origin</code> is not set, mask is applied to entire element</li>
-                <li>everything outside of mask-clip-area is masked</li>
-              </ul>
+                <p><code>mask</code> and <code>background-clip</code></p>
+                <ul>
+                  <li>
+                    when <code>mask-origin</code> is not set, mask is applied to entire element
+                  </li>
+                  <li>everything outside of mask-clip-area is masked</li>
+                </ul>
+              </div>
             </div>
-          </div>
 
-          <div class="sample">
-            <div class="box mask-repeat mask-clip-content mask-origin-content">
-              <div class="content">content</div>
-            </div>
-            <div>
-              <pre><code class="language-css">mask: repeating-linear-gradient(black, transparent 50px);
+            <div class="sample">
+              <div class="box mask-repeat mask-clip-content mask-origin-content">
+                <div class="content">content</div>
+              </div>
+              <div>
+                <pre><code class="language-css">mask: repeating-linear-gradient(black, transparent 50px);
 mask-clip: content-box;
 mask-origin: content-box;</code></pre>
-              <p>mask with <code>background-clip</code></p>
-              <ul>
-                <li>everything outside of mask-clip-area is masked</li>
-              </ul>
+                <p><code>mask</code> and <code>background-clip</code></p>
+                <ul>
+                  <li>everything outside of mask-clip-area is masked</li>
+                </ul>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
-      <!-- masks with mask-origin -->
+        </section>
+        <!-- masks with mask-origin -->
 
-      <h2>Multiple masks</h2>
-      <p>Masks used:</p>
-      <section class="sample-section">
-        <div class="samples">
-          <div class="sample">
-            <div class="box mask-rectangle-landscape">
-              <div class="content">content</div>
-            </div>
-            <div>
-              <pre><code class="language-css">--mask-rectangle-landscape: linear-gradient(
+        <section class="samples-section">
+          <h2>Multiple masks</h2>
+          <p>Masks used:</p>
+          <div class="samples">
+            <div class="sample">
+              <div class="box mask-rectangle-landscape">
+                <div class="content">content</div>
+              </div>
+              <div>
+                <pre><code class="language-css">--mask-rectangle-landscape: linear-gradient(
   var(--near-transparent),
   var(--near-transparent) 40%,
   black 0,
@@ -175,31 +183,31 @@ mask-origin: content-box;</code></pre>
   var(--near-transparent) 0
 );
 mask: var(--mask-rectangle-landscape); </code></pre>
-              <p></p>
+                <p></p>
+              </div>
             </div>
-          </div>
 
-          <div class="sample">
-            <div class="box mask-circle">
-              <div class="content">content</div>
-            </div>
-            <div>
-              <pre><code class="language-css">--mask-circle: radial-gradient(
+            <div class="sample">
+              <div class="box mask-circle">
+                <div class="content">content</div>
+              </div>
+              <div>
+                <pre><code class="language-css">--mask-circle: radial-gradient(
   black,
   black 50%,
   var(--near-transparent) 0
 );
 mask:var(--mask-circle); </code></pre>
-              <p></p>
+                <p></p>
+              </div>
             </div>
-          </div>
 
-          <div class="sample">
-            <div class="box mask-rectangle-portrait">
-              <div class="content">content</div>
-            </div>
-            <div>
-              <pre><code class="language-css">--mask-rectangle-portrait: linear-gradient(
+            <div class="sample">
+              <div class="box mask-rectangle-portrait">
+                <div class="content">content</div>
+              </div>
+              <div>
+                <pre><code class="language-css">--mask-rectangle-portrait: linear-gradient(
   to right,
   var(--near-transparent),
   var(--near-transparent) 70%,
@@ -208,214 +216,215 @@ mask:var(--mask-circle); </code></pre>
   var(--near-transparent) 0
 );
 mask: var(--mask-rectangle-portrait); </code></pre>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <h2>Two masks with <code>mask-composite</code></h2>
-      <section class="sample-section">
-        <div class="samples">
-          <div class="sample">
-            <div class="box-wrapper">
-              <div class="box mask-two">
-                <div class="content">content</div>
+        <h2>Two masks with <code>mask-composite</code></h2>
+        <section class="samples-section">
+          <div class="samples">
+            <div class="sample">
+              <div class="box-wrapper">
+                <div class="box mask-two">
+                  <div class="content">content</div>
+                </div>
+                <div class="mask-rectangle-landscape-outline"></div>
+                <div class="mask-circle-outline"></div>
               </div>
-              <div class="mask-rectangle-landscape-outline"></div>
-              <div class="mask-circle-outline"></div>
-            </div>
-            <div>
-              <pre><code class="language-css">mask:
+              <div>
+                <pre><code class="language-css">mask:
   var(--mask-rectangle-landscape),
   var(--mask-circle);</code></pre>
-              <p>default value is <code>mask-composite: add;</code></p>
-            </div>
-          </div>
-
-          <div class="sample">
-            <div class="box-wrapper">
-              <div class="box mask-two" style="mask-composite: subtract">
-                <div class="content">content</div>
+                <p>default value is <code>mask-composite: add;</code></p>
               </div>
-              <div class="mask-rectangle-landscape-outline"></div>
-              <div class="mask-circle-outline"></div>
             </div>
-            <div>
-              <pre><code class="language-css">mask:
+
+            <div class="sample">
+              <div class="box-wrapper">
+                <div class="box mask-two" style="mask-composite: subtract">
+                  <div class="content">content</div>
+                </div>
+                <div class="mask-rectangle-landscape-outline"></div>
+                <div class="mask-circle-outline"></div>
+              </div>
+              <div>
+                <pre><code class="language-css">mask:
   var(--mask-circle),
   var(--mask-rectangle-landscape);
 mask-composite: subtract;</code></pre>
-              <p></p>
-            </div>
-          </div>
-
-          <div class="sample">
-            <div class="box-wrapper">
-              <div
-                class="box mask-two"
-                style="
-                  mask: var(--mask-circle), var(--mask-rectangle-landscape);
-                  mask-composite: subtract;
-                "
-              >
-                <div class="content">content</div>
+                <p></p>
               </div>
-              <div class="mask-rectangle-landscape-outline"></div>
-              <div class="mask-circle-outline"></div>
             </div>
-            <div>
-              <pre><code class="language-css">mask:
+
+            <div class="sample">
+              <div class="box-wrapper">
+                <div
+                  class="box mask-two"
+                  style="
+                    mask: var(--mask-circle), var(--mask-rectangle-landscape);
+                    mask-composite: subtract;
+                  "
+                >
+                  <div class="content">content</div>
+                </div>
+                <div class="mask-rectangle-landscape-outline"></div>
+                <div class="mask-circle-outline"></div>
+              </div>
+              <div>
+                <pre><code class="language-css">mask:
   var(--mask-rectangle-landscape),
   var(--mask-circle);
 mask-composite: subtract;</code></pre>
-              <p></p>
-            </div>
-          </div>
-
-          <div class="sample">
-            <div class="box-wrapper">
-              <div class="box mask-two" style="mask-composite: intersect">
-                <div class="content">content</div>
+                <p></p>
               </div>
-              <div class="mask-rectangle-landscape-outline"></div>
-              <div class="mask-circle-outline"></div>
             </div>
-            <div>
-              <pre><code class="language-css">mask:
+
+            <div class="sample">
+              <div class="box-wrapper">
+                <div class="box mask-two" style="mask-composite: intersect">
+                  <div class="content">content</div>
+                </div>
+                <div class="mask-rectangle-landscape-outline"></div>
+                <div class="mask-circle-outline"></div>
+              </div>
+              <div>
+                <pre><code class="language-css">mask:
   var(--mask-rectangle-landscape),
   var(--mask-circle);
 mask-composite: intersect;</code></pre>
-              <p></p>
-            </div>
-          </div>
-
-          <div class="sample">
-            <div class="box-wrapper">
-              <div class="box mask-two" style="mask-composite: exclude">
-                <div class="content">content</div>
+                <p></p>
               </div>
-              <div class="mask-rectangle-landscape-outline"></div>
-              <div class="mask-circle-outline"></div>
             </div>
-            <div>
-              <pre><code class="language-css">mask:
+
+            <div class="sample">
+              <div class="box-wrapper">
+                <div class="box mask-two" style="mask-composite: exclude">
+                  <div class="content">content</div>
+                </div>
+                <div class="mask-rectangle-landscape-outline"></div>
+                <div class="mask-circle-outline"></div>
+              </div>
+              <div>
+                <pre><code class="language-css">mask:
   var(--mask-rectangle-landscape),
   var(--mask-circle);
 mask-composite: exclude;</code></pre>
-              <p></p>
+                <p></p>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <h2>Multiple masks with <code>mask-composite</code></h2>
-      <section class="sample-section">
-        <div class="samples">
-          <div class="sample">
-            <div class="box-wrapper">
-              <div class="box mask-three">
-                <div class="content">content</div>
+        <h2>Multiple masks with <code>mask-composite</code></h2>
+        <section class="samples-section">
+          <div class="samples">
+            <div class="sample">
+              <div class="box-wrapper">
+                <div class="box mask-three">
+                  <div class="content">content</div>
+                </div>
+                <div class="mask-rectangle-landscape-outline"></div>
+                <div class="mask-rectangle-portrait-outline"></div>
+                <div class="mask-circle-outline"></div>
               </div>
-              <div class="mask-rectangle-landscape-outline"></div>
-              <div class="mask-rectangle-portrait-outline"></div>
-              <div class="mask-circle-outline"></div>
-            </div>
-            <div>
-              <pre><code class="language-css">mask:
+              <div>
+                <pre><code class="language-css">mask:
   var(--mask-rectangle-landscape),
   var(--mask-rectangle-portrait),
   var(--mask-circle); </code></pre>
-              <p>default value is <code>mask-composite: add;</code></p>
+                <p>default value is <code>mask-composite: add;</code></p>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <h2>Multiple masks with <code>mask-composite: subtract</code></h2>
-      <section class="sample-section">
-        <div class="samples">
-          <div class="sample">
-            <div class="box-wrapper">
-              <div
-                class="box"
-                style="
-                  mask:
-                    var(--mask-rectangle-landscape), var(--mask-rectangle-portrait),
-                    var(--mask-circle);
-                  mask-composite: subtract;
-                "
-              >
-                <div class="content">content</div>
+        <h2>Multiple masks with <code>mask-composite: subtract</code></h2>
+        <section class="samples-section">
+          <div class="samples">
+            <div class="sample">
+              <div class="box-wrapper">
+                <div
+                  class="box"
+                  style="
+                    mask:
+                      var(--mask-rectangle-landscape), var(--mask-rectangle-portrait),
+                      var(--mask-circle);
+                    mask-composite: subtract;
+                  "
+                >
+                  <div class="content">content</div>
+                </div>
+                <div class="mask-rectangle-landscape-outline"></div>
+                <div class="mask-rectangle-portrait-outline"></div>
+                <div class="mask-circle-outline"></div>
               </div>
-              <div class="mask-rectangle-landscape-outline"></div>
-              <div class="mask-rectangle-portrait-outline"></div>
-              <div class="mask-circle-outline"></div>
-            </div>
-            <div>
-              <pre><code class="language-css">mask:
+              <div>
+                <pre><code class="language-css">mask:
   var(--mask-rectangle-landscape),
   var(--mask-rectangle-portrait),
   var(--mask-circle);
 mask-composite: subtract;</code></pre>
-              <p></p>
-            </div>
-          </div>
-
-          <div class="sample">
-            <div class="box-wrapper">
-              <div
-                class="box"
-                style="
-                  mask:
-                    var(--mask-rectangle-landscape), var(--mask-circle),
-                    var(--mask-rectangle-portrait);
-                  mask-composite: subtract;
-                "
-              >
-                <div class="content">content</div>
+                <p></p>
               </div>
-              <div class="mask-rectangle-landscape-outline"></div>
-              <div class="mask-rectangle-portrait-outline"></div>
-              <div class="mask-circle-outline"></div>
             </div>
-            <div>
-              <pre><code class="language-css">mask:
+
+            <div class="sample">
+              <div class="box-wrapper">
+                <div
+                  class="box"
+                  style="
+                    mask:
+                      var(--mask-rectangle-landscape), var(--mask-circle),
+                      var(--mask-rectangle-portrait);
+                    mask-composite: subtract;
+                  "
+                >
+                  <div class="content">content</div>
+                </div>
+                <div class="mask-rectangle-landscape-outline"></div>
+                <div class="mask-rectangle-portrait-outline"></div>
+                <div class="mask-circle-outline"></div>
+              </div>
+              <div>
+                <pre><code class="language-css">mask:
 var(--mask-rectangle-landscape),
 var(--mask-circle),
 var(--mask-rectangle-portrait);
 mask-composite: subtract;</code></pre>
-              <p></p>
+                <p></p>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <h2>Backgrounds with <code>background-clip</code></h2>
-      <section class="sample-section">
-        <div class="samples">
-          <div class="sample">
-            <div class="box img"></div>
-            <div></div>
-          </div>
+        <h2>Backgrounds with <code>background-clip</code></h2>
+        <section class="samples-section">
+          <div class="samples">
+            <div class="sample">
+              <div class="box img"></div>
+              <div></div>
+            </div>
 
-          <div class="sample">
-            <div class="box img bg-padding"></div>
-            <div>
-              <code>background-clip: padding-box;</code>
+            <div class="sample">
+              <div class="box img bg-padding"></div>
+              <div>
+                <code>background-clip: padding-box;</code>
+              </div>
+            </div>
+
+            <div class="sample">
+              <div class="box img bg-content"></div>
+              <div>
+                <code>background-clip: content-box;</code>
+              </div>
             </div>
           </div>
-
-          <div class="sample">
-            <div class="box img bg-content"></div>
-            <div>
-              <code>background-clip: content-box;</code>
-            </div>
-          </div>
-        </div>
-      </section>
-      <!-- https://twitter.com/jh3yy/status/1752903535488823789
+        </section>
+        <!-- https://twitter.com/jh3yy/status/1752903535488823789
   https://codepen.io/jh3y/pen/rNRdLWX?editors=0100
   https://twitter.com/jh3yy/status/1715457164091785663 -->
+      </main>
     </div>
     <script src="../lib/prism/prism.js"></script>
   </body>

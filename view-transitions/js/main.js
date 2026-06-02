@@ -15,20 +15,19 @@ function addKeyListeners() {
     const matches = e.code.match(regex);
     if (e.code.match(regex)) {
       const idx = matches[1];
-      const section = document.querySelector(`[data-sample-section-${idx}]`);
+      const section = document.querySelector(`[data-samples-section-${idx}]`);
       toggleSamples(section);
     }
   });
 }
 
 function addTriggerListeners() {
-  document.querySelectorAll('.trigger-button')
-    .forEach(btn => {
-      btn.addEventListener('click', e => {
-        const section = btn.closest('.sample-section');
-        toggleSamples(section);
-      });
-    })
+  document.querySelectorAll('.trigger-button').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      const section = btn.closest('.samples-section');
+      toggleSamples(section);
+    });
+  });
 }
 
 // init duration pickers
@@ -40,29 +39,29 @@ function initDurationPickers() {
       id: 'duration-picker-section-3',
       varSuffix: 'section-3',
       durations: [
-        { value: '250ms', label: '250ms (default)', },
-        { value: '1s', label: '1s', },
-        { value: '3s', label: '3s', },
-      ]
+        { value: '250ms', label: '250ms (default)' },
+        { value: '1s', label: '1s' },
+        { value: '3s', label: '3s' },
+      ],
     },
     {
       id: 'duration-picker-section-4',
       varSuffix: 'section-4',
       durations: [
-        { value: '250ms', label: '250ms (default)', },
-        { value: '3s', label: '3s', },
-      ]
+        { value: '250ms', label: '250ms (default)' },
+        { value: '3s', label: '3s' },
+      ],
     },
     {
       id: 'duration-picker-section-5',
       varSuffix: 'async-section-5',
       durations: [
-        { value: '250ms', label: '250ms (default)', },
-        { value: '500ms', label: '500ms', },
-        { value: '3s', label: '3s', },
-      ]
+        { value: '250ms', label: '250ms (default)' },
+        { value: '500ms', label: '500ms' },
+        { value: '3s', label: '3s' },
+      ],
     },
-  ]
+  ];
   pickersConfig.forEach(createPicker);
 }
 
@@ -71,27 +70,27 @@ function createPicker(pickerConfig) {
   const picker = document.createElement('span');
   pickerConfig.durations.forEach((duration, i) => {
     addPickerRadio({ picker, pickerConfig, duration, i });
-  })
+  });
   container.appendChild(picker);
   handleSelectDuration(picker, pickerConfig.varSuffix);
 }
 
 function addPickerRadio({ picker, pickerConfig, duration, i }) {
   const radio = document.createElement('input');
-  const groupName = `duration-picker-radio-${pickerConfig.varSuffix}`
-  const id = `${groupName}-${i}`
+  const groupName = `duration-picker-radio-${pickerConfig.varSuffix}`;
+  const id = `${groupName}-${i}`;
   radio.setAttribute('type', 'radio');
   radio.setAttribute('name', groupName);
   radio.setAttribute('value', duration.value);
-  radio.setAttribute('id', id)
+  radio.setAttribute('id', id);
   if (i === 0) {
     radio.setAttribute('checked', 'checked');
   }
   radio.addEventListener('click', () => {
     handleSelectDuration(picker, pickerConfig.varSuffix);
-  })
+  });
   const label = document.createElement('label');
-  label.setAttribute('for', id)
+  label.setAttribute('for', id);
   label.textContent = duration.label;
 
   picker.appendChild(radio);
@@ -110,16 +109,16 @@ function toggleSamplesClass(samples) {
 function toggleSamples(section) {
   if (section) {
     const samples = section.querySelector('.samples');
-    const transition = document.startViewTransition(() => toggleSamplesClass(samples))
+    const transition = document.startViewTransition(() => toggleSamplesClass(samples));
 
     // transition.updateCallbackDone.then(() => {
     //   console.log('updateCallbackDone - callback function called');
     // })
-  
+
     // transition.ready.then(() => {
     //   console.log('ready - pseudo element tree is created');
     // })
-  
+
     // transition.ready.then(() => {
     //   console.log('finished - animation is finished; new page view is interactive');
     // })
