@@ -117,8 +117,8 @@
     rotate: 30deg;
   }
   100% {
-    opacity: 0;
     display: none;
+    opacity: 0;
     rotate: 0deg;
   }
 }
