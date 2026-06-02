@@ -1,0 +1,11 @@
+.link-list {
+  list-style: none;
+  width: 90%;
+  max-width: 40rem;
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  color: var(--color-link);
+}
