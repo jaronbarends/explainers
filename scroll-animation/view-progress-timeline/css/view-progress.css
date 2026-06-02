@@ -12,7 +12,7 @@
 
 .scroll-container {
   height: var(--example-height);
-  background: rgba(0, 0, 0, 0.1);
+  background: var(--bg-color-secondary);
   overflow-y: scroll;
 }
 
@@ -35,7 +35,7 @@
 .subject {
   position: relative;
   margin: var(--example-height) 0;
-  border: 1px dotted;
+  border: 2px dotted var(--color-primary);
   height: 100px;
   background: rgba(0, 0, 0, 0.1);
 }
@@ -44,7 +44,7 @@
   margin: 0 auto;
   width: 0;
   height: 100%;
-  background: green;
+  background: var(--color-primary);
   animation: grow forwards;
   animation-timeline: view();
 }
@@ -64,7 +64,7 @@
 .area-20-80 {
   position: absolute;
   margin: 0;
-  border: 1px dashed;
+  border: 2px dashed white;
   border-right: none;
   border-left: none;
   inset: 20% 0 20%;
@@ -76,6 +76,10 @@
     top: 0;
     left: 2rem;
     translate: 0 -50%;
+    padding-inline: 0.25rem;
+    border-radius: 0.25rem;
+    background: white;
+    color: var(--color-primary);
   }
 
   &::after {
