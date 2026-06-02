@@ -11,6 +11,7 @@ function initToggleButtons() {
 function handleToggle(e) {
   const button = e.currentTarget;
   const box = document.getElementById(button.getAttribute('aria-controls'));
+  button.setAttribute('aria-expanded', !button.getAttribute('aria-expanded'));
   box.classList.toggle('is-visible');
 }
 
