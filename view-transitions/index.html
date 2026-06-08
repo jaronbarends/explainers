@@ -26,7 +26,7 @@
           </p>
         </div>
 
-        <section class="samples-section" data-samples-section-0>
+        <section class="samples-section">
           <h2>View transitions 101</h2>
           <p>
             (A lot of this page's info comes from
@@ -80,6 +80,56 @@ function toggleSamplesClass(samples) {
 }</code></pre>
         </section>
 
+        <section class="samples-section" data-samples-section-0>
+          <h2>Adding elements</h2>
+
+          <div class="section-controls">
+            <div class="section-control">
+              <button id="add-item-button">Add item</button>
+            </div>
+            <div class="section-control">
+              <div
+                class="duration-picker"
+                id="duration-picker-section-adding-items"
+                data-duration-picker
+                data-duration-var-suffix="section-adding-items"
+              ></div>
+            </div>
+          </div>
+
+          <div class="samples">
+            <div class="sample">
+              <div class="preview">
+                <ul id="dynamic-list" class="dynamic-list">
+                  <li class="dynamic-list__item">Item 1</li>
+                  <li class="dynamic-list__item">Item 2</li>
+                  <li class="dynamic-list__item">Item 3</li>
+                </ul>
+              </div>
+              <div class="explanation">
+                <pre><code class="language-css">{
+}</code></pre>
+              </div>
+            </div>
+
+            <div class="sample">
+              <div class="box move"></div>
+              <div class="explanation">
+                <pre><code class="language-css">/* .box with additional class for moving */
+
+.box.move {
+	/* no view-transition-name specified */
+
+  .samples--alt  & {
+    /* will not animate in root transition group */
+    transform: translateX(100%);
+  }
+}</code></pre>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <section class="samples-section" data-samples-section-1>
           <h2>Basic transitions - transitioning all elements</h2>
           <p>
@@ -108,7 +158,7 @@ function toggleSamplesClass(samples) {
 
           <div class="section-controls">
             <div class="section-control">
-              <button class="trigger-button">Toggle state</button> (or press <kbd>1</kbd>)
+              <button data-toggle-button>Toggle state</button> (or press <kbd>1</kbd>)
             </div>
           </div>
 
@@ -179,7 +229,7 @@ here without view-transition-name */
 
           <div class="section-controls">
             <div class="section-control">
-              <button class="trigger-button">Toggle state</button> (or press <kbd>2</kbd>)
+              <button data-toggle-button>Toggle state</button> (or press <kbd>2</kbd>)
             </div>
           </div>
 
@@ -239,7 +289,7 @@ here without view-transition-name */
 
           <div class="section-controls">
             <div class="section-control">
-              <button class="trigger-button">Toggle state</button> (or press <kbd>3</kbd>)
+              <button data-toggle-button>Toggle state</button> (or press <kbd>3</kbd>)
             </div>
 
             <div class="section-control">
@@ -333,7 +383,7 @@ here without view-transition-name */
           <h2>Pseudo-elements that can be animated</h2>
           <div class="section-controls">
             <div class="section-control">
-              <button class="trigger-button">Toggle state</button> (or press <kbd>4</kbd>)
+              <button data-toggle-button>Toggle state</button> (or press <kbd>4</kbd>)
             </div>
 
             <div class="section-control">
@@ -537,7 +587,7 @@ here without view-transition-name */
           <h2>Custom duration for <code>::...-image-pair</code></h2>
           <div class="section-controls">
             <div class="section-control">
-              <button class="trigger-button">Toggle state</button> (or press <kbd>5</kbd>)
+              <button data-toggle-button>Toggle state</button> (or press <kbd>5</kbd>)
             </div>
 
             <div class="section-control">
@@ -607,9 +657,9 @@ here without view-transition-name */
           </p>
           <h3>Custom properties in view-transitions</h3>
           <p>
-            if you want to use a css var in view-transition, it has to be defined at :root. This is
-            because the pseudo elements are part of the document, not of the body. For setting with
-            js, use
+            if you want to use a css var in view-transition (like we do with
+            <code>--duration</code> on this page), it has to be defined at :root. This is because
+            the pseudo elements are part of the document, not of the body. For setting with js, use
             <code>document.documentElement.style.setProperty('--some-prop', value);</code>
           </p>
           <h3>Static vs live representation in snapshots</h3>

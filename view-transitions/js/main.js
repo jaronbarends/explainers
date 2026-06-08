@@ -22,12 +22,14 @@ function addKeyListeners() {
 }
 
 function addTriggerListeners() {
-  document.querySelectorAll('.trigger-button').forEach((btn) => {
+  document.querySelectorAll('[data-toggle-button]').forEach((btn) => {
     btn.addEventListener('click', (e) => {
       const section = btn.closest('.samples-section');
       toggleSamples(section);
     });
   });
+
+  document.getElementById('add-item-button').addEventListener('click', addListItem);
 }
 
 // init duration pickers
@@ -57,6 +59,15 @@ function initDurationPickers() {
     {
       id: 'duration-picker-section-5',
       varSuffix: 'async-section-5',
+      durations: [
+        { value: '250ms', label: '250ms (default)' },
+        { value: '500ms', label: '500ms' },
+        { value: '3s', label: '3s' },
+      ],
+    },
+    {
+      id: 'duration-picker-section-adding-items',
+      varSuffix: 'section-adding-items',
       durations: [
         { value: '250ms', label: '250ms (default)' },
         { value: '500ms', label: '500ms' },
@@ -118,16 +129,34 @@ function toggleSamples(section) {
     }
     const transition = document.startViewTransition(() => toggleSamplesClass(samples));
 
-    transition.updateCallbackDone.then(() => {
-      console.log('updateCallbackDone - callback function called');
-    });
+    // transition.updateCallbackDone.then(() => {
+    //   console.log('updateCallbackDone - callback function called');
+    // });
 
-    transition.ready.then(() => {
-      console.log('ready - pseudo element tree is created');
-    });
+    // transition.ready.then(() => {
+    //   console.log('ready - pseudo element tree is created');
+    // });
 
-    transition.finished.then(() => {
-      console.log('finished - animation is finished; new page view is interactive');
-    });
+    // transition.finished.then(() => {
+    //   console.log('finished - animation is finished; new page view is interactive');
+    // });
   }
+}
+
+function addListItem() {
+  const list = document.getElementById('dynamic-list');
+  const li = document.createElement('li');
+  const newItemClassName = 'dynamic-list__item--new-item';
+  li.classList.add('dynamic-list__item', newItemClassName);
+  li.textContent = `Item ${list.children.length + 1}`;
+
+  // const second = list.querySelector(':nth-child(2)');
+
+  const transition = document.startViewTransition(() => {
+    list.appendChild(li);
+    // second.after(li);
+  });
+  transition.finished.then(() => {
+    li.classList.remove(newItemClassName);
+  });
 }
