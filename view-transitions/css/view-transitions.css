@@ -6,13 +6,13 @@
   height: 100px;
   background: var(--color-primary);
 
-  .samples--alt  & {
-    background: var(--color-secondary); 
+  .samples--alt & {
+    background: var(--color-secondary);
   }
 }
 
 .move {
-  .samples--alt  & {
+  .samples--alt & {
     transform: translateX(100%);
   }
 }
@@ -23,12 +23,18 @@
 
 /* section 2: targeting individual elements */
 
-.move.has-transition-name { view-transition-name: box-move; }
+.move.has-transition-name {
+  view-transition-name: box-move;
+}
 
 /* section 3: adjusting duration */
 
-.adjusted-duration { view-transition-name: adjusted-duration; }
-.adjusted-duration-2 { view-transition-name: adjusted-duration-2; }
+.adjusted-duration {
+  view-transition-name: adjusted-duration;
+}
+.adjusted-duration-2 {
+  view-transition-name: adjusted-duration-2;
+}
 
 ::view-transition-group(adjusted-duration),
 ::view-transition-group(adjusted-duration-2) {
@@ -36,11 +42,14 @@
   animation-duration: var(--duration-section-3);
 }
 
-.move.has-transition-name-2 { view-transition-name: box-move-2; }
-
+.move.has-transition-name-2 {
+  view-transition-name: box-move-2;
+}
 
 /* section 4 */
-.move.has-transition-name-section-4 { view-transition-name: section-4-sample-1; }
+.move.has-transition-name-section-4 {
+  view-transition-name: section-4-sample-1;
+}
 
 ::view-transition-group(section-4-sample-1),
 ::view-transition-group(box-move-scale),
@@ -51,21 +60,36 @@
 }
 
 @keyframes scale-down {
-  0%,
-  100% { scale: 1; }
-  50% { scale: 0.7; }
+  0% {
+    scale: 1;
+  }
+  50% {
+    scale: 0.7;
+  }
+  100% {
+    scale: 1;
+  }
 }
 
 @keyframes scale-up {
   0%,
-  100% { scale: 1; }
-  50% { scale: 1.25; }
+  100% {
+    scale: 1;
+  }
+  50% {
+    scale: 1.25;
+  }
 }
 
 @keyframes scale-rotated {
   0%,
-  100% { scale: 1; rotate: 90deg; }
-  50% { scale: 0.7; }
+  100% {
+    scale: 1;
+    rotate: 90deg;
+  }
+  50% {
+    scale: 0.7;
+  }
 }
 
 .move.scale {
@@ -93,54 +117,63 @@
 }
 
 /* section 4.4 */
-  .move.scale-old-new.has-outline {
-    view-transition-name: box-move-scale-old-new-has-outline;
-  }
+.move.scale-old-new.has-outline {
+  view-transition-name: box-move-scale-old-new-has-outline;
+}
 
-  ::view-transition-group(box-move-scale-old-new-has-outline) {
-    outline: 4px solid black;
-  }
+::view-transition-group(box-move-scale-old-new-has-outline) {
+  outline: 4px solid black;
+}
 
-  ::view-transition-old(box-move-scale-old-new-has-outline),
-  ::view-transition-new(box-move-scale-old-new-has-outline) {
-    animation: scale-down ease-in-out;
-    animation-duration: inherit;
-    outline: 4px solid deepskyblue;
-  }
-  ::view-transition-new(box-move-scale-old-new-has-outline) {
-    outline-color: orange;
-  }
+::view-transition-old(box-move-scale-old-new-has-outline),
+::view-transition-new(box-move-scale-old-new-has-outline) {
+  animation: scale-down ease-in-out;
+  animation-duration: inherit;
+  outline: 4px solid deepskyblue;
+}
+::view-transition-new(box-move-scale-old-new-has-outline) {
+  outline-color: orange;
+}
 
 /* section 4.5 */
-  .move.scale-old-new-independently.has-outline {
-    view-transition-name: scale-old-new-independently;
-  }
+.move.scale-old-new-independently.has-outline {
+  view-transition-name: scale-old-new-independently;
+}
 
-  ::view-transition-group(scale-old-new-independently) {
-    outline: 4px solid black;
-  }
+::view-transition-group(scale-old-new-independently) {
+  outline: 4px solid black;
+}
 
-  ::view-transition-old(scale-old-new-independently),
-  ::view-transition-new(scale-old-new-independently) {
-    animation: scale-up ease-in-out;
-    animation-duration: inherit;
-    outline: 4px solid deepskyblue;
-    opacity: 0.7;
-  }
-  ::view-transition-new(scale-old-new-independently) {
-    animation-name: scale-down;
-    outline-color: orange;
-  }
-
+::view-transition-old(scale-old-new-independently),
+::view-transition-new(scale-old-new-independently) {
+  animation: scale-up ease-in-out;
+  animation-duration: inherit;
+  outline: 4px solid deepskyblue;
+  opacity: 0.7;
+}
+::view-transition-new(scale-old-new-independently) {
+  animation-name: scale-down;
+  outline-color: orange;
+}
 
 /* section 5 */
 
 @keyframes scale-down-bounce {
-  0% { scale: 1; }
-  25% { scale: 0.8; }
-  60% { scale: 1.1; }
-  80% { scale: 0.95; }
-  100% { scale: 1; }
+  0% {
+    scale: 1;
+  }
+  25% {
+    scale: 0.8;
+  }
+  60% {
+    scale: 1.1;
+  }
+  80% {
+    scale: 0.95;
+  }
+  100% {
+    scale: 1;
+  }
 }
 
 .move.scale-async {
@@ -153,5 +186,3 @@
   /* animation: scale-down-bounce 0.6s ease-in-out; */
   animation: scale-down-bounce var(--duration-async-section-5, inherit) ease-in-out;
 }
-
-

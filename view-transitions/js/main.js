@@ -42,6 +42,7 @@ function initDurationPickers() {
         { value: '250ms', label: '250ms (default)' },
         { value: '1s', label: '1s' },
         { value: '3s', label: '3s' },
+        { value: '300s', label: '300s' },
       ],
     },
     {
@@ -50,6 +51,7 @@ function initDurationPickers() {
       durations: [
         { value: '250ms', label: '250ms (default)' },
         { value: '3s', label: '3s' },
+        { value: '300s', label: '300s' },
       ],
     },
     {
@@ -109,6 +111,11 @@ function toggleSamplesClass(samples) {
 function toggleSamples(section) {
   if (section) {
     const samples = section.querySelector('.samples');
+    if (!document.startViewTransition) {
+      // fallback for browsers that don't have support
+      toggleSamplesClass(data);
+      return;
+    }
     const transition = document.startViewTransition(() => toggleSamplesClass(samples));
 
     transition.updateCallbackDone.then(() => {
