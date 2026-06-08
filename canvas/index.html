@@ -27,7 +27,7 @@
               <div class="explanation">
                 <h2><code>rect</code></h2>
                 Basic example: <code class="language-js">fillRect(x, y, width, height);</code>
-                <pre><code class="language-js">const canvas = document.getElementById('canvas-1a');
+                <pre><code class="language-js">const canvas = document.getElementById('canvas-fillRect');
 const ctx = canvas.getContext('2d');
 
 ctx.fillStyle = 'rgb(200, 0, 0)';
@@ -45,7 +45,10 @@ ctx.fillRect(60, 60, 100, 100);
                 <h2><code>moveTo</code>, <code>lineTo</code></h2>
                 <code class="language-js">moveTo(x, y);</code>
                 <code class="language-js">lineTo(x, y);</code>
-                <pre><code class="language-js">ctx.strokeStyle = 'hotpink';
+                <pre><code class="language-js">const canvas = document.getElementById('canvas-lineTo');
+const ctx = canvas.getContext('2d');
+
+ctx.strokeStyle = 'hotpink';
 ctx.lineWidth = 4;
 ctx.beginPath();
 ctx.moveTo(10, 10);
@@ -62,9 +65,12 @@ ctx.stroke();
               <div class="explanation">
                 <h2>(part of) circle: <code>arc</code></h2>
                 <code class="language-js"
-                  >arc(cx, cy, startAngle, endAngle [, couterclockwise]);</code
+                  >arc(cx, cy, radius, startAngle, endAngle [, counterclockwise]);</code
                 >
-                <pre><code class="language-js">ctx.strokeStyle = 'hotpink';
+                <pre><code class="language-js">const canvas = document.getElementById('canvas-arc');
+const ctx = canvas.getContext('2d');
+
+ctx.strokeStyle = 'hotpink';
 ctx.lineWidth = 4;
 ctx.beginPath();
 ctx.arc(100, 100, 40, 0, 2 * Math.PI);
@@ -74,12 +80,13 @@ ctx.stroke();
             </div>
 
             <div class="sample">
-              <canvas width="200" height="200" id="canvas-arc-no-beginPath">
-                fallback content
-              </canvas>
+              <canvas width="200" height="200" id="canvas-arc-beginPath"> fallback content </canvas>
               <div class="explanation">
                 <h2><code>beginPath</code></h2>
-                <pre><code class="language-js">ctx.strokeStyle = 'hotpink';
+                <pre><code class="language-js">const canvas = document.getElementById('canvas-arc-beginPath');
+const ctx = canvas.getContext('2d');
+
+ctx.strokeStyle = 'hotpink';
 ctx.lineWidth = 4;
 ctx.beginPath();
 ctx.arc(50, 50, 40, 0, 2 * Math.PI)
@@ -107,7 +114,10 @@ ctx.stroke();
               <div class="explanation">
                 <h2><code>bezierCurveTo</code></h2>
                 <code class="language-js">bezierCurveTo(cp1x, cp1y, cp2x, cp2y, xEnd, yEnd);</code>
-                <pre><code class="language-js">const xStart = 20;
+                <pre><code class="language-js">const canvas = document.getElementById('canvas-bezierCurveTo');
+const ctx = canvas.getContext('2d');
+
+const xStart = 20;
 const yStart =100;
 const xEnd = 180;
 const yEnd = 100;

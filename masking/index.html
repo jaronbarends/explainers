@@ -103,7 +103,7 @@ mask-clip: padding-box;</code></pre>
               <div>
                 <pre><code class="language-css">mask: repeating-linear-gradient(black, transparent 50px);
 mask-clip: content-box;</code></pre>
-                <p><code>mask</code> and <code>background-clip</code></p>
+                <p><code>mask</code> and <code>mask-clip</code></p>
                 <ul>
                   <li>
                     when <code>mask-origin</code> is not set, mask is applied to entire element
@@ -138,7 +138,7 @@ mask-clip: content-box;</code></pre>
                 <pre><code class="language-css">mask: repeating-linear-gradient(black, transparent 50px);
 mask-clip: padding-box;
 mask-origin: padding-box;</code></pre>
-                <p><code>mask</code> and <code>background-clip</code></p>
+                <p><code>mask</code> and <code>mask-clip</code></p>
                 <ul>
                   <li>
                     when <code>mask-origin</code> is not set, mask is applied to entire element
@@ -156,7 +156,7 @@ mask-origin: padding-box;</code></pre>
                 <pre><code class="language-css">mask: repeating-linear-gradient(black, transparent 50px);
 mask-clip: content-box;
 mask-origin: content-box;</code></pre>
-                <p><code>mask</code> and <code>background-clip</code></p>
+                <p><code>mask</code> and <code>mask-clip</code></p>
                 <ul>
                   <li>everything outside of mask-clip-area is masked</li>
                 </ul>
@@ -221,8 +221,8 @@ mask: var(--mask-rectangle-portrait); </code></pre>
           </div>
         </section>
 
-        <h2>Two masks with <code>mask-composite</code></h2>
         <section class="samples-section">
+          <h2>Two masks with <code>mask-composite</code></h2>
           <div class="samples">
             <div class="sample">
               <div class="box-wrapper">

@@ -71,6 +71,11 @@ html {
   overflow-x: hidden;
   overflow-y: scroll;
   max-height: 20rem;
+
+  pre {
+    /* otherwise, with class="text-content", pre gets vertical scrollbar */
+    flex: 0 0;
+  }
 }
 
 .overflow-section--page-timeline {

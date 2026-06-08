@@ -17,7 +17,7 @@
         <a href="../" class="back-link">&laquo; Back to explainers</a>
       </header>
       <main>
-        <div class="page-intro">
+        <div class="text-content">
           <h1>View transitions</h1>
           <h2>How the examples work</h2>
           <p>
@@ -36,8 +36,8 @@
           </p>
           <p>
             You start a view-transition by calling
-            <code>document.startViewTransition(() => updateTheDOMSomehow(data))</code>. The callback
-            function you pass to it is responsible for changing the DOM. When you call
+            <code>document.startViewTransition(() =&gt; updateTheDOMSomehow(data))</code>. The
+            callback function you pass to it is responsible for changing the DOM. When you call
             <code>document.startViewTransition()</code>, the browser creates snapshots of the
             current page and the new page. It then disables the page's interactions, and creates a
             tree of pseudo-elements containing the snapshots. It then animates those
@@ -579,13 +579,15 @@ here without view-transition-name */
           </div>
         </section>
 
-        <h2>Gotchas</h2>
-        <p>
-          if you want to use a css var in view-transition, it has to be defined at :root. This is
-          because the pseudo elements are part of the document, not of the body. For setting with
-          js, use
-          <code>document.documentElement.style.setProperty('--some-prop', value);</code>
-        </p>
+        <section class="text-content">
+          <h2>Gotchas</h2>
+          <p>
+            if you want to use a css var in view-transition, it has to be defined at :root. This is
+            because the pseudo elements are part of the document, not of the body. For setting with
+            js, use
+            <code>document.documentElement.style.setProperty('--some-prop', value);</code>
+          </p>
+        </section>
       </main>
     </div>
     <script src="js/main.js"></script>

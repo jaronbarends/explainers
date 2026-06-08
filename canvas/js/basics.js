@@ -33,19 +33,19 @@ export function drawCanvasArc() {
 }
 
 export function drawCanvasArcNoBeginPath() {
-  const ctx = getCtx('canvas-arc-no-beginPath');
+  const ctx = getCtx('canvas-arc-beginPath');
   ctx.strokeStyle = 'hotpink';
   ctx.lineWidth = 4;
   ctx.beginPath();
-  ctx.arc(50, 50, 40, 0, 2 * Math.PI)
+  ctx.arc(50, 50, 40, 0, 2 * Math.PI);
   ctx.stroke();
   ctx.strokeStyle = 'deepskyblue';
-  ctx.arc(150, 80, 40, 0, 2 * Math.PI)
+  ctx.arc(150, 80, 40, 0, 2 * Math.PI);
   ctx.stroke();
-  
+
   ctx.beginPath();
   ctx.strokeStyle = 'darkorange';
-  ctx.arc(70, 150, 40, 0, 2 * Math.PI)
+  ctx.arc(70, 150, 40, 0, 2 * Math.PI);
   ctx.stroke();
 }
 
@@ -53,7 +53,7 @@ export function drawCanvasBezierCurveTo() {
   const ctx = getCtx('canvas-bezierCurveTo');
   // starting point
   const xStart = 20;
-  const yStart =100;
+  const yStart = 100;
   const xEnd = 180;
   const yEnd = 100;
   const cp1x = 60;

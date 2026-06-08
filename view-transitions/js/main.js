@@ -111,16 +111,16 @@ function toggleSamples(section) {
     const samples = section.querySelector('.samples');
     const transition = document.startViewTransition(() => toggleSamplesClass(samples));
 
-    // transition.updateCallbackDone.then(() => {
-    //   console.log('updateCallbackDone - callback function called');
-    // })
+    transition.updateCallbackDone.then(() => {
+      console.log('updateCallbackDone - callback function called');
+    });
 
-    // transition.ready.then(() => {
-    //   console.log('ready - pseudo element tree is created');
-    // })
+    transition.ready.then(() => {
+      console.log('ready - pseudo element tree is created');
+    });
 
-    // transition.ready.then(() => {
-    //   console.log('finished - animation is finished; new page view is interactive');
-    // })
+    transition.finished.then(() => {
+      console.log('finished - animation is finished; new page view is interactive');
+    });
   }
 }
