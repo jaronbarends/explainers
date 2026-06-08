@@ -19,7 +19,7 @@
       <main>
         <h1>Animating with <code>display</code></h1>
 
-        <section class="sample-section sample-section--rows">
+        <section class="samples-section samples-section--rows">
           <h2>TL;DR: add 3 things</h2>
           <div class="samples">
             <!-- #############################################
@@ -70,7 +70,7 @@
           </div>
         </section>
 
-        <section>
+        <section class="text-content">
           <h2>About discrete properties</h2>
           <p>
             Some properties in css are <em>discrete</em>, meaning they can't interpolate between
@@ -86,7 +86,7 @@
           </p>
         </section>
 
-        <section class="sample-section sample-section--rows">
+        <section class="samples-section samples-section--rows">
           <h2>Step by step</h2>
 
           <!--  #############################################
@@ -260,9 +260,8 @@
                 <p>
                   For keyframe animations, you don't need to use <code>@starting-style</code>,
                   <code>transition-property: display</code> or <code>allow-discrete</code>. For
-                  entry animations, you can simply use <code>display: block</code> on the first
-                  keyframe. For exit animations, you can simply use <code>display: none</code> on
-                  the last keyframe.
+                  entry animations, add <code>display: block</code> on the first keyframe. For exit
+                  animations, you need to add <code>display: none</code> on the last keyframe.
                 </p>
                 <p>
                   Entry animations work in all major browsers; exit animations have

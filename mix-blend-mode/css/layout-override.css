@@ -1,33 +1,33 @@
 :root {
-	--sample-width: 200px;
-	--samples-per-row: 2;
-	--samples-column-width: calc(2 * var(--sample-width) + var(--samples-gap));
+  --sample-width: 200px;
+  --samples-per-row: 2;
+  --samples-column-width: calc(2 * var(--sample-width) + var(--samples-column-gap));
 }
 
 .o-content-width {
-	margin: 0 auto;
-	max-width: 95vw;
+  margin: 0 auto;
+  max-width: 95vw;
 }
 
-
-.sample-section {
-	/*
+.samples-section {
+  /*
 	In most explainers:
-	.sample-section
+	.samples-section
 		.samples
 			.sample
 				.explanation
 	Here:
-		.sample-section
+		.samples-section
 			.samples
 				.sample
 				.sample
 		.explanation
 	*/
-	display: flex;
-	gap: var(--samples-gap);
+  display: flex;
+  flex-direction: row;
+  gap: var(--samples-row-gap);
 
-	@media (max-width: 50rem) {
-		flex-direction: column;
-	}
+  @media (max-width: 50rem) {
+    flex-direction: column;
+  }
 }

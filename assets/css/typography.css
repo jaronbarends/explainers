@@ -36,7 +36,7 @@ textarea {
 }
 
 p {
-  margin: 0 0 1em;
+  margin: 0;
   font-size: 1rem;
 }
 
@@ -54,7 +54,7 @@ pre {
 
   &::after {
     position: absolute;
-    content: "";
+    content: '';
     display: block;
     inset: 0.1em 0;
     border-radius: 0.25em;
@@ -69,7 +69,7 @@ code {
 }
 
 pre,
-pre > code[class*="language-"] {
+pre > code[class*='language-'] {
   /* override prism.css white-space: pre; */
   white-space: pre-wrap;
 }

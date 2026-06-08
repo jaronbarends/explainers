@@ -1,5 +1,6 @@
 <!doctype html>
-<html lang="en">  <head>
+<html lang="en">
+  <head>
     <meta charset="UTF-8" />
 
     <title>View transitions</title>
@@ -12,52 +13,49 @@
 
   <body>
     <div class="o-content-width">
-      <a href="../" class="back-link">&laquo; Back to explainers</a>
-      <h1>View transitions</h1>
-      <h2>How the examples work</h2>
-      <p>
-        Clicking the change-button will add the class
-        <code>samples--alt</code> to this list of samples, changing the styling
-        of the boxes.
-      </p>
+      <header>
+        <a href="../" class="back-link">&laquo; Back to explainers</a>
+      </header>
+      <main>
+        <div class="text-content">
+          <h1>View transitions</h1>
+          <h2>How the examples work</h2>
+          <p>
+            Clicking the change-button will add the class
+            <code>samples--alt</code> to this list of samples, changing the styling of the boxes.
+          </p>
+        </div>
 
-      <section class="sample-section" data-sample-section-0>
-        <h2>View transitions 101</h2>
-        <p>
-          (A lot of this page's info comes from
-          <a
-            href="https://developer.chrome.com/docs/web-platform/view-transitions/same-document"
-            >https://developer.chrome.com/docs/web-platform/view-transitions/same-document</a
-          >)
-        </p>
-        <p>
-          You start a view-transition by calling
-          <code
-            >document.startViewTransition(() => updateTheDOMSomehow(data))</code
-          >. The callback function you pass to it is responsible for changing
-          the DOM. When you call <code>document.startViewTransition()</code>,
-          the browser creates snapshots of the current page and the new page. It
-          then disables the page's interactions, and creates a tree of
-          pseudo-elements containing the snapshots. It then animates those
-          pseudo-elements, and finally removes them. The generated tree looks
-          like this:
-        </p>
-        <pre
-><code class="language-markup">::view-transition
+        <section class="samples-section" data-samples-section-0>
+          <h2>View transitions 101</h2>
+          <p>
+            (A lot of this page's info comes from
+            <a href="https://developer.chrome.com/docs/web-platform/view-transitions/same-document"
+              >https://developer.chrome.com/docs/web-platform/view-transitions/same-document</a
+            >)
+          </p>
+          <p>
+            You start a view-transition by calling
+            <code>document.startViewTransition(() =&gt; updateTheDOMSomehow(data))</code>. The
+            callback function you pass to it is responsible for changing the DOM. When you call
+            <code>document.startViewTransition()</code>, the browser creates snapshots of the
+            current page and the new page. It then disables the page's interactions, and creates a
+            tree of pseudo-elements containing the snapshots. It then animates those
+            pseudo-elements, and finally removes them. The generated tree looks like this:
+          </p>
+          <pre><code class="language-markup">::view-transition
 └─ ::view-transition-group(root)
    └─ ::view-transition-image-pair(root)
       ├─ ::view-transition-old(root)
       └─ ::view-transition-new(root)</code></pre>
-        <h3>How this page's DOM update function works</h3>
-        <p>
-          On this page, all the samples are within a
-          <code>.samples</code> container. the callback function simply toggles
-          the class <code>samples--alt</code> on the container. For every sample
-          I've defined how the samples should look with and without the
-          <code>samples--alt</code> class.
-        </p>
-        <pre
-><code class="language-js">function toggleSamples(section) {
+          <h3>How this page's DOM update function works</h3>
+          <p>
+            On this page, all the samples are within a
+            <code>.samples</code> container. the callback function simply toggles the class
+            <code>samples--alt</code> on the container. For every sample I've defined how the
+            samples should look with and without the <code>samples--alt</code> class.
+          </p>
+          <pre><code class="language-js">function toggleSamples(section) {
   if (section) {
     const samples = section.querySelector('.samples');
     document.startViewTransition(() => toggleSamplesClass(samples));
@@ -67,47 +65,43 @@
 function toggleSamplesClass(samples) {
   samples.classList.toggle('samples--alt');
 }</code></pre>
-      </section>
+        </section>
 
-      <section class="sample-section" data-sample-section-1>
-        <h2>Basic transitions - transitioning all elements</h2>
-        <p>
-          If you don't specify anything, all elements of the page will be part
-          of one single view-transition-group: the root view-transition-group.
-        </p>
-        <p>
-          The view-transition then animates the
-          <code>::view-transition-old(root)</code>'s opacity from
-          <code>1</code> to <code>0</code>, and the
-          <code>::view-transition-new(root)</code>'s opacity from
-          <code>0</code> to <code>1</code>.
-        </p>
-        <p>
-          As we'll see later, you can exclude elements from the root
-          view-transition-group by giving them a
-          <code>view-transition-name</code>.
-        </p>
+        <section class="samples-section" data-samples-section-1>
+          <h2>Basic transitions - transitioning all elements</h2>
+          <p>
+            If you don't specify anything, all elements of the page will be part of one single
+            view-transition-group: the root view-transition-group.
+          </p>
+          <p>
+            The view-transition then animates the
+            <code>::view-transition-old(root)</code>'s opacity from <code>1</code> to
+            <code>0</code>, and the <code>::view-transition-new(root)</code>'s opacity from
+            <code>0</code> to <code>1</code>.
+          </p>
+          <p>
+            As we'll see later, you can exclude elements from the root view-transition-group by
+            giving them a
+            <code>view-transition-name</code>.
+          </p>
 
-        <h3>Basic transitions of the root group</h3>
-        <p>
-          For the root group, the browser doesn't animate any properties other
-          than opacity, using a cross-fade. Translations like in the sample
-          below are not animated.
-        </p>
+          <h3>Basic transitions of the root group</h3>
+          <p>
+            For the root group, the browser doesn't animate any properties other than opacity, using
+            a cross-fade. Translations like in the sample below are not animated.
+          </p>
 
-        <div class="section-controls">
-          <div class="section-control">
-            <button class="trigger-button">Toggle state</button> (or press
-            <kbd>1</kbd>)
+          <div class="section-controls">
+            <div class="section-control">
+              <button class="trigger-button">Toggle state</button> (or press <kbd>1</kbd>)
+            </div>
           </div>
-        </div>
 
-        <div class="samples">
-          <div class="sample">
-            <div class="box"></div>
-            <div class="explanation">
-              <pre
-><code class="language-css">/* basic box - will be used across all samples;
+          <div class="samples">
+            <div class="sample">
+              <div class="box"></div>
+              <div class="explanation">
+                <pre><code class="language-css">/* basic box - will be used across all samples;
 here without view-transition-name */
 
 .box {
@@ -118,14 +112,13 @@ here without view-transition-name */
 		background: yellowgreen;
 	}
 }</code></pre>
+              </div>
             </div>
-          </div>
 
-          <div class="sample">
-            <div class="box move"></div>
-            <div class="explanation">
-              <pre
-><code class="language-css">/* .box with additional class for moving */
+            <div class="sample">
+              <div class="box move"></div>
+              <div class="explanation">
+                <pre><code class="language-css">/* .box with additional class for moving */
 
 .box.move {
 	/* no view-transition-name specified */
@@ -134,24 +127,25 @@ here without view-transition-name */
     transform: translateX(100%);
   }
 }</code></pre>
-              You might think it's only the elements that are changed that are
-              part of the view transition, but it's actually a crossfade of a
-              page-wide snapshot of all elements without a
-              <code>view-transition-name</code>, no matter the type of change.        </div>
-      </section>
+                You might think it's only the elements that are changed that are part of the view
+                transition, but it's actually a crossfade of a page-wide snapshot of all elements
+                without a
+                <code>view-transition-name</code>, no matter the type of change.
+              </div>
+            </div>
+          </div>
+        </section>
 
-      <section class="sample-section" data-sample-section-2>
-        <h2>Targeting individual elements and animating more props</h2>
-        <p>
-          You can exclude elements from the root view-transition-group by giving
-          them a <code>view-transition-name</code>. Doing that will create a
-          separate view-transition-group for that element. This has two
-          advantages: you can specify a different animation for that element,
-          and you can animate more of its properties.
-        </p>
-        <p>The resulting tree that looks like this:</p>
-        <pre
-><code class="language-markup">::view-transition
+        <section class="samples-section" data-samples-section-2>
+          <h2>Targeting individual elements and animating more props</h2>
+          <p>
+            You can exclude elements from the root view-transition-group by giving them a
+            <code>view-transition-name</code>. Doing that will create a separate
+            view-transition-group for that element. This has two advantages: you can specify a
+            different animation for that element, and you can animate more of its properties.
+          </p>
+          <p>The resulting tree that looks like this:</p>
+          <pre><code class="language-markup">::view-transition
 ├─ ::view-transition-group(root)
 │  └─ ::view-transition-image-pair(root)
 │     ├─ ::view-transition-old(root)
@@ -160,271 +154,237 @@ here without view-transition-name */
    └─ ::view-transition-image-pair(some-name)
       ├─ ::view-transition-old(some-name)
       └─ ::view-transition-new(some-name)</code></pre>
-        <p>
-          Every view-transition-groups will be animated separately. For every
-          group, the browser will check if their position or size changes, and
-          tries to animate that. If the position or size doesn't change, it will
-          animate the opacity.
-        </p>
+          <p>
+            Every view-transition-groups will be animated separately. For every group, the browser
+            will check if their position or size changes, and tries to animate that. If the position
+            or size doesn't change, it will animate the opacity.
+          </p>
 
-        <div class="section-controls">
-          <div class="section-control">
-            <button class="trigger-button">Toggle state</button> (or press
-            <kbd>2</kbd>)
+          <div class="section-controls">
+            <div class="section-control">
+              <button class="trigger-button">Toggle state</button> (or press <kbd>2</kbd>)
+            </div>
           </div>
-        </div>
 
-        <div class="samples">
-          <div class="sample">
-            <h3>root: animate opacity</h3>
-            <div class="box move"></div>
-            <div class="explanation">
-              <pre
-><code class="language-css">.box.move {
+          <div class="samples">
+            <div class="sample">
+              <h3>root: animate opacity</h3>
+              <div class="box move"></div>
+              <div class="explanation">
+                <pre><code class="language-css">.box.move {
 	/* no view-transition-name specified */
 
   .samples--alt  & {
     transform: translateX(100%);
   }
 }</code></pre>
-              Every element that doesn't have a
-              <code>view-transition-name</code> will be part of the root
-              view-transition, which contains the entire page. Since the page's
-              position won't change, this only animates the
-              <code>::view-transition-old(root)</code>'s opacity from
-              <code>1</code> to <code>0</code>, and the
-              <code>::view-transition-new(root)</code>'s opacity from
-              <code>0</code> to <code>1</code>.
+                Every element that doesn't have a
+                <code>view-transition-name</code> will be part of the root view-transition, which
+                contains the entire page. Since the page's position won't change, this only animates
+                the <code>::view-transition-old(root)</code>'s opacity from <code>1</code> to
+                <code>0</code>, and the <code>::view-transition-new(root)</code>'s opacity from
+                <code>0</code> to <code>1</code>.
+              </div>
             </div>
-          </div>
 
-          <div class="sample">
-            <h3>specific name: animate animatable props</h3>
-            <div class="box move has-transition-name"></div>
-            <div class="explanation">
-              <pre
-><code class="language-css">.box.move.has-transition-name {
+            <div class="sample">
+              <h3>specific name: animate animatable props</h3>
+              <div class="box move has-transition-name"></div>
+              <div class="explanation">
+                <pre><code class="language-css">.box.move.has-transition-name {
 	/* every view-transition-name has to be unique */
 	view-transition-name: box-move;
 }</code></pre>
-              <p>
-                When you set a <code>view-transition-name</code> on an element,
-                all of its animatable properties are animated - in this case
-                <code>background</code> and <code>transform</code>. You don't
-                have to specify anything else.
-              </p>
-              <p>
-                This creates a separate tree of view-transition pseudo-elements
-                for this element.
-              </p>
-              <p>
-                The browser checks if a transition-groups position or size
-                changes, and tries to animate that. It looks at the root
-                view-transition as a whole; that contains the entire page, and
-                that doesn't change position or size. Adding a
-                <code>view-transition-name</code> to an element, makes the
-                browser looks at the properties of that single element, and
-                those it <em>can</em> animate.
-              </p>
+                <p>
+                  When you set a <code>view-transition-name</code> on an element, all of its
+                  animatable properties are animated - in this case <code>background</code> and
+                  <code>transform</code>. You don't have to specify anything else.
+                </p>
+                <p>
+                  This creates a separate tree of view-transition pseudo-elements for this element.
+                </p>
+                <p>
+                  The browser checks if a transition-groups position or size changes, and tries to
+                  animate that. It looks at the root view-transition as a whole; that contains the
+                  entire page, and that doesn't change position or size. Adding a
+                  <code>view-transition-name</code> to an element, makes the browser looks at the
+                  properties of that single element, and those it <em>can</em> animate.
+                </p>
+              </div>
             </div>
-          </div>
 
-          <!-- <div class="sample">
+            <!-- <div class="sample">
 					<div class="box box--move-scale"></div>
 					<div class="explanation">
 						if you don't define a <code>view-transition-name</code> to an element, the document uses a generic transtion for everything.
 						If you do define a <code>view-transition-name</code>, it applies a transition based upon that element's change
 					</div>
 				</div> -->
-        </div>
-      </section>
-
-      <section class="sample-section" data-sample-section-3>
-        <h2>Adjusting duration</h2>
-
-        <div class="section-controls">
-          <div class="section-control">
-            <button class="trigger-button">Toggle state</button> (or press
-            <kbd>3</kbd>)
           </div>
+        </section>
 
-          <div class="section-control">
-            <div
-              class="duration-picker"
-              id="duration-picker-section-3"
-              data-duration-picker
-              data-duration-var-suffix="section-3"
-            >
-              Set <code>--duration</code> for examples below:
+        <section class="samples-section" data-samples-section-3>
+          <h2>Adjusting duration</h2>
+
+          <div class="section-controls">
+            <div class="section-control">
+              <button class="trigger-button">Toggle state</button> (or press <kbd>3</kbd>)
+            </div>
+
+            <div class="section-control">
+              <div
+                class="duration-picker"
+                id="duration-picker-section-3"
+                data-duration-picker
+                data-duration-var-suffix="section-3"
+              >
+                Set <code>--duration</code> for examples below:
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="samples">
-          <div class="sample">
-            <div class="box"></div>
-            <div class="explanation">
-              The default duration is set in the browsers
-              <a href="https://www.w3.org/TR/css-view-transitions-1/#ua-styles"
-                >User Agent style sheet</a
-              >:
-              <pre
-><code class="language-css">/* UA style sheet */
+          <div class="samples">
+            <div class="sample">
+              <div class="box"></div>
+              <div class="explanation">
+                The default duration is set in the browsers
+                <a href="https://www.w3.org/TR/css-view-transitions-1/#ua-styles"
+                  >User Agent style sheet</a
+                >:
+                <pre><code class="language-css">/* UA style sheet */
 ::view-transition-group(*) {
 	duration: 0.25s;
 }</code></pre>
-              <p>
-                Its descendants <code>::view-transition-image-pair(*)</code>,
-                <code>::view-transition-old(*)</code> and
-                <code>::view-transition-new(*)</code> all inherit that duration.
-              </p>
+                <p>
+                  Its descendants <code>::view-transition-image-pair(*)</code>,
+                  <code>::view-transition-old(*)</code> and
+                  <code>::view-transition-new(*)</code> all inherit that duration.
+                </p>
+              </div>
             </div>
-          </div>
 
-          <div class="sample">
-            <div class="box adjusted-duration"></div>
-            <div class="explanation">
-              You can overrule the duration for a specific
-              <code>view-transition-name</code>'s
-              <code>::view-transition-group</code>:
-              <pre
-><code class="language-css">.box.adjusted-duration {
+            <div class="sample">
+              <div class="box adjusted-duration"></div>
+              <div class="explanation">
+                You can overrule the duration for a specific
+                <code>view-transition-name</code>'s <code>::view-transition-group</code>:
+                <pre><code class="language-css">.box.adjusted-duration {
   view-transition-name: adjusted-duration;
 }
 
 ::view-transition-group(adjusted-duration) {
   animation-duration: var(--duration);
 }</code></pre>
+              </div>
             </div>
-          </div>
 
-          <div class="sample">
-            <div class="box move has-transition-name-2"></div>
-            <div class="explanation">
-              <h3>Default duration</h3>
-              <pre
-><code class="language-css">.box.move.has-transition-name-2 {
+            <div class="sample">
+              <div class="box move has-transition-name-2"></div>
+              <div class="explanation">
+                <h3>Default duration</h3>
+                <pre><code class="language-css">.box.move.has-transition-name-2 {
 	view-transition-name: box-move-2;
 	/* no animation-duration specified for this group so will use default value */
 }</code></pre>
+              </div>
             </div>
-          </div>
 
-          <div class="sample">
-            <div class="box move adjusted-duration-2"></div>
-            <div class="explanation">
-              <h3>Adjusted duration</h3>
-              <pre
-><code class="language-css">.box.move.adjusted-duration-2 {
+            <div class="sample">
+              <div class="box move adjusted-duration-2"></div>
+              <div class="explanation">
+                <h3>Adjusted duration</h3>
+                <pre><code class="language-css">.box.move.adjusted-duration-2 {
 	/* every view-transition-name has to be unique */
 	::view-transition-group(adjusted-duration-2) {
 		animation-duration: var(--duration);
 	}
 }</code></pre>
+              </div>
             </div>
           </div>
-        </div>
 
-        <p>
-          <strong
-            >Be very careful with changing a view-transition-group's
-            duration.</strong
-          >
-          Note that the <code>startViewTransition</code> function is called on
-          the <code>document</code>. It then disables the page's interactions,
-          runs the transitions on all elements that have a
-          <code>view-transition-name</code> - no matter if those elements have
-          changed or not. When all transitions are done, the page's interactions
-          are re-enabled. That means that if you have
-          <strong>any</strong> transition with a longer duration, the entire
-          page is frozen until that transition is done.
-        </p>
-      </section>
+          <p>
+            <strong>Be very careful with changing a view-transition-group's duration.</strong>
+            Note that the <code>startViewTransition</code> function is called on the
+            <code>document</code>. It then disables the page's interactions, runs the transitions on
+            all elements that have a <code>view-transition-name</code> - no matter if those elements
+            have changed or not. When all transitions are done, the page's interactions are
+            re-enabled. That means that if you have <strong>any</strong> transition with a longer
+            duration, the entire page is frozen until that transition is done.
+          </p>
+        </section>
 
-      <section class="sample-section" data-sample-section-4>
-        <h2>Pseudo-elements that can be animated</h2>
-        <div class="section-controls">
-          <div class="section-control">
-            <button class="trigger-button">Toggle state</button> (or press
-            <kbd>4</kbd>)
-          </div>
+        <section class="samples-section" data-samples-section-4>
+          <h2>Pseudo-elements that can be animated</h2>
+          <div class="section-controls">
+            <div class="section-control">
+              <button class="trigger-button">Toggle state</button> (or press <kbd>4</kbd>)
+            </div>
 
-          <div class="section-control">
-            <div
-              class="duration-picker"
-              id="duration-picker-section-4"
-              data-duration-picker
-              data-duration-var-suffix="section-4"
-            >
-              Set <code>--duration</code> for examples below:
+            <div class="section-control">
+              <div
+                class="duration-picker"
+                id="duration-picker-section-4"
+                data-duration-picker
+                data-duration-var-suffix="section-4"
+              >
+                Set <code>--duration</code> for examples below:
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="samples">
-          <div class="sample">
-            <div class="box move has-transition-name-section-4"></div>
-            <div class="explanation">
-              <!-- <h3>Box with just a view-transition-name</h3> -->
-              <p>
-                During a view transition, there's actually a tree of four nested
-                pseudo-elements:
-              </p>
-              <pre
-><code class="language-markup">::view-transition-group
+          <div class="samples">
+            <div class="sample">
+              <div class="box move has-transition-name-section-4"></div>
+              <div class="explanation">
+                <!-- <h3>Box with just a view-transition-name</h3> -->
+                <p>
+                  During a view transition, there's actually a tree of four nested pseudo-elements:
+                </p>
+                <pre><code class="language-markup">::view-transition-group
 └── ::view-transition-image-pair
 		├── ::view-transition-old
 		└── ::view-transition-new</code></pre>
-              <p>
-                This is a simple box with just a view-transition-name specified:
-              </p>
-              <pre
-><code class="language-css">.box.move.has-transition-name-section-4 {
+                <p>This is a simple box with just a view-transition-name specified:</p>
+                <pre><code class="language-css">.box.move.has-transition-name-section-4 {
 	view-transition-name: section-4-sample-1;
 }</code></pre>
-              <p>
-                Here, there are actually three separate pseudo elements that get
-                their own animations applied:
-              </p>
-              <ul>
-                <li>
-                  The <code>::view-transition-group</code>'s animation handles
-                  only a few properties: those having to do with position, size
-                  and opacity.
-                </li>
-                <li>
-                  The <code>::view-transition-old</code>'s animation fades its
-                  pseudo-element out
-                </li>
-                <li>
-                  The <code>::view-transition-new</code>'s animation fades its
-                  pseudo-element in
-                </li>
-              </ul>
-              <p>
-                (When you set a duration that's long enough to be able to
-                inspect the different pseudo elements in the developer tools,
-                you can see that these are animations with names like
-                <code
-                  >-ua-view-transition-fade-out,
-                  -ua-mix-blend-mode-plus-lighter</code
-                >
-                that are defined in the user agent stylesheet)
-              </p>
+                <p>
+                  Here, there are actually three separate pseudo elements that get their own
+                  animations applied:
+                </p>
+                <ul>
+                  <li>
+                    The <code>::view-transition-group</code>'s animation handles only a few
+                    properties: those having to do with position, size and opacity.
+                  </li>
+                  <li>
+                    The <code>::view-transition-old</code>'s animation fades its pseudo-element out
+                  </li>
+                  <li>
+                    The <code>::view-transition-new</code>'s animation fades its pseudo-element in
+                  </li>
+                </ul>
+                <p>
+                  (When you set a duration that's long enough to be able to inspect the different
+                  pseudo elements in the developer tools, you can see that these are animations with
+                  names like
+                  <code>-ua-view-transition-fade-out, -ua-mix-blend-mode-plus-lighter</code>
+                  that are defined in the user agent stylesheet)
+                </p>
+              </div>
             </div>
-          </div>
 
-          <div class="sample">
-            <div class="box move scale"></div>
-            <div class="explanation">
-              <h3>Animate the <code>::view-transition-image-pair</code></h3>
-              <p>
-                You can add a separate animation to the
-                <code>::view-transition-image-pair</code>, that will affect the
-                pseudo-element within the <code>::view-transition-group</code>:
-              </p>
-              <pre
-><code class="language-css">.box.move.scale {
+            <div class="sample">
+              <div class="box move scale"></div>
+              <div class="explanation">
+                <h3>Animate the <code>::view-transition-image-pair</code></h3>
+                <p>
+                  You can add a separate animation to the
+                  <code>::view-transition-image-pair</code>, that will affect the pseudo-element
+                  within the <code>::view-transition-group</code>:
+                </p>
+                <pre><code class="language-css">.box.move.scale {
   view-transition-name: box-move-scale;
 }
 
@@ -438,24 +398,23 @@ here without view-transition-name */
   animation: scale-down ease-in-out;
   animation-duration: inherit;
 }</code></pre>
-              <p>
-                The examples I've come across animate ::...-old and ::...-new
-                instead of ::...image-pair. See next section for that.
-              </p>
+                <p>
+                  The examples I've come across animate ::...-old and ::...-new instead of
+                  ::...image-pair. See next section for that.
+                </p>
+              </div>
             </div>
-          </div>
 
-          <div class="sample">
-            <div class="box move scale has-outline"></div>
-            <div class="explanation">
-              <h3>Adding outlines for clarity</h3>
-              <p>
-                To understand better what's going on, I've added outlines to the
-                <code>::view-transition-group</code> and the
-                <code>::view-transition-image-pair</code>:
-              </p>
-              <pre
-><code class="language-css">.box.move.scale.has-outline {
+            <div class="sample">
+              <div class="box move scale has-outline"></div>
+              <div class="explanation">
+                <h3>Adding outlines for clarity</h3>
+                <p>
+                  To understand better what's going on, I've added outlines to the
+                  <code>::view-transition-group</code> and the
+                  <code>::view-transition-image-pair</code>:
+                </p>
+                <pre><code class="language-css">.box.move.scale.has-outline {
   view-transition-name: box-move-scale-has-outline;
 }
 
@@ -468,39 +427,36 @@ here without view-transition-name */
   animation-duration: inherit;
   outline: 4px solid deepskyblue;
 }</code></pre>
+              </div>
             </div>
-          </div>
 
-          <div class="sample">
-            <div class="box move scale-old-new has-outline"></div>
-            <div class="explanation">
-              <h3>
-                Animating <code>...-image-pair</code> vs
-                <code>...-old</code> and <code>...-new</code>
-              </h3>
-              <p>
-                Most examples I've come across do not animate the
-                <code>::view-transition-image-pair</code>, but animate the
-                <code>::view-transition-old</code> and
-                <code>::view-transition-new</code> (with the same animation)
-                instead.
-              </p>
-              <p>
-                By default, the <code>...-old</code> and
-                <code>...-new</code> pseudo-elements respectively have a
-                fade-out and a fade-in animation. When you overwrite those
-                animations, the fading effects are also overwritten. In that
-                case, the <code>...-new</code> pseudo-element is fully visible
-                as soon as the view-transition starts. And it will be on top of
-                <code>...-old</code>, because it comes after it in the dom.
-              </p>
-              <p>
-                So in the example here, you'll never see the
-                <code>...-old</code> pseudo-element with the blue outline, only
-                the <code>...-new</code> pseud-element with the orange outline.
-              </p>
-              <pre
-><code class="language-css">.box.move.scale-old-new.has-outline {
+            <div class="sample">
+              <div class="box move scale-old-new has-outline"></div>
+              <div class="explanation">
+                <h3>
+                  Animating <code>...-image-pair</code> vs <code>...-old</code> and
+                  <code>...-new</code>
+                </h3>
+                <p>
+                  Most examples I've come across do not animate the
+                  <code>::view-transition-image-pair</code>, but animate the
+                  <code>::view-transition-old</code> and <code>::view-transition-new</code> (with
+                  the same animation) instead.
+                </p>
+                <p>
+                  By default, the <code>...-old</code> and <code>...-new</code> pseudo-elements
+                  respectively have a fade-out and a fade-in animation. When you overwrite those
+                  animations, the fading effects are also overwritten. In that case, the
+                  <code>...-new</code> pseudo-element is fully visible as soon as the
+                  view-transition starts. And it will be on top of <code>...-old</code>, because it
+                  comes after it in the dom.
+                </p>
+                <p>
+                  So in the example here, you'll never see the
+                  <code>...-old</code> pseudo-element with the blue outline, only the
+                  <code>...-new</code> pseud-element with the orange outline.
+                </p>
+                <pre><code class="language-css">.box.move.scale-old-new.has-outline {
   view-transition-name: box-move-scale-old-new-has-outline;
 }
 
@@ -513,27 +469,25 @@ here without view-transition-name */
 ::view-transition-new(box-move-scale-old-new-has-outline) {
   outline-color: orange;
 }</code></pre>
+              </div>
             </div>
-          </div>
 
-          <div class="sample">
-            <div class="box move scale-old-new-independently has-outline"></div>
-            <div class="explanation">
-              <h3>
-                Using different animations for <code>...-old</code> and
-                <code>...-new</code>
-              </h3>
-              <p>
-                In theory, you could use different animations for
-                <code>::view-transition-old</code> and
-                <code>::view-transition-new</code>. Don't know why you would
-                want to, but you can ;) <br />I've slightly reduced the
-                <code>...-old</code> and <code>...-new</code>'s opacity in this
-                example, so you can still see the containing
-                <code>...-group</code>
-              </p>
-              <pre
-><code class="language-css">.move.scale-old-new-independently.has-outline {
+            <div class="sample">
+              <div class="box move scale-old-new-independently has-outline"></div>
+              <div class="explanation">
+                <h3>
+                  Using different animations for <code>...-old</code> and
+                  <code>...-new</code>
+                </h3>
+                <p>
+                  In theory, you could use different animations for
+                  <code>::view-transition-old</code> and <code>::view-transition-new</code>. Don't
+                  know why you would want to, but you can ;) <br />I've slightly reduced the
+                  <code>...-old</code> and <code>...-new</code>'s opacity in this example, so you
+                  can still see the containing
+                  <code>...-group</code>
+                </p>
+                <pre><code class="language-css">.move.scale-old-new-independently.has-outline {
 	view-transition-name: scale-old-new-independently;
 }
 
@@ -552,58 +506,51 @@ here without view-transition-name */
 	animation-name: scale-down;
 	outline-color: orange;
 }</code></pre>
+              </div>
             </div>
           </div>
-        </div>
-        <p>
-          Note that the old and new snapshots aren't the same kind of element as
-          the box whose style is changing. The snapshots are replaced elements
-          (similar to an <code>img</code>). That means that you can only animate
-          some of their properties (size, position, opacity, etc), but not
-          others (like background, color). The box has a <code>transform</code>,
-          but you can also use a <code>transform</code>
-        </p>
-      </section>
+          <p>
+            Note that the old and new snapshots aren't the same kind of element as the box whose
+            style is changing. The snapshots are replaced elements (similar to an <code>img</code>).
+            That means that you can only animate some of their properties (size, position, opacity,
+            etc), but not others (like background, color). The box has a <code>transform</code>, but
+            you can also use a <code>transform</code>
+          </p>
+        </section>
 
-      <section class="sample-section" data-sample-section-5>
-        <h2>Custom duration for <code>::...-image-pair</code></h2>
-        <div class="section-controls">
-          <div class="section-control">
-            <button class="trigger-button">Toggle state</button> (or press
-            <kbd>5</kbd>)
-          </div>
+        <section class="samples-section" data-samples-section-5>
+          <h2>Custom duration for <code>::...-image-pair</code></h2>
+          <div class="section-controls">
+            <div class="section-control">
+              <button class="trigger-button">Toggle state</button> (or press <kbd>5</kbd>)
+            </div>
 
-          <div class="section-control">
-            <div
-              class="duration-picker"
-              id="duration-picker-section-5"
-              data-duration-picker
-              data-duration-var-suffix="async-section-5"
-            >
-              Set <code>--duration-async</code> for examples below:
+            <div class="section-control">
+              <div
+                class="duration-picker"
+                id="duration-picker-section-5"
+                data-duration-picker
+                data-duration-var-suffix="async-section-5"
+              >
+                Set <code>--duration-async</code> for examples below:
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="samples">
-          <div class="sample">
-            <div class="box move scale-async"></div>
-            <div class="explanation">
-              <!-- <h3>
+          <div class="samples">
+            <div class="sample">
+              <div class="box move scale-async"></div>
+              <div class="explanation">
+                <!-- <h3>
 							Setting a custom duration for the <code>::view-transition-image-pair</code>
 						</h3> -->
-              <p>
-                You can specify a different duration for the
-                <code>::view-transition-image-pair</code>, to make its animation
-                continue after the <code>::view-transition-group</code>'s
-                animation has finished.
-              </p>
-              <p>
-                Setting the duration in this example to 500ms makes the
-                animation look nicer.
-              </p>
-              <pre
-><code class="language-css">@keyframes scale-down-bounce {
+                <p>
+                  You can specify a different duration for the
+                  <code>::view-transition-image-pair</code>, to make its animation continue after
+                  the <code>::view-transition-group</code>'s animation has finished.
+                </p>
+                <p>Setting the duration in this example to 500ms makes the animation look nicer.</p>
+                <pre><code class="language-css">@keyframes scale-down-bounce {
 	0% { scale: 1; }
 	25% { scale: 0.8; }
 	60% { scale: 1.1; }
@@ -618,31 +565,30 @@ here without view-transition-name */
 ::view-transition-image-pair(box-move-scale-async) {
 	animation: scale-down-bounce 0.6s ease-in-out;
 }</code></pre>
-              <p>
-                <strong>Note</strong>: The browser will only end the view
-                transition after all animations have finished, no matter what
-                view-transition pseudo-element they're applied to. You can see
-                this clearly when you set the
-                <code>--duration-async</code> variable to a higher value in this
-                example, and then trigger the examples with a border: the border
-                will be visible until this section's animation is finished, even
-                though there is no visible change to this section.
-              </p>
+                <p>
+                  <strong>Note</strong>: The browser will only end the view transition after all
+                  animations have finished, no matter what view-transition pseudo-element they're
+                  applied to. You can see this clearly when you set the
+                  <code>--duration-async</code> variable to a higher value in this example, and then
+                  trigger the examples with a border: the border will be visible until this
+                  section's animation is finished, even though there is no visible change to this
+                  section.
+                </p>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <h2>Gotchas</h2>
-      <p>
-        if you want to use a css var in view-transition, it has to be defined at
-        :root. This is because the pseudo elements are part of the document, not
-        of the body. For setting with js, use
-        <code
-          >document.documentElement.style.setProperty('--some-prop',
-          value);</code
-        >
-      </p>
+        <section class="text-content">
+          <h2>Gotchas</h2>
+          <p>
+            if you want to use a css var in view-transition, it has to be defined at :root. This is
+            because the pseudo elements are part of the document, not of the body. For setting with
+            js, use
+            <code>document.documentElement.style.setProperty('--some-prop', value);</code>
+          </p>
+        </section>
+      </main>
     </div>
     <script src="js/main.js"></script>
     <script src="../lib/prism/prism.js"></script>
