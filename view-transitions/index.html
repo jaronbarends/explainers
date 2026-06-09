@@ -3,11 +3,12 @@
   <head>
     <meta charset="UTF-8" />
 
-    <title>View transitions</title>
+    <title>View transitions - Theory</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <link rel="stylesheet" href="../assets/css/shared.css" />
+    <link rel="stylesheet" href="css/article.css" />
     <link rel="stylesheet" href="css/view-transitions.css" />
   </head>
 
@@ -78,56 +79,6 @@
 function toggleSamplesClass(samples) {
   samples.classList.toggle('samples--alt');
 }</code></pre>
-        </section>
-
-        <section class="samples-section" data-samples-section-0>
-          <h2>Adding elements</h2>
-
-          <div class="section-controls">
-            <div class="section-control">
-              <button id="add-item-button">Add item</button>
-            </div>
-            <div class="section-control">
-              <div
-                class="duration-picker"
-                id="duration-picker-section-adding-items"
-                data-duration-picker
-                data-duration-var-suffix="section-adding-items"
-              ></div>
-            </div>
-          </div>
-
-          <div class="samples">
-            <div class="sample">
-              <div class="preview">
-                <ul id="dynamic-list" class="dynamic-list">
-                  <li class="dynamic-list__item">Item 1</li>
-                  <li class="dynamic-list__item">Item 2</li>
-                  <li class="dynamic-list__item">Item 3</li>
-                </ul>
-              </div>
-              <div class="explanation">
-                <pre><code class="language-css">{
-}</code></pre>
-              </div>
-            </div>
-
-            <div class="sample">
-              <div class="box move"></div>
-              <div class="explanation">
-                <pre><code class="language-css">/* .box with additional class for moving */
-
-.box.move {
-	/* no view-transition-name specified */
-
-  .samples--alt  & {
-    /* will not animate in root transition group */
-    transform: translateX(100%);
-  }
-}</code></pre>
-              </div>
-            </div>
-          </div>
         </section>
 
         <section class="samples-section" data-samples-section-1>
@@ -298,9 +249,7 @@ here without view-transition-name */
                 id="duration-picker-section-3"
                 data-duration-picker
                 data-duration-var-suffix="section-3"
-              >
-                Set <code>--duration</code> for examples below:
-              </div>
+              ></div>
             </div>
           </div>
 
@@ -392,9 +341,7 @@ here without view-transition-name */
                 id="duration-picker-section-4"
                 data-duration-picker
                 data-duration-var-suffix="section-4"
-              >
-                Set <code>--duration</code> for examples below:
-              </div>
+              ></div>
             </div>
           </div>
 
@@ -596,9 +543,7 @@ here without view-transition-name */
                 id="duration-picker-section-5"
                 data-duration-picker
                 data-duration-var-suffix="async-section-5"
-              >
-                Set <code>--duration-async</code> for examples below:
-              </div>
+              ></div>
             </div>
           </div>
 
@@ -634,7 +579,7 @@ here without view-transition-name */
 }
 
 ::view-transition-image-pair(box-move-scale-async) {
-	animation: scale-down-bounce var(--duration-async) ease-in-out;
+	animation: scale-down-bounce var(--duration) ease-in-out;
 }</code></pre>
               </div>
             </div>
@@ -676,7 +621,7 @@ here without view-transition-name */
         </section>
       </main>
     </div>
-    <script src="js/main.js"></script>
+    <script src="js/main.js" type="module"></script>
     <script src="../lib/prism/prism.js"></script>
   </body>
 </html>

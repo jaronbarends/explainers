@@ -1,5 +1,4 @@
-// const samplesLists = document.querySelectorAll('.samples-list');
-const btn = document.getElementById('button');
+import { createDurationPickers } from './durationPickers.js';
 
 init();
 
@@ -28,8 +27,6 @@ function addTriggerListeners() {
       toggleSamples(section);
     });
   });
-
-  document.getElementById('add-item-button').addEventListener('click', addListItem);
 }
 
 // init duration pickers
@@ -40,79 +37,20 @@ function initDurationPickers() {
     {
       id: 'duration-picker-section-3',
       varSuffix: 'section-3',
-      durations: [
-        { value: '250ms', label: '250ms (default)' },
-        { value: '1s', label: '1s' },
-        { value: '3s', label: '3s' },
-        { value: '300s', label: '300s' },
-      ],
+      durations: ['250ms', '1s', '3s', '300s'],
     },
     {
       id: 'duration-picker-section-4',
       varSuffix: 'section-4',
-      durations: [
-        { value: '250ms', label: '250ms (default)' },
-        { value: '3s', label: '3s' },
-        { value: '300s', label: '300s' },
-      ],
+      durations: ['250ms', '3s', '300s'],
     },
     {
       id: 'duration-picker-section-5',
       varSuffix: 'async-section-5',
-      durations: [
-        { value: '250ms', label: '250ms (default)' },
-        { value: '500ms', label: '500ms' },
-        { value: '3s', label: '3s' },
-      ],
-    },
-    {
-      id: 'duration-picker-section-adding-items',
-      varSuffix: 'section-adding-items',
-      durations: [
-        { value: '250ms', label: '250ms (default)' },
-        { value: '500ms', label: '500ms' },
-        { value: '3s', label: '3s' },
-      ],
+      durations: ['250ms', '500ms', '3s'],
     },
   ];
-  pickersConfig.forEach(createPicker);
-}
-
-function createPicker(pickerConfig) {
-  const container = document.getElementById(pickerConfig.id);
-  const picker = document.createElement('span');
-  pickerConfig.durations.forEach((duration, i) => {
-    addPickerRadio({ picker, pickerConfig, duration, i });
-  });
-  container.appendChild(picker);
-  handleSelectDuration(picker, pickerConfig.varSuffix);
-}
-
-function addPickerRadio({ picker, pickerConfig, duration, i }) {
-  const radio = document.createElement('input');
-  const groupName = `duration-picker-radio-${pickerConfig.varSuffix}`;
-  const id = `${groupName}-${i}`;
-  radio.setAttribute('type', 'radio');
-  radio.setAttribute('name', groupName);
-  radio.setAttribute('value', duration.value);
-  radio.setAttribute('id', id);
-  if (i === 0) {
-    radio.setAttribute('checked', 'checked');
-  }
-  radio.addEventListener('click', () => {
-    handleSelectDuration(picker, pickerConfig.varSuffix);
-  });
-  const label = document.createElement('label');
-  label.setAttribute('for', id);
-  label.textContent = duration.label;
-
-  picker.appendChild(radio);
-  picker.appendChild(label);
-}
-
-function handleSelectDuration(picker, varSuffix) {
-  const duration = picker.querySelector(':checked').value;
-  document.documentElement.style.setProperty(`--duration-${varSuffix}`, duration);
+  createDurationPickers(pickersConfig);
 }
 
 function toggleSamplesClass(samples) {
@@ -141,22 +79,4 @@ function toggleSamples(section) {
     //   console.log('finished - animation is finished; new page view is interactive');
     // });
   }
-}
-
-function addListItem() {
-  const list = document.getElementById('dynamic-list');
-  const li = document.createElement('li');
-  const newItemClassName = 'dynamic-list__item--new-item';
-  li.classList.add('dynamic-list__item', newItemClassName);
-  li.textContent = `Item ${list.children.length + 1}`;
-
-  // const second = list.querySelector(':nth-child(2)');
-
-  const transition = document.startViewTransition(() => {
-    list.appendChild(li);
-    // second.after(li);
-  });
-  transition.finished.then(() => {
-    li.classList.remove(newItemClassName);
-  });
 }

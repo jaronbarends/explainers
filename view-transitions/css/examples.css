@@ -1,0 +1,36 @@
+/* section adding elements */
+
+.dynamic-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.list-basic {
+  view-transition-name: list-basic;
+}
+
+.dynamic-list__item {
+  width: 200px;
+  padding: 1rem;
+  background: var(--color-primary);
+}
+
+.dynamic-list__item--new-item {
+  /* view-transition-name: new-list-item; */
+}
+
+@keyframes slide-in {
+  from {
+    translate: -20%;
+  }
+}
+
+::view-transition-group(list-basic) {
+  animation-duration: var(--duration-section-adding-items);
+}
+
+::view-transition-group(new-list-item) {
+  animation: slide-in ease-out both;
+  animation-duration: var(--duration-section-adding-items);
+}

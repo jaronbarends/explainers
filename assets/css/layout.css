@@ -17,6 +17,7 @@ header {
   min-height: 4rem;
   display: flex;
   align-items: center;
+  gap: 1rem;
 }
 
 main {
