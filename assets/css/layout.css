@@ -90,14 +90,18 @@ main {
   .samples {
     display: flex;
     flex-direction: column;
-    gap: var(--samples-row-gap);
   }
 
   .sample {
     display: grid;
-    grid-template-areas:
-      'preview heading'
-      'preview explanation';
+    grid-template-areas: 'preview explanation';
+    grid-template-columns: auto 1fr;
+
+    &:has(> :nth-child(3)) {
+      grid-template-areas:
+        'preview heading'
+        'preview explanation';
+    }
 
     h3 {
       grid-area: heading;
@@ -108,7 +112,6 @@ main {
 
     .explanation {
       grid-area: explanation;
-      margin-top: 1em;
       font-size: 1rem;
     }
   }

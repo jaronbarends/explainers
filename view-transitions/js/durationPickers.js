@@ -28,7 +28,7 @@ function addPickerRadio({ picker, pickerConfig, duration, i }) {
   radio.setAttribute('name', groupName);
   radio.setAttribute('value', duration);
   radio.setAttribute('id', id);
-  if (i === 0) {
+  if ((!pickerConfig.defaultDuration && i === 0) || duration === pickerConfig.defaultDuration) {
     radio.setAttribute('checked', 'checked');
   }
   radio.addEventListener('click', () => {
@@ -38,7 +38,7 @@ function addPickerRadio({ picker, pickerConfig, duration, i }) {
   label.setAttribute('for', id);
   label.textContent = duration;
   if (duration === '250ms') {
-    label.textContent += ' (default)';
+    label.textContent += ' (browser default)';
   }
 
   label.prepend(radio);

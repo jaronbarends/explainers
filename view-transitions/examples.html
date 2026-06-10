@@ -19,20 +19,22 @@
         <a href="./index.html" class="back-link">&laquo; Back to View transitions</a>
       </header>
       <main>
-        <section class="samples-section" data-samples-section-0>
-          <h2>Adding elements</h2>
-          <p>We'll add items at the 2nd place in the list</p>
+        <section class="text-content">
+          <h1>Practical examples of view transitions</h1>
+          <p>For each of the examples, We'll add items at the 2nd place in the list</p>
+        </section>
 
+        <section data-section-id="basic" class="samples-section samples-section--rows">
           <div class="section-controls">
             <div class="section-control">
-              <button data-add-item-button>Add item</button>
+              <button id="button-add-item-basic">Add item</button>
             </div>
             <div class="section-control">
               <div
                 class="duration-picker"
-                id="duration-picker-section-adding-items"
+                id="duration-picker-section-basic"
                 data-duration-picker
-                data-duration-var-suffix="section-adding-items"
+                data-duration-var-suffix="section-basic"
               ></div>
             </div>
           </div>
@@ -41,27 +43,146 @@
             <div class="sample">
               <div class="preview">
                 <ul data-dynamic-list class="dynamic-list list-basic">
-                  <li class="dynamic-list__item">Item 1</li>
+                  <li class="dynamic-list__item">Item one</li>
                 </ul>
+                <p>I'm a <code>&lt;p&gt;</code> after the list</p>
               </div>
+
+              <h2>Basic: <code>view-transition-name</code> on list element</h2>
+
               <div class="explanation">
-                <pre><code class="language-css">{
+                <p>
+                  The most basic transition is to just give a <code>view-transition-name</code> to
+                  the list. Then the complete old and new states simply crossfade in the set
+                  <code>--duration</code>. If you always add the item to the end of the list that is
+                  fine. However, on this page we're always inserting the items at position 2. You'll
+                  see that the old and new list items crossfade (you can tell by looking at the
+                  numbers).
+                </p>
+                <p>
+                  The <code>&lt;p&gt;</code> after the list is not part of the named
+                  view-transition, but of the root view-transition. That causes it to get its new
+                  position with the browser's default duration of 0.25s
+                </p>
+                <pre><code class="language-html">&lt;ul class="list-basic"&gt;...&lt;/ul&gt;</code></pre>
+                <pre><code class="language-css">.list-basic {
+view-transition-name: list-basic;
+}
+::view-transition-group(list-basic) {
+animation-duration: var(--duration);
 }</code></pre>
               </div>
             </div>
+          </div>
+        </section>
 
+        <section data-section-id="basic-2" class="samples-section samples-section--rows">
+          <div class="section-controls">
+            <div class="section-control">
+              <button id="button-add-item-basic-2">Add item</button>
+            </div>
+            <div class="section-control">
+              <div
+                class="duration-picker"
+                id="duration-picker-section-basic-2"
+                data-duration-picker
+                data-duration-var-suffix="section-basic-2"
+              ></div>
+            </div>
+          </div>
+
+          <div class="samples">
             <div class="sample">
-              <div class="box move"></div>
+              <div class="preview">
+                <ul data-dynamic-list class="dynamic-list list-basic-2">
+                  <li class="dynamic-list__item">Item one</li>
+                </ul>
+                <p>I'm a <code>&lt;p&gt;</code> after the list</p>
+              </div>
+
+              <h3>Inserting</h3>
+
+              <div class="explanation"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="samples-section samples-section--rows" data-samples-section-basic>
+          <div class="section-controls">
+            <div class="section-control">
+              <button id="button-add-item-basic-plus">Add item</button>
+            </div>
+            <div class="section-control">
+              <div
+                class="duration-picker"
+                id="duration-picker-section-basic-plus"
+                data-duration-picker
+                data-duration-var-suffix="section-basic-plus"
+              ></div>
+            </div>
+          </div>
+
+          <div class="samples">
+            <div class="sample">
+              <div class="preview">
+                <ul data-dynamic-list class="dynamic-list list-basic-plus">
+                  <li class="dynamic-list__item">Item one</li>
+                </ul>
+                <p>I'm a <code>&lt;p&gt;</code> after the list</p>
+              </div>
+
+              <h2><code>view-transition-name</code> on list-items</h2>
+            </div>
+          </div>
+        </section>
+
+        <section class="samples-section samples-section--rows" data-samples-section-class-on-item>
+          <div class="section-controls">
+            <div class="section-control">
+              <button id="button-add-class-on-item">Add item</button>
+            </div>
+            <div class="section-control">
+              <div
+                class="duration-picker"
+                id="duration-picker-section-class-on-item"
+                data-duration-picker
+                data-duration-var-suffix="section-class-on-item"
+              ></div>
+            </div>
+          </div>
+
+          <div class="samples">
+            <div class="sample">
+              <div class="preview">
+                <ul data-dynamic-list class="dynamic-list">
+                  <li class="dynamic-list__item">Item one</li>
+                </ul>
+                <p>I'm a <code>&lt;p&gt;</code> after the list</p>
+              </div>
+
+              <h2>Basic transition</h2>
+
               <div class="explanation">
-                <pre><code class="language-css">/* .box with additional class for moving */
-
-.box.move {
-	/* no view-transition-name specified */
-
-  .samples--alt  & {
-    /* will not animate in root transition group */
-    transform: translateX(100%);
-  }
+                <p>
+                  The most basic transition is to just give a <code>view-transition-name</code> to
+                  the list. Then the old and new states simply
+                </p>
+                <p>
+                  New list items crossfade in in the set <code>--duration</code>. This is fine if
+                  you always add the item to the end of the list. However, here we're always
+                  inserting the item's at position 2. You'll see that the old and new list items
+                  crossfade (you can tell by looking at the numbers).
+                </p>
+                <p>
+                  The <code>&lt;p&gt;</code> after the list is not part of the named
+                  view-transition, but of the root view-transition. That causes it to get its new
+                  position with the browser's default duration of 0.25s
+                </p>
+                <pre><code class="language-css">.list-basic {
+  view-transition-name: list-basic;
+}
+::view-transition-group(list-basic) {
+  animation-duration: var(--duration);
 }</code></pre>
               </div>
             </div>
@@ -69,6 +190,9 @@
         </section>
       </main>
     </div>
+
+    <div class="transitions-in-progress-indicator"></div>
+
     <script src="js/examples.js" type="module"></script>
     <script src="../lib/prism/prism.js"></script>
   </body>

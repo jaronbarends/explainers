@@ -1,4 +1,21 @@
+.transitions-in-progress-indicator {
+  position: fixed;
+  inset: 0;
+  bottom: auto;
+  height: 0px;
+  view-transition-name: transitions-in-progress-indicator;
+}
+
+::view-transition-group(transitions-in-progress-indicator) {
+  outline: 20px solid var(--color-primary);
+  opacity: 0.2;
+}
+
 .picker-radios {
   display: inline-flex;
   gap: 0.5rem;
+}
+
+html:has(::view-transition) {
+  border: 2px solid red;
 }
