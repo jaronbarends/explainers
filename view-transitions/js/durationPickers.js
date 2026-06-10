@@ -6,10 +6,8 @@ Upon selection, --duration-${duration-id} is set to selected value
 
 export function createDurationPickers(pickersConfig) {
   const pickerElms = document.querySelectorAll('[data-duration-id]');
-  console.log('pickerElms:', pickerElms);
   pickerElms.forEach((pickerElm) => {
     const durationId = pickerElm.getAttribute('data-duration-id');
-    console.log('durationId:', durationId);
     const overrides = pickersConfig.overrides[durationId] || {};
     const pickerConfig = {
       durationId,

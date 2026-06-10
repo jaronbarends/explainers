@@ -23,45 +23,52 @@
   animation-duration: var(--duration-basic);
 }
 
-/* section basic-plus */
+/* section basic */
 
-.list-basic-plus {
-  /* view-transition-name: list-basic-plus; */
-}
-
-/* #list-item-basic-plus-1 {
-  view-transition-name: list-item-basic-plus-1;
-}
-#list-item-basic-plus-2 {
-  view-transition-name: list-item-basic-plus-2;
-}
-#list-item-basic-plus-3 {
-  view-transition-name: list-item-basic-plus-3;
-}
-#list-item-basic-plus-4 {
-  view-transition-name: list-item-basic-plus-4;
-}
-#list-item-basic-plus-5 {
-  view-transition-name: list-item-basic-plus-5;
-}
-#list-item-basic-plus-6 {
-  view-transition-name: list-item-basic-plus-6;
-} */
-
-::view-transition-group(list-item-basic-plus-1) {
-  animation-duration: var(--duration-basic-plus);
+.list-basic-2 {
+  view-transition-name: list-basic-2;
 }
 
-::view-transition-group(list-item-basic-plus-2) {
-  animation-duration: var(--duration-basic-plus);
+::view-transition-group(list-basic-2) {
+  animation-duration: var(--duration-basic-2);
 }
 
-::view-transition-group(list-item-basic-plus-3) {
-  animation-duration: var(--duration-basic-plus);
+/* section name-on-li */
+
+/*
+Not needed - set name directly with js
+#list-item-name-on-li-1 {
+  view-transition-name: list-item-name-on-li-1;
+}
+#list-item-name-on-li-2 {
+  view-transition-name: list-item-name-on-li-2;
+}
+#list-item-name-on-li-3 {
+  view-transition-name: list-item-name-on-li-3;
+}
+#list-item-name-on-li-4 {
+  view-transition-name: list-item-name-on-li-4;
+}
+*/
+
+/*
+error-prone and not DRY; use view-transition-class instead
+::view-transition-group(list-item-name-on-li-1),
+::view-transition-group(list-item-name-on-li-2),
+::view-transition-group(list-item-name-on-li-3),
+::view-transition-group(list-item-name-on-li-4),
+::view-transition-group(list-item-name-on-li-5),
+::view-transition-group(list-item-name-on-li-6) {
+  animation-duration: var(--duration-name-on-li);
+}
+*/
+
+.list-item-name-on-li {
+  view-transition-class: name-on-li;
 }
 
-::view-transition-group(list-item-basic-plus-4) {
-  animation-duration: var(--duration-basic-plus);
+::view-transition-group(.name-on-li) {
+  animation-duration: var(--duration-name-on-li);
 }
 
 /* section add class on item */
