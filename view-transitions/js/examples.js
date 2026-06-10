@@ -84,36 +84,18 @@ function getListByClickEvent(evt) {
 }
 
 // init duration pickers
-// each picker has attrs data-duration-picker and data-duration-var-suffix
-// upon selection, --duration-${var-suffix} is set to selected value
+// each picker has attr data-duration-id
+// upon selection, --duration-${duration-id} is set to selected value
 function initDurationPickers() {
-  const defaultDurations = ['250ms', '500ms', '3s'];
-  const defaultDefaultDuration = '3s';
-  const pickersConfig = [
-    {
-      id: 'duration-picker-section-basic',
-      varSuffix: 'section-basic',
-      durations: defaultDurations,
-      defaultDuration: defaultDefaultDuration,
+  const pickersConfig = {
+    durations: ['250ms', '500ms', '3s'],
+    defaultDuration: '3s',
+    overrides: {
+      // ['duration-id']: {
+      //   durations: [],
+      //   defaultDuration: '...',
+      // }
     },
-    {
-      id: 'duration-picker-section-basic-2',
-      varSuffix: 'section-basic-2',
-      durations: defaultDurations,
-      defaultDuration: defaultDefaultDuration,
-    },
-    {
-      id: 'duration-picker-section-basic-plus',
-      varSuffix: 'section-basic-plus',
-      durations: defaultDurations,
-      defaultDuration: defaultDefaultDuration,
-    },
-    {
-      id: 'duration-picker-section-class-on-item',
-      varSuffix: 'section-class-on-item',
-      durations: defaultDurations,
-      defaultDuration: defaultDefaultDuration,
-    },
-  ];
+  };
   createDurationPickers(pickersConfig);
 }

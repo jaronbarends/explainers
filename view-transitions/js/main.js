@@ -30,26 +30,24 @@ function addTriggerListeners() {
 }
 
 // init duration pickers
-// each picker has attrs data-duration-picker and data-duration-var-suffix
-// upon selection, --duration-${var-suffix} is set to selected value
+// each picker has attr data-duration-id
+// upon selection, --duration-${duration-id} is set to selected value
 function initDurationPickers() {
-  const pickersConfig = [
-    {
-      id: 'duration-picker-section-3',
-      varSuffix: 'section-3',
-      durations: ['250ms', '1s', '3s', '300s'],
+  const pickersConfig = {
+    durations: ['250ms', '1s', '3s', '300s'],
+    defaultDuration: '250ms',
+    overrides: {
+      ['section-3']: {
+        durations: ['250ms', '1s', '3s', '300s'],
+      },
+      ['section-4']: {
+        durations: ['250ms', '3s', '300s'],
+      },
+      ['async-section-5']: {
+        durations: ['250ms', '500ms', '3s'],
+      },
     },
-    {
-      id: 'duration-picker-section-4',
-      varSuffix: 'section-4',
-      durations: ['250ms', '3s', '300s'],
-    },
-    {
-      id: 'duration-picker-section-5',
-      varSuffix: 'async-section-5',
-      durations: ['250ms', '500ms', '3s'],
-    },
-  ];
+  };
   createDurationPickers(pickersConfig);
 }
 

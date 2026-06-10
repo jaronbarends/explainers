@@ -20,7 +20,7 @@
 }
 
 ::view-transition-group(list-basic) {
-  animation-duration: var(--duration-section-basic);
+  animation-duration: var(--duration-basic);
 }
 
 /* section basic-plus */
@@ -49,19 +49,19 @@
 } */
 
 ::view-transition-group(list-item-basic-plus-1) {
-  animation-duration: var(--duration-section-basic-plus);
+  animation-duration: var(--duration-basic-plus);
 }
 
 ::view-transition-group(list-item-basic-plus-2) {
-  animation-duration: var(--duration-section-basic-plus);
+  animation-duration: var(--duration-basic-plus);
 }
 
 ::view-transition-group(list-item-basic-plus-3) {
-  animation-duration: var(--duration-section-basic-plus);
+  animation-duration: var(--duration-basic-plus);
 }
 
 ::view-transition-group(list-item-basic-plus-4) {
-  animation-duration: var(--duration-section-basic-plus);
+  animation-duration: var(--duration-basic-plus);
 }
 
 /* section add class on item */
@@ -78,5 +78,5 @@
 
 ::view-transition-group(new-list-item) {
   animation: slide-in ease-out both;
-  animation-duration: var(--duration-section-class-on-item);
+  animation-duration: var(--duration-class-on-item);
 }

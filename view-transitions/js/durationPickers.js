@@ -1,11 +1,30 @@
+/*
+Duration pickers:
+Each picker has a data-duration-id.
+Upon selection, --duration-${duration-id} is set to selected value
+*/
+
 export function createDurationPickers(pickersConfig) {
-  pickersConfig.forEach(createDurationPicker);
+  const pickerElms = document.querySelectorAll('[data-duration-id]');
+  console.log('pickerElms:', pickerElms);
+  pickerElms.forEach((pickerElm) => {
+    const durationId = pickerElm.getAttribute('data-duration-id');
+    console.log('durationId:', durationId);
+    const overrides = pickersConfig.overrides[durationId] || {};
+    const pickerConfig = {
+      durationId,
+      durations: pickersConfig.durations,
+      defaultDuration: pickersConfig.defaultDuration,
+      ...overrides,
+    };
+    createDurationPicker(pickerConfig);
+  });
 }
 
 function createDurationPicker(pickerConfig) {
-  const container = document.getElementById(pickerConfig.id);
+  const container = document.querySelector(`[data-duration-id="${pickerConfig.durationId}"]`);
   if (!container) {
-    console.error(`no element found with id ${pickerConfig.id}`);
+    console.error(`no element found with data-duration-id ${pickerConfig.durationId}`);
     return;
   }
   const picker = document.createElement('span');
@@ -17,12 +36,12 @@ function createDurationPicker(pickerConfig) {
   instruction.innerHTML = 'Set <code>--duration</code> for examples below:';
   container.append(instruction);
   container.append(picker);
-  handleSelectDuration(picker, pickerConfig.varSuffix);
+  handleSelectDuration(picker, pickerConfig.durationId);
 }
 
 function addPickerRadio({ picker, pickerConfig, duration, i }) {
   const radio = document.createElement('input');
-  const groupName = `duration-picker-radio-${pickerConfig.varSuffix}`;
+  const groupName = `duration-picker-radio-${pickerConfig.durationId}`;
   const id = `${groupName}-${i}`;
   radio.setAttribute('type', 'radio');
   radio.setAttribute('name', groupName);
@@ -32,7 +51,7 @@ function addPickerRadio({ picker, pickerConfig, duration, i }) {
     radio.setAttribute('checked', 'checked');
   }
   radio.addEventListener('click', () => {
-    handleSelectDuration(picker, pickerConfig.varSuffix);
+    handleSelectDuration(picker, pickerConfig.durationId);
   });
   const label = document.createElement('label');
   label.setAttribute('for', id);
@@ -45,7 +64,7 @@ function addPickerRadio({ picker, pickerConfig, duration, i }) {
   picker.appendChild(label);
 }
 
-function handleSelectDuration(picker, varSuffix) {
+function handleSelectDuration(picker, durationId) {
   const duration = picker.querySelector(':checked').value;
-  document.documentElement.style.setProperty(`--duration-${varSuffix}`, duration);
+  document.documentElement.style.setProperty(`--duration-${durationId}`, duration);
 }
