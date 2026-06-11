@@ -101,6 +101,7 @@ main {
       grid-template-areas:
         'preview heading'
         'preview explanation';
+      grid-template-rows: auto 1fr;
     }
 
     h3 {

@@ -1,16 +1,30 @@
-/* section adding elements */
+.sample {
+  position: relative;
+}
 
-.dynamic-list {
+.preview {
+  position: sticky;
+  top: 5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.preview ul {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  margin-bottom: 1rem;
 }
 
-.dynamic-list__item {
+.preview ul > li {
   width: 200px;
   padding: 1rem;
   background: var(--color-primary);
+}
+
+.random-elm {
+  padding: 1rem;
+  border: 1px dashed var(--color-secondary);
 }
 
 /* section basic */
@@ -71,9 +85,19 @@ error-prone and not DRY; use view-transition-class instead
   animation-duration: var(--duration-name-on-li);
 }
 
+/* section dynamic names */
+
+.list-item-dynamic-names {
+  view-transition-class: dynamic-names;
+}
+
+::view-transition-group(.dynamic-names) {
+  animation-duration: var(--duration-dynamic-names);
+}
+
 /* section add class on item */
 
-.dynamic-list__item--new-item {
+.list-item--inserted {
   view-transition-name: new-list-item;
 }
 
@@ -85,5 +109,5 @@ error-prone and not DRY; use view-transition-class instead
 
 ::view-transition-group(new-list-item) {
   animation: slide-in ease-out both;
-  animation-duration: var(--duration-class-on-item);
+  animation-duration: var(--duration-class-on-new-item);
 }

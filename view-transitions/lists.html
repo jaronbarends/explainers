@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <title>View transitions - Lists</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="../assets/css/shared.css" />
+    <link rel="stylesheet" href="css/article.css" />
+    <link rel="stylesheet" href="css/lists.css" />
+  </head>
+
+  <body>
+    <div class="o-content-width">
+      <header>
+        <a href="../" class="back-link">&laquo; Back to explainers</a>
+        <a href="./index.html" class="back-link">&laquo; Back to View transitions</a>
+      </header>
+      <main>
+        <section class="text-content">
+          <h1>Practical examples of view transitions</h1>
+          <p>For most of the examples, We'll add items at the 2nd place in the list</p>
+        </section>
+
+        <!-- ##########################################
+        ##
+        ## Basic: transition on list; append items
+        ##
+        #############################################-->
+
+        <section class="samples-section samples-section--rows">
+          <h2>Basic: <code>view-transition-name</code> on list element</h2>
+          <div class="section-controls">
+            <div class="section-control">
+              <button id="button-add-item-basic">Add item</button>
+            </div>
+            <div class="section-control">
+              <div class="duration-picker" data-duration-id="basic"></div>
+            </div>
+          </div>
+
+          <div class="samples">
+            <div class="sample">
+              <div class="preview">
+                <ul id="list-basic" class="list-basic">
+                  <li>Item one</li>
+                </ul>
+                <p class="random-elm">I'm a <code>&lt;p&gt;</code> after the list</p>
+              </div>
+
+              <div class="explanation">
+                <p>
+                  The most basic transition is to just give a <code>view-transition-name</code> to
+                  the list. Then the complete old and new states simply crossfade in the set
+                  <code>--duration</code>. If you always add the item to the end of the list that is
+                  fine: it looks like only that list-item fades in.
+                </p>
+                <p>
+                  The <code>&lt;p&gt;</code> after the list is not part of the named
+                  view-transition, but of the root view-transition. That causes it to get its new
+                  position with the browser's default duration of 0.25s
+                </p>
+                <pre><code class="language-html">&lt;ul class="list-basic"&gt;...&lt;/ul&gt;</code></pre>
+                <pre><code class="language-css">.list-basic {
+  view-transition-name: list-basic;
+}
+::view-transition-group(list-basic) {
+  animation-duration: var(--duration-list-basic);
+}</code></pre>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ##########################################
+        ##
+        ## Basic 2: transition on list; add item in middle
+        ##
+        #############################################-->
+
+        <section class="samples-section samples-section--rows">
+          <div class="section-controls">
+            <div class="section-control">
+              <button id="button-add-item-basic-2">Add item</button>
+            </div>
+            <div class="section-control">
+              <div class="duration-picker" data-duration-id="basic-2"></div>
+            </div>
+          </div>
+
+          <div class="samples">
+            <div class="sample">
+              <div class="preview">
+                <ul id="list-basic-2" class="list-basic-2">
+                  <li>Item one</li>
+                </ul>
+                <p class="random-elm">I'm a <code>&lt;p&gt;</code> after the list</p>
+              </div>
+
+              <h3>Inserting items in the middle</h3>
+
+              <div class="explanation">
+                <p>
+                  When we add list items in the middle of the list (like here: always at position 2)
+                  setting a <code>view-transition-name</code> on the list-element doesn't work well:
+                  since the old and new states of the entire list crossfade, you see the list-items
+                  crossfade into each other.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ##########################################
+        ##
+        ## Dynamically add and remove names
+        ##
+        #############################################-->
+
+        <section class="samples-section samples-section--rows">
+          <h2>Dynamically adding and removing <code>view-transition-name</code>s</h2>
+          <div class="section-controls">
+            <div class="section-control">
+              <button id="button-add-item-dynamic-names">Add item</button>
+            </div>
+            <div class="section-control">
+              <div class="duration-picker" data-duration-id="dynamic-names"></div>
+            </div>
+          </div>
+
+          <div class="samples">
+            <div class="sample">
+              <div class="preview">
+                <ul id="list-dynamic-names">
+                  <li class="list-item-dynamic-names">Item one</li>
+                </ul>
+                <p class="random-elm">I'm a <code>&lt;p&gt;</code> after the list</p>
+              </div>
+
+              <div class="explanation">
+                <p>
+                  To get the cleanest effect and to prevent elements being affected by view
+                  transitions on other elements, you can dynamically add and remove the
+                  <code>view-transition-name</code>s.
+                </p>
+                <pre><code class="language-js">  const list = document.getElementById('list-dynamic-names');
+  // children is an HTMLCollection that does not have forEach, so convert to array
+  let lis = [...list.children];
+  const transitionNameBase = 'list-item-dynamic-names';
+  lis.forEach((li, idx) => {
+    li.style.viewTransitionName = `${transitionNameBase}-${idx}`;
+  });
+
+  const newLi = document.createElement('li');
+  newLi.textContent = '...';
+  const idx = list.children.length;
+  newLi.style.viewTransitionName = `${transitionNameBase}-${idx}`;
+  newLi.classList.add('list-item-dynamic-names');
+
+  const transition = document.startViewTransition(() => {
+    transition = document.startViewTransition(() => {
+      list.firstChild.after(newLi);
+    });
+  });
+
+  transition.finished.then(() => {
+    lis.forEach((li, idx) => {
+      li.style.viewTransitionName = 'none';
+    });
+    newLi.style.viewTransitionName = 'none';
+  });
+</code></pre>
+
+                <pre><code class="language-css">.list-item-dynamic-names {
+  view-transition-class: dynamic-names;
+}
+
+::view-transition-group(.dynamic-names) {
+  animation-duration: var(--duration-dynamic-names);
+}
+</code></pre>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ##########################################
+        ##
+        ## Add name to list-items
+        ##
+        #############################################-->
+
+        <section class="samples-section samples-section--rows">
+          <h2><code>view-transition-name</code> on list-items</h2>
+          <div class="section-controls">
+            <div class="section-control">
+              <button id="button-add-item-name-on-li">Add item</button>
+            </div>
+            <div class="section-control">
+              <div class="duration-picker" data-duration-id="name-on-li"></div>
+            </div>
+          </div>
+
+          <div class="samples">
+            <div class="sample">
+              <div class="preview">
+                <ul id="list-name-on-li" class="list-name-on-li">
+                  <li
+                    class="list-item-name-on-li"
+                    style="view-transition-name: list-item-name-on-li-1"
+                  >
+                    Item one
+                  </li>
+                </ul>
+                <p class="random-elm">I'm a <code>&lt;p&gt;</code> after the list</p>
+              </div>
+              <div class="explanation">
+                <p>
+                  You can make the list-items animate separately if you give each of them their own
+                  <code>view-transition-name</code>, like this:
+                </p>
+                <pre><code class="language-html">&lt;li style="view-transition-name: list-item-name-on-li-1"&gt;Item one&lt;/li&gt;
+&lt;li style="view-transition-name: list-item-name-on-li-2"&gt;Item one&lt;/li&gt;</code></pre>
+                <p>And then, for every item you add dynamically, set it with JavaScript:</p>
+                <pre><code class="language-js">item.style.viewTransitionName = `list-item-name-on-li-${id}`;
+</code></pre>
+                <p>
+                  To define the animation for all these <code>view-transition-name</code>s, you can
+                  pass something else than the <code>view-transition-name</code> to the
+                  <code>::view-transition-...</code> pseudo-element: a
+                  <code>view-transition-class</code>, preceded with a dot <code>.</code>. This will
+                  work on all <code>::view-transition-...</code> pseudo-elements.
+                </p>
+                <pre><code class="language-css">li {
+  view-transition-class: name-on-li;
+}
+
+::view-transition-group(.name-on-li) {
+  animation-duration: var(--duration-name-on-li);
+}</code></pre>
+                <h3>Gotchas and pitfalls</h3>
+                <h4>Separate definitions no longer necessary</h4>
+                <p>
+                  When <code>view-transition-class</code> was not yet supported, you needed to
+                  define the animation for each <code>view-transition-name</code> separately like
+                  this:
+                </p>
+                <pre><code class="language-css">/* Don't do it like this - error-prone and not DRY*/
+::view-transition-group(list-item-name-on-li-1),
+::view-transition-group(list-item-name-on-li-2),
+::view-transition-group(list-item-name-on-li-3),
+::view-transition-group(list-item-name-on-li-4) {
+  animation-duration: var(--duration-name-on-li);
+}</code></pre>
+                <p>
+                  That's both annoying and error-prone, because you don't know how many items might
+                  be added to your list. You may still come across this in other examples on the
+                  internet.
+                </p>
+
+                <h4>Don't use <code>nth-child</code> selectors</h4>
+                <p>You can't use <code>nth-child</code> selectors like this:</p>
+                <pre><code class="language-css">.my-list > nth-child(1) {
+  /* won't work */                  
+  view-transition-name: list-item-name-on-li-1;
+}</code></pre>
+                <p>
+                  In that case, you don't tie the <code>view-transition-name</code> to a specific
+                  node, but it will be assigned to node that matches the given position in the DOM.
+                  That's why we're using JavaScript to add the <code>view-transition-name</code> in
+                  the code earlier in this example. This practice of making the name follow the
+                  <em>element</em>, not the <em>position</em>, is called the stable identity pattern
+                  for view transitions.
+                </p>
+
+                <h4>Passive participation in view transitions</h4>
+                <p>
+                  In this example, the list-items keep their <code>view-transition-name</code>s
+                  after they are inserted. That has an unwanted side effect: when those elements'
+                  positions change due a view transition somewhere else in the DOM, that position
+                  change will also be animated.
+                </p>
+                <button id="add-elm-above-list-name-on-li">Add element above list</button>
+                <p>
+                  This is usually not what you want. You can prevent it by dynamically adding the
+                  <code>view-transition-name</code>s before the transition starts, and removing them
+                  when the animation finishes &mdash; see the next section.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ##########################################
+        ##
+        ## Separate animation for inserted items
+        ##
+        #############################################-->
+
+        <section class="samples-section samples-section--rows">
+          <h2>Separate animation for inserted items</h2>
+          <div class="section-controls">
+            <div class="section-control">
+              <button id="button-class-on-new-item">Add item</button>
+            </div>
+            <div class="section-control">
+              <div class="duration-picker" data-duration-id="class-on-new-item"></div>
+            </div>
+          </div>
+
+          <div class="samples">
+            <div class="sample">
+              <div class="preview">
+                <ul id="list-class-on-new-item">
+                  <li>Item one</li>
+                </ul>
+                <p class="random-elm">I'm a <code>&lt;p&gt;</code> after the list</p>
+              </div>
+
+              <h2>Basic transition</h2>
+
+              <div class="explanation">
+                <p>
+                  The most basic transition is to just give a <code>view-transition-name</code> to
+                  the list. Then the old and new states simply
+                </p>
+                <p>
+                  New list items crossfade in in the set <code>--duration</code>. This is fine if
+                  you always add the item to the end of the list. However, here we're always
+                  inserting the item's at position 2. You'll see that the old and new list items
+                  crossfade (you can tell by looking at the numbers).
+                </p>
+                <p>
+                  The <code>&lt;p&gt;</code> after the list is not part of the named
+                  view-transition, but of the root view-transition. That causes it to get its new
+                  position with the browser's default duration of 0.25s
+                </p>
+                <pre><code class="language-css">.list-basic {
+  view-transition-name: list-basic;
+}
+::view-transition-group(list-basic) {
+  animation-duration: var(--duration);
+}</code></pre>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div class="transitions-in-progress-indicator"></div>
+
+    <script src="js/lists.js" type="module"></script>
+    <script src="../lib/prism/prism.js"></script>
+  </body>
+</html>

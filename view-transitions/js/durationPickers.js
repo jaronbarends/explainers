@@ -31,7 +31,7 @@ function createDurationPicker(pickerConfig) {
     addPickerRadio({ picker, pickerConfig, duration, i });
   });
   const instruction = document.createElement('span');
-  instruction.innerHTML = 'Set <code>--duration</code> for examples below:';
+  instruction.innerHTML = 'Set <code>--duration&hellip;</code> for examples below:';
   container.append(instruction);
   container.append(picker);
   handleSelectDuration(picker, pickerConfig.durationId);
