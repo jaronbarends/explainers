@@ -87,7 +87,9 @@ error-prone and not DRY; use view-transition-class instead
 
 /* section dynamic names */
 
-.list-item-dynamic-names {
+.list-dynamic-names > li {
+  /* multiple items; use view-transition-class. this doesn't
+  do anything until view-transition-name is added to element */
   view-transition-class: dynamic-names;
 }
 
@@ -95,10 +97,17 @@ error-prone and not DRY; use view-transition-class instead
   animation-duration: var(--duration-dynamic-names);
 }
 
-/* section add class on item */
+/* section animate inserted item */
 
-.list-item--inserted {
-  view-transition-name: new-list-item;
+.list-separate-animation > li {
+  /* multiple items; use view-transition-class. this doesn't
+  do anything until view-transition-name is added to element */
+  view-transition-class: item-existing;
+}
+
+.list-item-inserted {
+  /* single item; use view-transition-name */
+  view-transition-name: item-inserted;
 }
 
 @keyframes slide-in {
@@ -107,7 +116,12 @@ error-prone and not DRY; use view-transition-class instead
   }
 }
 
-::view-transition-group(new-list-item) {
+::view-transition-group(.item-existing) {
+  /* animation-duration: var(--duration-item-existing);
+  animation-duration: 3s; */
+}
+
+::view-transition-group(item-inserted) {
   animation: slide-in ease-out both;
-  animation-duration: var(--duration-class-on-new-item);
+  animation-duration: var(--duration-item-inserted);
 }

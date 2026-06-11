@@ -14,45 +14,47 @@ function addTriggerListeners() {
     .getElementById('button-add-item-name-on-li')
     .addEventListener('click', addListItemNameOnLi);
   document
-    .getElementById('add-elm-above-list-name-on-li')
-    .addEventListener('click', addElmNameOnLi);
-
-  document
     .getElementById('button-add-item-dynamic-names')
     .addEventListener('click', addListItemDynamicNames);
   document
-    .getElementById('button-class-on-new-item')
-    .addEventListener('click', addListItemWithClass);
+    .getElementById('button-add-item-separate-animation')
+    .addEventListener('click', addListItemAnimateInserted);
+
+  const addElmBtns = document.querySelectorAll('[data-add-elm-to-preview]');
+  addElmBtns.forEach((btn) => {
+    btn.addEventListener('click', addElmToPreview);
+  });
 }
 
 function addListItemBasic() {
   const list = document.getElementById('list-basic');
-  const li = createLi(list);
-  startTransition(li, list, null);
+  const newLi = createLi(list);
+  startTransition(newLi, list, null);
 }
 
 function addListItemBasic2() {
   const list = document.getElementById('list-basic-2');
-  const li = createLi(list);
-  startTransition(li, list);
+  const newLi = createLi(list);
+  startTransition(newLi, list);
 }
 
 function addListItemNameOnLi() {
   const list = document.getElementById('list-name-on-li');
-  const li = createLi(list);
-  li.classList.add('list-item-name-on-li');
+  const newLi = createLi(list);
+  newLi.classList.add('list-item-name-on-li');
   const idx = list.children.length + 1;
-  li.style.viewTransitionName = `list-item-name-on-li-${idx}`;
-  startTransition(li, list);
+  newLi.style.viewTransitionName = `list-item-name-on-li-${idx}`;
+  startTransition(newLi, list);
 }
 
-function addElmNameOnLi() {
-  const list = document.getElementById('list-name-on-li');
+function addElmToPreview(evt) {
+  const section = evt.currentTarget.closest('section');
+  const preview = section.querySelector('.preview');
   document.startViewTransition(() => {
     const elm = document.createElement('div');
     elm.classList.add('random-elm');
     elm.innerHTML = "I'm a new <code>&lt;div&gt;<code>";
-    list.before(elm);
+    preview.prepend(elm);
   });
 }
 
@@ -65,18 +67,14 @@ function addListItemDynamicNames() {
     li.style.viewTransitionName = `${transitionNameBase}-${idx}`;
   });
 
-  // const newLi = createLi(list);
   const newLi = document.createElement('li');
-  newLi.textContent = '...';
-  const idx = list.children.length;
-  newLi.style.viewTransitionName = `${transitionNameBase}-${idx}`;
-  newLi.classList.add('list-item-dynamic-names');
+  newLi.textContent = `Item ${list.children.length + 1}`;
+  newLi.style.viewTransitionName = `${transitionNameBase}-new`;
 
-  // const transition = startTransition(newLi, list);
+  // in real-world code, add fallback
   const transition = document.startViewTransition(() => {
-    transition = document.startViewTransition(() => {
-      list.firstChild.after(newLi);
-    });
+    const firstLi = list.querySelector('li');
+    firstLi.after(newLi);
   });
 
   transition.finished.then(() => {
@@ -87,15 +85,30 @@ function addListItemDynamicNames() {
   });
 }
 
-function addListItemWithClass() {
-  const list = document.getElementById('list-class-on-new-item');
-  const li = createLi(list);
-  const newItemClassName = 'list-item--inserted';
-  li.classList.add(newItemClassName);
+function addListItemAnimateInserted() {
+  const list = document.getElementById('list-separate-animation');
+  // children is an HTMLCollection that does not have forEach, so convert to array
+  let lis = [...list.children];
+  lis.forEach((li, idx) => {
+    li.style.viewTransitionName = `list-item-existing-${idx}`;
+  });
 
-  const transition = startTransition(li, list);
+  const newLi = document.createElement('li');
+  const newLiClassName = 'list-item-inserted';
+  newLi.textContent = `Item ${list.children.length + 1}`;
+  newLi.classList.add(newLiClassName);
+
+  // in real-world code, add fallback
+  const transition = document.startViewTransition(() => {
+    const firstLi = list.querySelector('li');
+    firstLi.after(newLi);
+  });
+
   transition.finished.then(() => {
-    li.classList.remove(newItemClassName);
+    lis.forEach((li, idx) => {
+      li.style.viewTransitionName = 'none';
+    });
+    newLi.classList.remove(newLiClassName);
   });
 }
 
