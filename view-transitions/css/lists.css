@@ -110,6 +110,18 @@ error-prone and not DRY; use view-transition-class instead
   view-transition-name: item-inserted;
 }
 
+@keyframes scale {
+  0% {
+    scale: 1;
+  }
+  50% {
+    scale: 0.9;
+  }
+  100% {
+    scale: 1;
+  }
+}
+
 @keyframes slide-in {
   from {
     translate: -20%;
@@ -117,11 +129,17 @@ error-prone and not DRY; use view-transition-class instead
 }
 
 ::view-transition-group(.item-existing) {
-  /* animation-duration: var(--duration-item-existing);
-  animation-duration: 3s; */
+  animation-duration: 0.5s;
+}
+::view-transition-image-pair(.item-existing) {
+  animation: scale ease-in-out both;
+  animation-duration: inherit;
 }
 
 ::view-transition-group(item-inserted) {
   animation: slide-in ease-out both;
   animation-duration: var(--duration-item-inserted);
+}
+::view-transition-image-pair(item-inserted) {
+  animation: none;
 }

@@ -141,7 +141,7 @@ function startTransition(li, list, position = 2) {
 // upon selection, --duration-${duration-id} is set to selected value
 function initDurationPickers() {
   const pickersConfig = {
-    durations: ['250ms', '500ms', '1s', '3s'],
+    durations: ['250ms', '500ms', '1s', '3s', '300s'],
     defaultDuration: '1s',
     overrides: {
       // ['duration-id']: {
