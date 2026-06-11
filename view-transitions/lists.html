@@ -271,7 +271,7 @@
   });
 
   transition.finished.then(() => {
-    lis.forEach((li, idx) => {
+    lis.forEach((li) => {
       li.style.viewTransitionName = 'none';
     });
     newLi.style.viewTransitionName = 'none';
@@ -331,7 +331,99 @@
                 <p class="random-elm">I'm a <code>&lt;p&gt;</code> after the list</p>
               </div>
 
-              <div class="explanation"></div>
+              <div class="explanation">
+                <p>
+                  To add a different animation for the inserted item, the new item shouldn't use the
+                  same <code>view-transition-class</code> as the existing items, but get its own
+                  animation based on its <code>view-transition-name</code>.
+                </p>
+                <pre><code class="language-js">  const list = document.getElementById('list-separate-animation');
+  // children is an HTMLCollection that does not have forEach, so convert to array
+  let lis = [...list.children];
+  lis.forEach((li, idx) => {
+    li.style.viewTransitionName = `list-item-existing-${idx}`;
+  });
+
+  const newLi = document.createElement('li');
+  newLi.style.viewTransitionName = 'item-inserted';
+  newLi.textContent = `Item ${list.children.length + 1}`;
+
+  // in real-world code, add fallback
+  const transition = document.startViewTransition(() => {
+    const firstLi = list.querySelector('li');
+    firstLi.after(newLi);
+  });
+
+  transition.finished.then(() => {
+    lis.forEach((li) => {
+      li.style.viewTransitionName = 'none';
+    });
+    newLi.style.viewTransitionName = 'none';
+  });
+</code></pre>
+                <pre><code class="language-css">.list-separate-animation > li {
+  /* multiple items; use view-transition-class. this doesn't
+  do anything until view-transition-name is added to element */
+  view-transition-class: item-existing;
+}
+
+@keyframes scale {
+  0% { scale: 1; }
+  50% { scale: 0.9; }
+  100% { scale: 1; }
+}
+
+@keyframes slide-in {
+  from { translate: -20%; }
+}
+
+::view-transition-image-pair(.item-existing) {
+  animation: scale ease-in-out both;
+  animation-duration: 0.5s;
+}
+
+::view-transition-group(item-inserted) {
+  animation: slide-in ease-out both;
+  animation-duration: var(--duration-item-inserted);
+}
+
+::view-transition-image-pair(item-inserted) {
+  /* override ::view-transition-image-pair(.item-existing) */
+  animation: none;
+}
+</code></pre>
+                <h3>Gotchas and pitfalls</h3>
+                <h4>Use <code>::view-transition-image-pair</code> for scaling</h4>
+                <p>
+                  We're animating the existing items' <code>scale</code>. In that case, you can't
+                  put the animation on the <code>::view-transition-group</code>. You should only use
+                  that only for position, size and timing. Put it on
+                  <code>::view-transition-image-pair</code> instead.
+                </p>
+                <h4>Override new item's <code>::view-transition-image-pair</code> styles</h4>
+                <p>
+                  We're assigning <code>view-transition-class: item-existing;</code> to
+                  <code>.list-separate-animation > li</code>. When the new item is inserted, it also
+                  matches that selector. That means that even though we are using
+                  <code>::view-transition-group(item-inserted)</code> here, the styles for
+                  <code>::view-transition-image-pair(.item-existing)</code> are also applied. We
+                  need to override that by setting the animation for
+                  <code>::view-transition-image-pair(item-inserted)</code> to none. Both rules have
+                  the same specificity, so the code order determines the outcome.
+                </p>
+                <p>
+                  An alternative would have been not to use
+                  <code>::view-transition-group(item-inserted)</code> at all, and put the animation
+                  directly on <code>::view-transition-image-pair(item-inserted)</code>. I have not
+                  done that here for the sake of pointing out this pitfall.
+                </p>
+                <h4>Only animate items after inserted item</h4>
+                <p>
+                  The animation would look better if we would only animate the existing items that
+                  come after the inserted item. To do that, just don't add a
+                  <code>view-transition-name</code> to the existing items coming before it.
+                </p>
+              </div>
             </div>
           </div>
         </section>

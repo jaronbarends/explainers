@@ -3,21 +3,8 @@ import { createDurationPickers } from './durationPickers.js';
 init();
 
 function init() {
-  addKeyListeners();
   addTriggerListeners();
   initDurationPickers();
-}
-
-function addKeyListeners() {
-  document.addEventListener('keyup', (e) => {
-    const regex = /(?:Digit|Numpad)([0-9])/;
-    const matches = e.code.match(regex);
-    if (e.code.match(regex)) {
-      const idx = matches[1];
-      const section = document.querySelector(`[data-samples-section-${idx}]`);
-      toggleSamples(section);
-    }
-  });
 }
 
 function addTriggerListeners() {

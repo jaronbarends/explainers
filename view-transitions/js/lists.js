@@ -78,7 +78,7 @@ function addListItemDynamicNames() {
   });
 
   transition.finished.then(() => {
-    lis.forEach((li, idx) => {
+    lis.forEach((li) => {
       li.style.viewTransitionName = 'none';
     });
     newLi.style.viewTransitionName = 'none';
@@ -94,9 +94,8 @@ function addListItemAnimateInserted() {
   });
 
   const newLi = document.createElement('li');
-  const newLiClassName = 'list-item-inserted';
+  newLi.style.viewTransitionName = 'item-inserted';
   newLi.textContent = `Item ${list.children.length + 1}`;
-  newLi.classList.add(newLiClassName);
 
   // in real-world code, add fallback
   const transition = document.startViewTransition(() => {
@@ -105,10 +104,10 @@ function addListItemAnimateInserted() {
   });
 
   transition.finished.then(() => {
-    lis.forEach((li, idx) => {
+    lis.forEach((li) => {
       li.style.viewTransitionName = 'none';
     });
-    newLi.classList.remove(newLiClassName);
+    newLi.style.viewTransitionName = 'none';
   });
 }
 

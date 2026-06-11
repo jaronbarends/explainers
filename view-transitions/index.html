@@ -116,7 +116,7 @@ function toggleSamplesClass(samples) {
 
           <div class="section-controls">
             <div class="section-control">
-              <button data-toggle-button>Toggle state</button> (or press <kbd>1</kbd>)
+              <button data-toggle-button>Toggle state</button>
             </div>
           </div>
 
@@ -187,7 +187,7 @@ here without view-transition-name */
 
           <div class="section-controls">
             <div class="section-control">
-              <button data-toggle-button>Toggle state</button> (or press <kbd>2</kbd>)
+              <button data-toggle-button>Toggle state</button>
             </div>
           </div>
 
@@ -247,7 +247,7 @@ here without view-transition-name */
 
           <div class="section-controls">
             <div class="section-control">
-              <button data-toggle-button>Toggle state</button> (or press <kbd>3</kbd>)
+              <button data-toggle-button>Toggle state</button>
             </div>
 
             <div class="section-control">
@@ -334,7 +334,7 @@ here without view-transition-name */
           <h2>Pseudo-elements that can be animated</h2>
           <div class="section-controls">
             <div class="section-control">
-              <button data-toggle-button>Toggle state</button> (or press <kbd>4</kbd>)
+              <button data-toggle-button>Toggle state</button>
             </div>
 
             <div class="section-control">
@@ -518,11 +518,29 @@ here without view-transition-name */
               </div>
             </div>
           </div>
+          <h3>Which pseudo-elements should you use?</h3>
           <p>
-            Note that the old and new snapshots aren't the same kind of element as the box whose
-            style is changing. The snapshots are replaced elements (similar to an <code>img</code>).
-            That means that you can only animate some of their properties (size, position, opacity,
-            etc), but not others (like background, color).
+            If you try to add a scaling animation to a <code>::view-transition-group</code>, you'll
+            get very weird results. That scales the bounding box that contains the animation. For
+            things like transforms, you should use the
+            <code>::view-transition-image-pair</code> instead.
+          </p>
+          <ul>
+            <li><code>::view-transition-group</code> — position, size, timing of the move</li>
+            <li>
+              <code>::view-transition-image-pair</code> — visual effects applied to both snapshots
+              together (scale, blur, etc.)
+            </li>
+            <li>
+              <code>::view-transition-old</code> / <code>::view-transition-new</code> — effects on
+              one snapshot only (typically opacity, or asymmetric enter/exit animations)
+            </li>
+          </ul>
+          <p>
+            Note that the snapshots aren't the same kind of element as the box whose style is
+            changing. The snapshots are replaced elements (similar to an <code>img</code>). That
+            means that you can only animate some of their properties (size, position, opacity, etc),
+            but not others (like background, color).
           </p>
         </section>
 
@@ -530,7 +548,7 @@ here without view-transition-name */
           <h2>Custom duration for <code>::...-image-pair</code></h2>
           <div class="section-controls">
             <div class="section-control">
-              <button data-toggle-button>Toggle state</button> (or press <kbd>5</kbd>)
+              <button data-toggle-button>Toggle state</button>
             </div>
 
             <div class="section-control">

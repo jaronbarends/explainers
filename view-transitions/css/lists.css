@@ -105,11 +105,6 @@ error-prone and not DRY; use view-transition-class instead
   view-transition-class: item-existing;
 }
 
-.list-item-inserted {
-  /* single item; use view-transition-name */
-  view-transition-name: item-inserted;
-}
-
 @keyframes scale {
   0% {
     scale: 1;
@@ -128,18 +123,19 @@ error-prone and not DRY; use view-transition-class instead
   }
 }
 
-::view-transition-group(.item-existing) {
-  animation-duration: 0.5s;
-}
 ::view-transition-image-pair(.item-existing) {
   animation: scale ease-in-out both;
-  animation-duration: inherit;
+  animation-duration: 0.5s;
 }
 
 ::view-transition-group(item-inserted) {
   animation: slide-in ease-out both;
   animation-duration: var(--duration-item-inserted);
 }
+
+/* The new item also matches the selector .list-separate-animation > li. That means that even though we are using ::view-transition-group(item-inserted) here, the styles for ::view-transition-image-pair(.item-existing) are also applied. We need to override that by setting the animation for ::view-transition-image-pair to none. Both rules have the same specificity; order determines the outcome. (An alternative would have been 
+*/
 ::view-transition-image-pair(item-inserted) {
+  /* override ::view-transition-image-pair(.item-existing) */
   animation: none;
 }
