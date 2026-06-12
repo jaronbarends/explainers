@@ -254,7 +254,7 @@
                 </p>
                 <pre><code class="language-js">  const list = document.getElementById('list-dynamic-names');
   // children is an HTMLCollection that does not have forEach, so convert to array
-  let lis = [...list.children];
+  const lis = [...list.children];
   const transitionNameBase = 'list-item-dynamic-names';
   lis.forEach((li, idx) => {
     li.style.viewTransitionName = `${transitionNameBase}-${idx}`;
@@ -369,17 +369,21 @@
 
 @keyframes scale {
   0% { scale: 1; }
-  50% { scale: 0.9; }
+  50% { scale: 0.95; }
   100% { scale: 1; }
 }
 
 @keyframes slide-in {
-  from { translate: -20%; }
+  from {
+    translate: -20%;
+    opacity: 0;
+  }
 }
 
 ::view-transition-image-pair(.item-existing) {
   animation: scale ease-in-out both;
   animation-duration: 0.5s;
+  animation-delay: 0.25s;
 }
 
 ::view-transition-group(item-inserted) {
@@ -424,6 +428,37 @@
                   <code>view-transition-name</code> to the existing items coming before it.
                 </p>
               </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ##########################################
+        ##
+        ## Separate animation for inserted items
+        ##
+        #############################################-->
+
+        <section class="samples-section samples-section--rows">
+          <h2>Animate inserted and removed items</h2>
+          <div class="section-controls">
+            <div class="section-control">
+              <button id="button-add-item-in-and-out">Add item</button>
+            </div>
+            <div class="section-control">
+              <div class="duration-picker" data-duration-id="in-and-out"></div>
+            </div>
+          </div>
+
+          <div class="samples">
+            <div class="sample">
+              <div class="preview">
+                <ul id="list-in-and-out" class="list-in-and-out">
+                  <li>Item 1 <button>Remove</button></li>
+                </ul>
+                <p class="random-elm">I'm a <code>&lt;p&gt;</code> after the list</p>
+              </div>
+
+              <div class="explanation"></div>
             </div>
           </div>
         </section>

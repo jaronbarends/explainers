@@ -110,7 +110,7 @@ error-prone and not DRY; use view-transition-class instead
     scale: 1;
   }
   50% {
-    scale: 0.9;
+    scale: 0.95;
   }
   100% {
     scale: 1;
@@ -120,6 +120,7 @@ error-prone and not DRY; use view-transition-class instead
 @keyframes slide-in {
   from {
     translate: -20%;
+    opacity: 0;
   }
 }
 
@@ -131,11 +132,50 @@ error-prone and not DRY; use view-transition-class instead
 ::view-transition-group(item-inserted) {
   animation: slide-in ease-out both;
   animation-duration: var(--duration-item-inserted);
+  animation-delay: 0.25s;
 }
 
-/* The new item also matches the selector .list-separate-animation > li. That means that even though we are using ::view-transition-group(item-inserted) here, the styles for ::view-transition-image-pair(.item-existing) are also applied. We need to override that by setting the animation for ::view-transition-image-pair to none. Both rules have the same specificity; order determines the outcome. (An alternative would have been 
-*/
 ::view-transition-image-pair(item-inserted) {
   /* override ::view-transition-image-pair(.item-existing) */
   animation: none;
+}
+
+/* section animate inserted and removed item */
+
+.list-in-and-out > li {
+  display: flex;
+  justify-content: space-between;
+}
+
+@keyframes slide-out {
+  to {
+    translate: -20%;
+    opacity: 0;
+  }
+}
+
+::view-transition-group(.in-and-out-item-existing-with-entry),
+::view-transition-group(.in-and-out-item-existing-with-exit) {
+  animation-duration: 0.5s;
+}
+
+::view-transition-group(.in-and-out-item-existing-with-exit) {
+  animation-delay: var(--duration-in-and-out);
+}
+
+::view-transition-image-pair(.in-and-out-item-existing-with-entry),
+::view-transition-image-pair(.in-and-out-item-existing-with-exit) {
+  animation: scale ease-in-out both;
+  animation-duration: inherit;
+  animation-delay: inherit;
+}
+
+::view-transition-group(in-and-out-item-inserted),
+::view-transition-group(in-and-out-item-removed) {
+  animation: slide-in ease-out both;
+  animation-duration: var(--duration-in-and-out);
+  animation-delay: 0.25s;
+}
+::view-transition-group(in-and-out-item-removed) {
+  animation-name: slide-out;
 }

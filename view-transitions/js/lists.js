@@ -19,6 +19,10 @@ function addTriggerListeners() {
   document
     .getElementById('button-add-item-separate-animation')
     .addEventListener('click', addListItemAnimateInserted);
+  document
+    .getElementById('button-add-item-in-and-out')
+    .addEventListener('click', addItemListInAndOut);
+  document.getElementById('list-in-and-out').addEventListener('click', checkRemoveItem);
 
   const addElmBtns = document.querySelectorAll('[data-add-elm-to-preview]');
   addElmBtns.forEach((btn) => {
@@ -88,9 +92,9 @@ function addListItemDynamicNames() {
 function addListItemAnimateInserted() {
   const list = document.getElementById('list-separate-animation');
   // children is an HTMLCollection that does not have forEach, so convert to array
-  let lis = [...list.children];
+  const lis = [...list.children];
   lis.forEach((li, idx) => {
-    li.style.viewTransitionName = `list-item-existing-${idx}`;
+    li.style.viewTransitionName = `list-in-and-out-item-existing-${idx}`;
   });
 
   const newLi = document.createElement('li');
@@ -108,6 +112,59 @@ function addListItemAnimateInserted() {
       li.style.viewTransitionName = 'none';
     });
     newLi.style.viewTransitionName = 'none';
+  });
+}
+
+function checkRemoveItem(evt) {
+  if (!evt.target.tagName === 'BUTTON') {
+    return;
+  }
+  const li = evt.target.closest('li');
+  updateListInAndOut(li);
+}
+
+function addItemListInAndOut(_) {
+  updateListInAndOut();
+}
+
+function updateListInAndOut(liToRemove) {
+  const list = document.getElementById('list-in-and-out');
+  // children is an HTMLCollection that does not have forEach, so convert to array
+  let lis = [...list.children];
+  lis.forEach((li, idx) => {
+    const transtionClass = liToRemove
+      ? 'in-and-out-item-existing-with-exit'
+      : 'in-and-out-item-existing-with-entry';
+    li.style.viewTransitionClass = transtionClass;
+    li.style.viewTransitionName = `in-and-out-item-existing-${idx}`;
+  });
+
+  let updateFn;
+
+  if (liToRemove) {
+    liToRemove.style.viewTransitionName = 'in-and-out-item-removed';
+    updateFn = () => {
+      liToRemove.remove();
+    };
+  } else {
+    // add item
+    const newLi = document.createElement('li');
+    newLi.style.viewTransitionName = 'in-and-out-item-inserted';
+    newLi.innerHTML = `Item ${list.children.length + 1} <button>Remove</button>`;
+
+    // in real-world code, add fallback
+    updateFn = () => {
+      const firstLi = list.querySelector('li');
+      firstLi.after(newLi);
+    };
+  }
+  const transition = document.startViewTransition(updateFn);
+  transition.finished.then(() => {
+    //update lis to contain new item
+    let lis = [...list.children];
+    lis.forEach((li) => {
+      li.style.viewTransitionName = 'none';
+    });
   });
 }
 
