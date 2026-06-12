@@ -37,7 +37,7 @@ function addTriggerListeners() {
 }
 
 function sectionBasic_addItem() {
-  const list = document.getElementById('list-basic');
+  const list = document.getElementById('section-basic__list');
   const newLi = createLi(list);
   startTransition(newLi, list, null);
 }
