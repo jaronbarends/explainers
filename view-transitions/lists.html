@@ -467,7 +467,141 @@ transition.finished.then(() => {
                 <p class="random-elm">I'm a <code>&lt;p&gt;</code> after the list</p>
               </div>
 
-              <div class="explanation"></div>
+              <div class="explanation">
+                <p>
+                  If you want entry and exit animations, a lot stays the same compared to the
+                  previous example: you still need to add <code>::view-transition-name</code>s to
+                  the existing items and the inserted or removed item. However, the timing is
+                  slightly different: on entry, you want the existing items to move down first and
+                  then start the animation for the inserted item. On exit, it's the other way
+                  around. To accomplish that, we need to define separate
+                  <code>view-transition-class</code>es for the existing items, and separate
+                  <code>view-transition-name</code>s for the inserted or removed item.
+                </p>
+                <pre><code class="language-js">function addTransitionNamesAndClass({ list, transitionNameBase, transitionClass }) {
+  // children is an HTMLCollection that does not have forEach, so convert to array
+  let lis = [...list.children];
+  lis.forEach((li, idx) => {
+    li.style.viewTransitionClass = transitionClass;
+    li.style.viewTransitionName = `${transitionNameBase}-${idx}`;
+  });
+}
+
+function removeTransitionNames(list) {
+  let lis = [...list.children];
+  lis.forEach((li) => {
+    li.style.viewTransitionName = 'none';
+  });
+}
+
+function sectionEntryExit_addItem() {
+  const list = document.getElementById('section-entry-exit__list');
+  addTransitionNamesAndClass({
+    list,
+    transitionNameBase: 'section-entry-exit__item-existing',
+    transitionClass: 'section-entry-exit__item-existing--with-entry',
+  });
+
+  const newLi = document.createElement('li');
+  newLi.style.viewTransitionName = 'section-entry-exit__item-inserted';
+  newLi.innerHTML = `Item ${list.children.length + 1}`;
+
+  const transition = document.startViewTransition(() => {
+    const firstLi = list.querySelector('li');
+    firstLi.after(newLi);
+  });
+  transition.finished.then(() => {
+    removeTransitionNames(list);
+  });
+}
+
+function sectionEntryExit_removeItem(liToRemove) {
+  const list = document.getElementById('section-entry-exit__list');
+  addTransitionNamesAndClass({
+    list,
+    transitionNameBase: 'section-entry-exit__item-existing',
+    transitionClass: 'section-entry-exit__item-existing--with-exit',
+  });
+
+  liToRemove.style.viewTransitionName = 'section-entry-exit__item-removed';
+  const transition = document.startViewTransition(() => {
+    liToRemove.remove();
+  });
+  transition.finished.then(() => {
+    removeTransitionNames(list);
+  });
+}
+              </code></pre>
+                <p>
+                  When a new item is inserted (on entry), the existing items get the
+                  <code>view-transition-class</code> of
+                  <code>section-entry-exit__item-existing--with-entry</code>, and the inserted item
+                  gets the <code>view-transition-name</code> of
+                  <code>section-entry-animation__item-inserted</code>.
+                </p>
+                <p>
+                  When an item is removed (on exit), the existing items get the
+                  <code>view-transition-class</code> of
+                  <code>section-entry-exit__item-existing--with-exit</code>, and the inserted item
+                  gets the <code>view-transition-name</code> of
+                  <code>section-entry-animation__item-removed</code>.
+                </p>
+                <h3>Gotchas and pitfalss</h3>
+                <h4>
+                  Add scaling to <code>::...-image-pair</code> but timing to
+                  <code>::...-group</code>
+                </h4>
+                <p>
+                  The existing items have a scaling animation. We can't apply that to
+                  <code>::view-transition-group</code>, because that messes with its positioning, so
+                  we use <code>::view-transition-image-pair</code> instead. It would seem logical to
+                  add the <code>animation-duration</code> and <code>animation-delay</code> their as
+                  well, but the <code>::...-group</code> has its own animation that takes care of
+                  the position update. So then the <code>::...-group</code>'s animation would start
+                  rightaway, and the <code>::...-image-pair</code> after the delay. To prevent that,
+                  add the <code>animation-duration</code> and <code>animation-delay</code> to the
+                  <code>::...-group</code>; the <code>::...-image-pair</code> will inherit those
+                  settings by default.
+                </p>
+                <pre><code class="language-css">.section-entry-exit__list > li {
+  display: flex;
+  justify-content: space-between;
+}
+
+::view-transition-group(.section-entry-exit__item-existing--with-entry),
+::view-transition-group(.section-entry-exit__item-existing--with-exit) {
+  animation-duration: 0.5s;
+}
+
+::view-transition-group(.section-entry-exit__item-existing--with-exit) {
+  animation-delay: var(--duration-section-entry-exit);
+}
+
+::view-transition-image-pair(.section-entry-exit__item-existing--with-entry),
+::view-transition-image-pair(.section-entry-exit__item-existing--with-exit) {
+  animation: scale ease-in-out both;
+}
+
+::view-transition-group(section-entry-exit__item-inserted),
+::view-transition-group(section-entry-exit__item-removed) {
+  animation: slide-in ease-out both;
+  animation-duration: var(--duration-section-entry-exit);
+  animation-delay: 0.25s;
+}
+::view-transition-group(section-entry-exit__item-removed) {
+  animation-direction: reverse;
+  animation-delay: 0s;
+}
+
+::view-transition-image-pair(section-entry-exit__item-inserted),
+::view-transition-image-pair(section-entry-exit__item-removed) {
+  /* override
+  ::view-transition-image-pair(.section-entry-exit__item-existing--with-entry) and
+  ::view-transition-image-pair(.section-entry-exit__item-existing--with-exit) */
+  animation: none;
+}
+              </code></pre>
+              </div>
             </div>
           </div>
         </section>

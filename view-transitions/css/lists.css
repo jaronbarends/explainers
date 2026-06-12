@@ -131,8 +131,6 @@
 ::view-transition-image-pair(.section-entry-exit__item-existing--with-entry),
 ::view-transition-image-pair(.section-entry-exit__item-existing--with-exit) {
   animation: scale ease-in-out both;
-  animation-duration: inherit;
-  animation-delay: inherit;
 }
 
 ::view-transition-group(section-entry-exit__item-inserted),
