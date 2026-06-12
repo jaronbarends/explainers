@@ -21,7 +21,7 @@ function addTriggerListeners() {
     .addEventListener('click', addListItemAnimateInserted);
   document
     .getElementById('button-add-item-in-and-out')
-    .addEventListener('click', addItemListInAndOut);
+    .addEventListener('click', addItemListEntryAndExit);
   document.getElementById('list-in-and-out').addEventListener('click', checkRemoveItem);
 
   const addElmBtns = document.querySelectorAll('[data-add-elm-to-preview]');
@@ -120,14 +120,14 @@ function checkRemoveItem(evt) {
     return;
   }
   const li = evt.target.closest('li');
-  updateListInAndOut(li);
+  updateListEntryAndExit(li);
 }
 
-function addItemListInAndOut(_) {
-  updateListInAndOut();
+function addItemListEntryAndExit(_) {
+  updateListEntryAndExit();
 }
 
-function updateListInAndOut(liToRemove) {
+function updateListEntryAndExit(liToRemove) {
   const list = document.getElementById('list-in-and-out');
   // children is an HTMLCollection that does not have forEach, so convert to array
   let lis = [...list.children];
@@ -158,6 +158,7 @@ function updateListInAndOut(liToRemove) {
       firstLi.after(newLi);
     };
   }
+
   const transition = document.startViewTransition(updateFn);
   transition.finished.then(() => {
     //update lis to contain new item
