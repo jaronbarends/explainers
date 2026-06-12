@@ -8,21 +8,27 @@ function init() {
 }
 
 function addTriggerListeners() {
-  document.getElementById('button-add-item-basic').addEventListener('click', addListItemBasic);
-  document.getElementById('button-add-item-basic-2').addEventListener('click', addListItemBasic2);
   document
-    .getElementById('button-add-item-name-on-li')
-    .addEventListener('click', addListItemNameOnLi);
+    .getElementById('section-basic__btn-add-item')
+    .addEventListener('click', sectionBasic_addItem);
   document
-    .getElementById('button-add-item-dynamic-names')
-    .addEventListener('click', addListItemDynamicNames);
+    .getElementById('section-basic2__btn-add-item')
+    .addEventListener('click', sectionBasic2_addItem);
   document
-    .getElementById('button-add-item-separate-animation')
-    .addEventListener('click', addListItemAnimateInserted);
+    .getElementById('section-name-on-li__btn-add-item')
+    .addEventListener('click', sectionNameOnLi_addItem);
   document
-    .getElementById('button-add-item-in-and-out')
-    .addEventListener('click', addItemListEntryAndExit);
-  document.getElementById('list-in-and-out').addEventListener('click', checkRemoveItem);
+    .getElementById('section-dynamic-names__btn-add-item')
+    .addEventListener('click', sectionDynamicNames_addItem);
+  document
+    .getElementById('section-entry-animation__btn-add-item')
+    .addEventListener('click', sectionEntryAnimation_addItem);
+  document
+    .getElementById('section-entry-exit__btn-add-item')
+    .addEventListener('click', sectionEntryExit_addItem);
+  document
+    .getElementById('section-entry-exit__list')
+    .addEventListener('click', sectionEntryExit_checkRemoveItem);
 
   const addElmBtns = document.querySelectorAll('[data-add-elm-to-preview]');
   addElmBtns.forEach((btn) => {
@@ -30,43 +36,31 @@ function addTriggerListeners() {
   });
 }
 
-function addListItemBasic() {
+function sectionBasic_addItem() {
   const list = document.getElementById('list-basic');
   const newLi = createLi(list);
   startTransition(newLi, list, null);
 }
 
-function addListItemBasic2() {
-  const list = document.getElementById('list-basic-2');
+function sectionBasic2_addItem() {
+  const list = document.getElementById('section-basic2__list');
   const newLi = createLi(list);
   startTransition(newLi, list);
 }
 
-function addListItemNameOnLi() {
-  const list = document.getElementById('list-name-on-li');
+function sectionNameOnLi_addItem() {
+  const list = document.getElementById('section-name-on-li__list');
   const newLi = createLi(list);
-  newLi.classList.add('list-item-name-on-li');
   const idx = list.children.length + 1;
-  newLi.style.viewTransitionName = `list-item-name-on-li-${idx}`;
+  newLi.style.viewTransitionName = `section-name-on-li__item-${idx}`;
   startTransition(newLi, list);
 }
 
-function addElmToPreview(evt) {
-  const section = evt.currentTarget.closest('section');
-  const preview = section.querySelector('.preview');
-  document.startViewTransition(() => {
-    const elm = document.createElement('div');
-    elm.classList.add('random-elm');
-    elm.innerHTML = "I'm a new <code>&lt;div&gt;<code>";
-    preview.prepend(elm);
-  });
-}
-
-function addListItemDynamicNames() {
-  const list = document.getElementById('list-dynamic-names');
+function sectionDynamicNames_addItem() {
+  const list = document.getElementById('section-dynamic-names__list');
   // children is an HTMLCollection that does not have forEach, so convert to array
   let lis = [...list.children];
-  const transitionNameBase = 'list-item-dynamic-names';
+  const transitionNameBase = 'section-dynamic-names__item';
   lis.forEach((li, idx) => {
     li.style.viewTransitionName = `${transitionNameBase}-${idx}`;
   });
@@ -89,16 +83,16 @@ function addListItemDynamicNames() {
   });
 }
 
-function addListItemAnimateInserted() {
-  const list = document.getElementById('list-separate-animation');
+function sectionEntryAnimation_addItem() {
+  const list = document.getElementById('section-entry-animation__list');
   // children is an HTMLCollection that does not have forEach, so convert to array
   const lis = [...list.children];
   lis.forEach((li, idx) => {
-    li.style.viewTransitionName = `list-in-and-out-item-existing-${idx}`;
+    li.style.viewTransitionName = `section-entry-animation__item-existing-${idx}`;
   });
 
   const newLi = document.createElement('li');
-  newLi.style.viewTransitionName = 'item-inserted';
+  newLi.style.viewTransitionName = 'section-entry-animation__item-inserted';
   newLi.textContent = `Item ${list.children.length + 1}`;
 
   // in real-world code, add fallback
@@ -115,57 +109,65 @@ function addListItemAnimateInserted() {
   });
 }
 
-function checkRemoveItem(evt) {
+function sectionEntryExit_checkRemoveItem(evt) {
   if (!evt.target.tagName === 'BUTTON') {
     return;
   }
-  const li = evt.target.closest('li');
-  updateListEntryAndExit(li);
+  const liToRemove = evt.target.closest('li');
+  sectionEntryExit_removeItem(liToRemove);
 }
 
-function addItemListEntryAndExit(_) {
-  updateListEntryAndExit();
+function sectionEntryExit_addItem() {
+  const list = document.getElementById('section-entry-exit__list');
+  addTransitionNamesAndClass({
+    list,
+    transitionNameBase: 'section-entry-exit__item-existing',
+    transitionClass: 'section-entry-exit__item-existing--with-entry',
+  });
+
+  const newLi = document.createElement('li');
+  newLi.style.viewTransitionName = 'section-entry-exit__item-inserted';
+  newLi.innerHTML = `Item ${list.children.length + 1} <button>Remove</button>`;
+
+  const transition = document.startViewTransition(() => {
+    const firstLi = list.querySelector('li');
+    firstLi.after(newLi);
+  });
+  transition.finished.then(() => {
+    removeTransitionNames(list);
+  });
 }
 
-function updateListEntryAndExit(liToRemove) {
-  const list = document.getElementById('list-in-and-out');
+function sectionEntryExit_removeItem(liToRemove) {
+  const list = document.getElementById('section-entry-exit__list');
+  addTransitionNamesAndClass({
+    list,
+    transitionNameBase: 'section-entry-exit__item-existing',
+    transitionClass: 'section-entry-exit__item-existing--with-exit',
+  });
+
+  liToRemove.style.viewTransitionName = 'section-entry-exit__item-removed';
+  const transition = document.startViewTransition(() => {
+    liToRemove.remove();
+  });
+  transition.finished.then(() => {
+    removeTransitionNames(list);
+  });
+}
+
+function addTransitionNamesAndClass({ list, transitionNameBase, transitionClass }) {
   // children is an HTMLCollection that does not have forEach, so convert to array
   let lis = [...list.children];
   lis.forEach((li, idx) => {
-    const transtionClass = liToRemove
-      ? 'in-and-out-item-existing-with-exit'
-      : 'in-and-out-item-existing-with-entry';
-    li.style.viewTransitionClass = transtionClass;
-    li.style.viewTransitionName = `in-and-out-item-existing-${idx}`;
+    li.style.viewTransitionClass = transitionClass;
+    li.style.viewTransitionName = `${transitionNameBase}-${idx}`;
   });
+}
 
-  let updateFn;
-
-  if (liToRemove) {
-    liToRemove.style.viewTransitionName = 'in-and-out-item-removed';
-    updateFn = () => {
-      liToRemove.remove();
-    };
-  } else {
-    // add item
-    const newLi = document.createElement('li');
-    newLi.style.viewTransitionName = 'in-and-out-item-inserted';
-    newLi.innerHTML = `Item ${list.children.length + 1} <button>Remove</button>`;
-
-    // in real-world code, add fallback
-    updateFn = () => {
-      const firstLi = list.querySelector('li');
-      firstLi.after(newLi);
-    };
-  }
-
-  const transition = document.startViewTransition(updateFn);
-  transition.finished.then(() => {
-    //update lis to contain new item
-    let lis = [...list.children];
-    lis.forEach((li) => {
-      li.style.viewTransitionName = 'none';
-    });
+function removeTransitionNames(list) {
+  let lis = [...list.children];
+  lis.forEach((li) => {
+    li.style.viewTransitionName = 'none';
   });
 }
 
@@ -208,4 +210,15 @@ function initDurationPickers() {
     },
   };
   createDurationPickers(pickersConfig);
+}
+
+function addElmToPreview(evt) {
+  const section = evt.currentTarget.closest('section');
+  const preview = section.querySelector('.preview');
+  document.startViewTransition(() => {
+    const elm = document.createElement('div');
+    elm.classList.add('random-elm');
+    elm.innerHTML = "I'm a new <code>&lt;div&gt;<code>";
+    preview.prepend(elm);
+  });
 }

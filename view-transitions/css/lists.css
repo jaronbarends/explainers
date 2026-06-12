@@ -29,80 +29,52 @@
 
 /* section basic */
 
-.list-basic {
-  view-transition-name: list-basic;
+.section-basic__list {
+  view-transition-name: section-basic__list;
 }
 
-::view-transition-group(list-basic) {
-  animation-duration: var(--duration-basic);
+::view-transition-group(section-basic__list) {
+  animation-duration: var(--duration-section-basic);
 }
 
-/* section basic */
+/* section basic2 */
 
-.list-basic-2 {
-  view-transition-name: list-basic-2;
+.section-basic2__list {
+  view-transition-name: section-basic2__list;
 }
 
-::view-transition-group(list-basic-2) {
-  animation-duration: var(--duration-basic-2);
+::view-transition-group(section-basic2__list) {
+  animation-duration: var(--duration-section-basic2);
 }
 
 /* section name-on-li */
 
-/*
-Not needed - set name directly with js
-#list-item-name-on-li-1 {
-  view-transition-name: list-item-name-on-li-1;
-}
-#list-item-name-on-li-2 {
-  view-transition-name: list-item-name-on-li-2;
-}
-#list-item-name-on-li-3 {
-  view-transition-name: list-item-name-on-li-3;
-}
-#list-item-name-on-li-4 {
-  view-transition-name: list-item-name-on-li-4;
-}
-*/
-
-/*
-error-prone and not DRY; use view-transition-class instead
-::view-transition-group(list-item-name-on-li-1),
-::view-transition-group(list-item-name-on-li-2),
-::view-transition-group(list-item-name-on-li-3),
-::view-transition-group(list-item-name-on-li-4),
-::view-transition-group(list-item-name-on-li-5),
-::view-transition-group(list-item-name-on-li-6) {
-  animation-duration: var(--duration-name-on-li);
-}
-*/
-
-.list-item-name-on-li {
-  view-transition-class: name-on-li;
+.section-name-on-li__list > li {
+  view-transition-class: section-name-on-li;
 }
 
-::view-transition-group(.name-on-li) {
-  animation-duration: var(--duration-name-on-li);
+::view-transition-group(.section-name-on-li) {
+  animation-duration: var(--duration-section-name-on-li);
 }
 
 /* section dynamic names */
 
-.list-dynamic-names > li {
+.section-dynamic-names__list > li {
   /* multiple items; use view-transition-class. this doesn't
   do anything until view-transition-name is added to element */
-  view-transition-class: dynamic-names;
+  view-transition-class: section-dynamic-names;
 }
 
-::view-transition-group(.dynamic-names) {
-  animation-duration: var(--duration-dynamic-names);
+::view-transition-group(.section-dynamic-names) {
+  animation-duration: var(--duration-section-dynamic-names);
 }
 
 /* section animate inserted item */
 
-.list-separate-animation > li {
+.section-entry-animation__list > li {
   /* multiple items; use view-transition-class. this doesn't
   do anything until view-transition-name is added to element */
-  view-transition-class: item-existing;
+  view-transition-class: section-entry-animation__item-existing;
 }
 
 @keyframes scale {
@@ -124,60 +96,60 @@ error-prone and not DRY; use view-transition-class instead
   }
 }
 
-::view-transition-image-pair(.item-existing) {
+::view-transition-image-pair(.section-entry-animation__item-existing) {
   animation: scale ease-in-out both;
   animation-duration: 0.5s;
 }
 
-::view-transition-group(item-inserted) {
+::view-transition-group(section-entry-animation__item-inserted) {
   animation: slide-in ease-out both;
-  animation-duration: var(--duration-item-inserted);
+  animation-duration: var(--duration-section-entry-animation__item-inserted);
   animation-delay: 0.25s;
 }
 
-::view-transition-image-pair(item-inserted) {
-  /* override ::view-transition-image-pair(.item-existing) */
+::view-transition-image-pair(section-entry-animation__item-inserted) {
+  /* override ::view-transition-image-pair(.section-entry-animation__item-existing) */
   animation: none;
 }
 
 /* section animate inserted and removed item */
 
-.list-in-and-out > li {
+.section-entry-exit__list > li {
   display: flex;
   justify-content: space-between;
 }
 
-::view-transition-group(.in-and-out-item-existing-with-entry),
-::view-transition-group(.in-and-out-item-existing-with-exit) {
+::view-transition-group(.section-entry-exit__item-existing--with-entry),
+::view-transition-group(.section-entry-exit__item-existing--with-exit) {
   animation-duration: 0.5s;
 }
 
-::view-transition-group(.in-and-out-item-existing-with-exit) {
-  animation-delay: var(--duration-entry-exit);
+::view-transition-group(.section-entry-exit__item-existing--with-exit) {
+  animation-delay: var(--duration-section-entry-exit);
 }
 
-::view-transition-image-pair(.in-and-out-item-existing-with-entry),
-::view-transition-image-pair(.in-and-out-item-existing-with-exit) {
+::view-transition-image-pair(.section-entry-exit__item-existing--with-entry),
+::view-transition-image-pair(.section-entry-exit__item-existing--with-exit) {
   animation: scale ease-in-out both;
   animation-duration: inherit;
   animation-delay: inherit;
 }
 
-::view-transition-group(in-and-out-item-inserted),
-::view-transition-group(in-and-out-item-removed) {
+::view-transition-group(section-entry-exit__item-inserted),
+::view-transition-group(section-entry-exit__item-removed) {
   animation: slide-in ease-out both;
-  animation-duration: var(--duration-entry-exit);
+  animation-duration: var(--duration-section-entry-exit);
   animation-delay: 0.25s;
 }
-::view-transition-group(in-and-out-item-removed) {
+::view-transition-group(section-entry-exit__item-removed) {
   animation-direction: reverse;
   animation-delay: 0s;
 }
 
-::view-transition-image-pair(in-and-out-item-inserted),
-::view-transition-image-pair(in-and-out-item-removed) {
+::view-transition-image-pair(section-entry-exit__item-inserted),
+::view-transition-image-pair(section-entry-exit__item-removed) {
   /* override
-  ::view-transition-image-pair(.in-and-out-item-existing-with-entry) and
-  ::view-transition-image-pair(.in-and-out-item-existing-with-exit) */
+  ::view-transition-image-pair(.section-entry-exit__item-existing--with-entry) and
+  ::view-transition-image-pair(.section-entry-exit__item-existing--with-exit) */
   animation: none;
 }
