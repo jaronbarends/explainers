@@ -20,6 +20,10 @@ pre[class*='language-js']::before {
   content: 'js';
 }
 
+pre[class*='language-json']::before {
+  content: 'json';
+}
+
 pre[class*='language-css']::before {
   content: 'css';
 }

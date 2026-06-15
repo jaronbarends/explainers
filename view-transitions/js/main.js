@@ -20,18 +20,19 @@ function addTriggerListeners() {
 // each picker has attr data-duration-id
 // upon selection, --duration-${duration-id} is set to selected value
 function initDurationPickers() {
+  const durations = ['250ms', '1s', '3s', '300s'];
+  const defaultDuration = '250ms';
   const pickersConfig = {
-    durations: ['250ms', '1s', '3s', '300s'],
-    defaultDuration: '250ms',
+    durations,
+    defaultDuration,
     overrides: {
-      ['section-3']: {
-        durations: ['250ms', '1s', '3s', '300s'],
-      },
       ['section-4']: {
         durations: ['250ms', '3s', '300s'],
+        defaultDuration,
       },
       ['async-section-5']: {
         durations: ['250ms', '500ms', '3s'],
+        defaultDuration,
       },
     },
   };
@@ -47,7 +48,7 @@ function toggleSamples(section) {
     const samples = section.querySelector('.samples');
     if (!document.startViewTransition) {
       // fallback for browsers that don't have support
-      toggleSamplesClass(data);
+      toggleSamplesClass(samples);
       return;
     }
     const transition = document.startViewTransition(() => toggleSamplesClass(samples));

@@ -8,20 +8,20 @@ export function createDurationPickers(pickersConfig) {
   const pickerElms = document.querySelectorAll('[data-duration-id]');
   pickerElms.forEach((pickerElm) => {
     const durationId = pickerElm.getAttribute('data-duration-id');
-    const overrides = pickersConfig.overrides[durationId] || {};
+    const overrides = pickersConfig.overrides?.[durationId] || {};
     const pickerConfig = {
       durationId,
       durations: pickersConfig.durations,
       defaultDuration: pickersConfig.defaultDuration,
       ...overrides,
     };
-    createDurationPicker(pickerConfig);
+    createDurationPicker(pickerElm, pickerConfig);
   });
 }
 
-function createDurationPicker(pickerConfig) {
-  const container = document.querySelector(`[data-duration-id="${pickerConfig.durationId}"]`);
-  if (!container) {
+function createDurationPicker(pickerElm, pickerConfig) {
+  // const container = document.querySelector(`[data-duration-id="${pickerConfig.durationId}"]`);
+  if (!pickerElm) {
     console.error(`no element found with data-duration-id ${pickerConfig.durationId}`);
     return;
   }
@@ -32,8 +32,8 @@ function createDurationPicker(pickerConfig) {
   });
   const instruction = document.createElement('span');
   instruction.innerHTML = 'Set <code>--duration&hellip;</code> for examples below:';
-  container.append(instruction);
-  container.append(picker);
+  pickerElm.append(instruction);
+  pickerElm.append(picker);
   handleSelectDuration(picker, pickerConfig.durationId);
 }
 
@@ -63,6 +63,10 @@ function addPickerRadio({ picker, pickerConfig, duration, i }) {
 }
 
 function handleSelectDuration(picker, durationId) {
-  const duration = picker.querySelector(':checked').value;
+  const checkedRadio = picker.querySelector(':checked');
+  if (!checkedRadio) {
+    return;
+  }
+  const duration = checkedRadio.value;
   document.documentElement.style.setProperty(`--duration-${durationId}`, duration);
 }

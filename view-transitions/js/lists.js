@@ -110,7 +110,7 @@ function sectionEntryAnimation_addItem() {
 }
 
 function sectionEntryExit_checkRemoveItem(evt) {
-  if (!evt.target.tagName === 'BUTTON') {
+  if (evt.target.tagName !== 'BUTTON') {
     return;
   }
   const liToRemove = evt.target.closest('li');
@@ -131,6 +131,9 @@ function sectionEntryExit_addItem() {
 
   const transition = document.startViewTransition(() => {
     const firstLi = list.querySelector('li');
+    if (!firstLi) {
+      list.append(newLi);
+    }
     firstLi.after(newLi);
   });
   transition.finished.then(() => {
@@ -186,7 +189,7 @@ function startTransition(li, list, position = 2) {
       list.append(li);
     });
   } else {
-    const prevPos = Math.min(position - 1, list.children.length);
+    const prevPos = Math.max(1, Math.min(position - 1, list.children.length));
     const prevItem = list.querySelector(`:nth-child(${prevPos})`);
     transition = document.startViewTransition(() => {
       prevItem.after(li);
@@ -199,14 +202,20 @@ function startTransition(li, list, position = 2) {
 // each picker has attr data-duration-id
 // upon selection, --duration-${duration-id} is set to selected value
 function initDurationPickers() {
+  const durations = ['250ms', '500ms', '1s', '3s', '300s'];
+  const defaultDuration = '1s';
   const pickersConfig = {
-    durations: ['250ms', '500ms', '1s', '3s', '300s'],
-    defaultDuration: '1s',
+    durations,
+    defaultDuration,
     overrides: {
-      // ['duration-id']: {
-      //   durations: [],
-      //   defaultDuration: '...',
-      // }
+      ['section-entry-animation__item-inserted']: {
+        durations,
+        defaultDuration: '500ms',
+      },
+      ['section-entry-exit']: {
+        durations,
+        defaultDuration: '500ms',
+      },
     },
   };
   createDurationPickers(pickersConfig);
@@ -218,7 +227,7 @@ function addElmToPreview(evt) {
   document.startViewTransition(() => {
     const elm = document.createElement('div');
     elm.classList.add('random-elm');
-    elm.innerHTML = "I'm a new <code>&lt;div&gt;<code>";
+    elm.innerHTML = "I'm a new <code>&lt;div&gt;</code>";
     preview.prepend(elm);
   });
 }
