@@ -1,28 +1,14 @@
-// const samplesLists = document.querySelectorAll('.samples-list');
-const btn = document.getElementById('button');
+import { createDurationPickers } from './durationPickers.js';
 
 init();
 
 function init() {
-  addKeyListeners();
   addTriggerListeners();
   initDurationPickers();
 }
 
-function addKeyListeners() {
-  document.addEventListener('keyup', (e) => {
-    const regex = /(?:Digit|Numpad)([0-9])/;
-    const matches = e.code.match(regex);
-    if (e.code.match(regex)) {
-      const idx = matches[1];
-      const section = document.querySelector(`[data-samples-section-${idx}]`);
-      toggleSamples(section);
-    }
-  });
-}
-
 function addTriggerListeners() {
-  document.querySelectorAll('.trigger-button').forEach((btn) => {
+  document.querySelectorAll('[data-toggle-button]').forEach((btn) => {
     btn.addEventListener('click', (e) => {
       const section = btn.closest('.samples-section');
       toggleSamples(section);
@@ -31,75 +17,26 @@ function addTriggerListeners() {
 }
 
 // init duration pickers
-// each picker has attrs data-duration-picker and data-duration-var-suffix
-// upon selection, --duration-${var-suffix} is set to selected value
+// each picker has attr data-duration-id
+// upon selection, --duration-${duration-id} is set to selected value
 function initDurationPickers() {
-  const pickersConfig = [
-    {
-      id: 'duration-picker-section-3',
-      varSuffix: 'section-3',
-      durations: [
-        { value: '250ms', label: '250ms (default)' },
-        { value: '1s', label: '1s' },
-        { value: '3s', label: '3s' },
-      ],
+  const durations = ['250ms', '1s', '3s', '300s'];
+  const defaultDuration = '250ms';
+  const pickersConfig = {
+    durations,
+    defaultDuration,
+    overrides: {
+      ['section-4']: {
+        durations: ['250ms', '3s', '300s'],
+        defaultDuration,
+      },
+      ['async-section-5']: {
+        durations: ['250ms', '500ms', '3s'],
+        defaultDuration,
+      },
     },
-    {
-      id: 'duration-picker-section-4',
-      varSuffix: 'section-4',
-      durations: [
-        { value: '250ms', label: '250ms (default)' },
-        { value: '3s', label: '3s' },
-      ],
-    },
-    {
-      id: 'duration-picker-section-5',
-      varSuffix: 'async-section-5',
-      durations: [
-        { value: '250ms', label: '250ms (default)' },
-        { value: '500ms', label: '500ms' },
-        { value: '3s', label: '3s' },
-      ],
-    },
-  ];
-  pickersConfig.forEach(createPicker);
-}
-
-function createPicker(pickerConfig) {
-  const container = document.getElementById(pickerConfig.id);
-  const picker = document.createElement('span');
-  pickerConfig.durations.forEach((duration, i) => {
-    addPickerRadio({ picker, pickerConfig, duration, i });
-  });
-  container.appendChild(picker);
-  handleSelectDuration(picker, pickerConfig.varSuffix);
-}
-
-function addPickerRadio({ picker, pickerConfig, duration, i }) {
-  const radio = document.createElement('input');
-  const groupName = `duration-picker-radio-${pickerConfig.varSuffix}`;
-  const id = `${groupName}-${i}`;
-  radio.setAttribute('type', 'radio');
-  radio.setAttribute('name', groupName);
-  radio.setAttribute('value', duration.value);
-  radio.setAttribute('id', id);
-  if (i === 0) {
-    radio.setAttribute('checked', 'checked');
-  }
-  radio.addEventListener('click', () => {
-    handleSelectDuration(picker, pickerConfig.varSuffix);
-  });
-  const label = document.createElement('label');
-  label.setAttribute('for', id);
-  label.textContent = duration.label;
-
-  picker.appendChild(radio);
-  picker.appendChild(label);
-}
-
-function handleSelectDuration(picker, varSuffix) {
-  const duration = picker.querySelector(':checked').value;
-  document.documentElement.style.setProperty(`--duration-${varSuffix}`, duration);
+  };
+  createDurationPickers(pickersConfig);
 }
 
 function toggleSamplesClass(samples) {
@@ -109,18 +46,23 @@ function toggleSamplesClass(samples) {
 function toggleSamples(section) {
   if (section) {
     const samples = section.querySelector('.samples');
+    if (!document.startViewTransition) {
+      // fallback for browsers that don't have support
+      toggleSamplesClass(samples);
+      return;
+    }
     const transition = document.startViewTransition(() => toggleSamplesClass(samples));
 
-    transition.updateCallbackDone.then(() => {
-      console.log('updateCallbackDone - callback function called');
-    });
+    // transition.updateCallbackDone.then(() => {
+    //   console.log('updateCallbackDone - callback function called');
+    // });
 
-    transition.ready.then(() => {
-      console.log('ready - pseudo element tree is created');
-    });
+    // transition.ready.then(() => {
+    //   console.log('ready - pseudo element tree is created');
+    // });
 
-    transition.finished.then(() => {
-      console.log('finished - animation is finished; new page view is interactive');
-    });
+    // transition.finished.then(() => {
+    //   console.log('finished - animation is finished; new page view is interactive');
+    // });
   }
 }

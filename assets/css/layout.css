@@ -17,12 +17,14 @@ header {
   min-height: 4rem;
   display: flex;
   align-items: center;
+  gap: 1rem;
 }
 
 main {
   display: flex;
   flex-direction: column;
   gap: 4rem;
+  padding-bottom: 4rem;
 }
 
 .back-link {
@@ -89,14 +91,19 @@ main {
   .samples {
     display: flex;
     flex-direction: column;
-    gap: var(--samples-row-gap);
   }
 
   .sample {
     display: grid;
-    grid-template-areas:
-      'preview heading'
-      'preview explanation';
+    grid-template-areas: 'preview explanation';
+    grid-template-columns: auto 1fr;
+
+    &:has(> :nth-child(3)) {
+      grid-template-areas:
+        'preview heading'
+        'preview explanation';
+      grid-template-rows: auto 1fr;
+    }
 
     h3 {
       grid-area: heading;
@@ -107,7 +114,6 @@ main {
 
     .explanation {
       grid-area: explanation;
-      margin-top: 1em;
       font-size: 1rem;
     }
   }

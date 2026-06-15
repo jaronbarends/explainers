@@ -1,3 +1,33 @@
-:not(pre) > code[class*="language-"], pre[class*="language-"] {
+:not(pre) > code[class*='language-'],
+pre[class*='language-'] {
   background: var(--bg-color-code);
+}
+
+pre[class*='language-'] {
+  position: relative;
+  margin: 0;
+
+  &::before {
+    position: absolute;
+    right: 1rem;
+    top: 0.25rem;
+    font-size: 0.75rem;
+    opacity: 0.5;
+  }
+}
+
+pre[class*='language-js']::before {
+  content: 'js';
+}
+
+pre[class*='language-json']::before {
+  content: 'json';
+}
+
+pre[class*='language-css']::before {
+  content: 'css';
+}
+
+pre[class*='language-html']::before {
+  content: 'html';
 }
