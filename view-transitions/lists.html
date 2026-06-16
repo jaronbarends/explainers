@@ -20,8 +20,22 @@
       </header>
       <main>
         <section class="text-content">
-          <h1>Practical examples of view transitions</h1>
+          <h1>Animating lists</h1>
           <p>For most of the examples, we'll add items at the 2nd place in the list</p>
+          <h2>New insights not included</h2>
+          <ul>
+            <li>
+              You can use <code>view-transition-name: match-element</code> instead of adding a
+              unique <code>view-transition-name</code> yourself. This will probably mainly be useful
+              in cases where you are also using a <code>view-transition-class</code>.
+            </li>
+            <li>
+              You can use the <code>:active-view-transition-type</code> to include only specific
+              view-transitions (<a href="https://www.youtube.com/watch?v=gUg2lMk_yUI"
+                >good explanation here</a
+              >)
+            </li>
+          </ul>
         </section>
 
         <!-- ##########################################

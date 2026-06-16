@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="nl-nl">
+  <head>
+    <meta charset="UTF-8" />
+
+    <title>Subgrid</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="../assets/css/shared.css" />
+    <link rel="stylesheet" href="css/layout-override.css" />
+    <link rel="stylesheet" href="css/subgrid.css" />
+
+    <style></style>
+  </head>
+  <body>
+    <div class="o-content-width">
+      <header>
+        <a href="../" class="back-link">&laquo; Back to explainers</a>
+      </header>
+      <main>
+        <div class="text-content">
+          <h1>Subgrid</h1>
+        </div>
+
+        <section class="samples-section samples-section--rows">
+          <h2>Only direct children in teaser item</h2>
+          <div class="samples">
+            <div class="sample sample-direct-children-no-auto-fit">
+              <h3>Hard-coded column count</h3>
+              <div class="preview">
+                <ul class="teaser-list">
+                  <li class="teaser-item">
+                    <div class="teaser-img"></div>
+                    <h4>Title</h4>
+                    <p>Description</p>
+                    <button>Click me!</button>
+                  </li>
+
+                  <li class="teaser-item">
+                    <div class="teaser-img"></div>
+                    <h4>Title</h4>
+                    <p>A very long description. Yes, really, really long.</p>
+                    <button>Click me!</button>
+                  </li>
+
+                  <li class="teaser-item">
+                    <div class="teaser-img"></div>
+                    <h4>Title</h4>
+                    <p>Description</p>
+                    <button>Click me!</button>
+                  </li>
+
+                  <!-- <li class="teaser-item">
+                    <div class="teaser-media">
+                      <div class="teaser-img"></div>
+                    </div>
+                    <div class="teaser-content">
+                      <h4>Title</h4>
+                      <p>Description</p>
+                      <button>Click me!</button>
+                    </div>
+                  </li> -->
+                </ul>
+              </div>
+
+              <div class="explanation">
+                <pre><code class="language-html">&lt;ul class="teaser-list"&gt;
+  &lt;li class="teaser-item"&gt;
+    &lt;div class="teaser-img"&gt;&lt;/div&gt;
+    &lt;h4&gt;Title&lt;/h4&gt;
+    &lt;p&gt;Description&lt;/p&gt;
+    &lt;button&gt;Click me!&lt;/button&gt;
+  &lt;/li&gt;
+  &hellip;
+&lt;/ul&gt;
+</code></pre>
+                <ul>
+                  <li>
+                    Define the grid rows you want to use for the <code>.teaser-item</code>s on their
+                    container <code>.teaser-list</code>
+                  </li>
+                  <li>
+                    On <code>.teaser-item</code>:
+                    <ul>
+                      <li>set <code>display: grid</code></li>
+                      <li>set <code>grid-template-rows: subgrid</code></li>
+                      <li>
+                        make sure that the grid rows span all the rows<code>grid-row: 1/-1</code>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+                <pre><code class="language-css">.teaser-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto auto 1fr auto;
+}
+
+.teaser-item {
+  display: grid;
+  grid-template-rows: subgrid;
+  grid-row: 1/-1;
+}
+</code></pre>
+              </div>
+            </div>
+
+            <div class="sample sample-direct-children-auto-fit">
+              <h3>Columns with <code>auto-fit</code></h3>
+              <div class="preview">
+                <ul class="teaser-list">
+                  <li class="teaser-item">
+                    <div class="teaser-img"></div>
+                    <h4>Title</h4>
+                    <p>Description</p>
+                    <button>Click me!</button>
+                  </li>
+
+                  <li class="teaser-item">
+                    <div class="teaser-img"></div>
+                    <h4>Title</h4>
+                    <p>A very long description. Yes, really, really long.</p>
+                    <button>Click me!</button>
+                  </li>
+
+                  <li class="teaser-item">
+                    <div class="teaser-img"></div>
+                    <h4>Title</h4>
+                    <p>Description</p>
+                    <button>Click me!</button>
+                  </li>
+
+                  <!-- <li class="teaser-item">
+                    <div class="teaser-media">
+                      <div class="teaser-img"></div>
+                    </div>
+                    <div class="teaser-content">
+                      <h4>Title</h4>
+                      <p>Description</p>
+                      <button>Click me!</button>
+                    </div>
+                  </li> -->
+                </ul>
+              </div>
+
+              <div class="explanation">
+                <p>
+                  If you make the grid responsive with
+                  <code>grid-template-columns: repeat(auto-fit(...))</code>, you can no longer use
+                  <code>grid-row: 1/-1</code> (or something like <code>grid-row: 1/5</code>). If you
+                  do that, you say that the rows <em>must</em> be on the explicit grid. Use
+                  <code>grid-row: span x</code> instead. That lets the browser's auto-placement
+                  algorithm decide where each item starts, so items can wrap to new rows normally.
+                  You should also use <code>grid-auto-rows</code> instead of
+                  <code>grid-template-rows</code>, because with <code>auto-fit</code>, all items are
+                  placed on the implicit grid.
+                </p>
+                <p>
+                  (This is normal grid behavior and has nothing to do with subgrid. If you remove
+                  <code>display: grid</code> from <code>.teaser-item</code>, it behaves the same.)
+                </p>
+                <pre><code class="language-css">.teaser-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  grid-auto-rows: auto auto 1fr auto;
+}
+
+.teaser-item {
+  display: grid;
+  grid-template-rows: subgrid;
+  grid-row: span 4;
+}
+</code></pre>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script src="js/main.js" type="module"></script>
+    <script src="../lib/prism/prism.js"></script>
+  </body>
+</html>
