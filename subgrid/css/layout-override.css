@@ -1,3 +1,7 @@
+.o-content-width {
+  max-width: 90rem;
+}
+
 .samples-section--rows {
   .sample {
     grid-template-columns: 1fr 1fr;

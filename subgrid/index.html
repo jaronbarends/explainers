@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="nl-nl">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
 
@@ -24,7 +24,7 @@
         </div>
 
         <section class="samples-section samples-section--rows">
-          <h2>Only direct children in teaser item</h2>
+          <h2>Only direct children in grid-items</h2>
           <div class="samples">
             <div class="sample sample-direct-children-no-auto-fit">
               <h3>Hard-coded column count</h3>
@@ -50,17 +50,6 @@
                     <p>Description</p>
                     <button>Click me!</button>
                   </li>
-
-                  <!-- <li class="teaser-item">
-                    <div class="teaser-media">
-                      <div class="teaser-img"></div>
-                    </div>
-                    <div class="teaser-content">
-                      <h4>Title</h4>
-                      <p>Description</p>
-                      <button>Click me!</button>
-                    </div>
-                  </li> -->
                 </ul>
               </div>
 
@@ -86,7 +75,7 @@
                       <li>set <code>display: grid</code></li>
                       <li>set <code>grid-template-rows: subgrid</code></li>
                       <li>
-                        make sure that the grid rows span all the rows<code>grid-row: 1/-1</code>
+                        make sure that the grid rows span all the rows <code>grid-row: 1/-1</code>
                       </li>
                     </ul>
                   </li>
@@ -131,16 +120,12 @@
                     <button>Click me!</button>
                   </li>
 
-                  <!-- <li class="teaser-item">
-                    <div class="teaser-media">
-                      <div class="teaser-img"></div>
-                    </div>
-                    <div class="teaser-content">
-                      <h4>Title</h4>
-                      <p>Description</p>
-                      <button>Click me!</button>
-                    </div>
-                  </li> -->
+                  <li class="teaser-item">
+                    <div class="teaser-img"></div>
+                    <h4>Title</h4>
+                    <p>Description</p>
+                    <button>Click me!</button>
+                  </li>
                 </ul>
               </div>
 
@@ -172,6 +157,191 @@
   grid-row: span 4;
 }
 </code></pre>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="samples-section samples-section--rows">
+          <h2>Nested children with subgrid in grid-items</h2>
+          <div class="samples">
+            <div class="sample sample-nested-children">
+              <div class="preview">
+                <ul class="teaser-list">
+                  <li class="teaser-item">
+                    <div class="teaser-media">
+                      <div class="teaser-img"></div>
+                    </div>
+                    <div class="teaser-content">
+                      <h4>Title</h4>
+                      <p>Description</p>
+                      <button>Click me!</button>
+                    </div>
+                  </li>
+
+                  <li class="teaser-item">
+                    <div class="teaser-media">
+                      <div class="teaser-img"></div>
+                    </div>
+                    <div class="teaser-content">
+                      <h4>Title</h4>
+                      <p>A very long description. Yes, really, really long.</p>
+                      <button>Click me!</button>
+                    </div>
+                  </li>
+
+                  <li class="teaser-item">
+                    <div class="teaser-media">
+                      <div class="teaser-img"></div>
+                    </div>
+                    <div class="teaser-content">
+                      <h4>Title</h4>
+                      <p>Description</p>
+                      <button>Click me!</button>
+                    </div>
+                  </li>
+
+                  <li class="teaser-item">
+                    <div class="teaser-media">
+                      <div class="teaser-img"></div>
+                    </div>
+                    <div class="teaser-content">
+                      <h4>Title</h4>
+                      <p>Description</p>
+                      <button>Click me!</button>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="explanation">
+                <p>
+                  When you want to use the subgrid in nested children, you give every element in the
+                  nesting hierarchy <code>display: grid</code> and
+                  <code>grid-template-rows: subgrid</code>. And then you specify the correct
+                  <code>span</code> for each of these element's <code>grid-row</code>.
+                </p>
+                <pre><code class="language-html">&lt;li class="teaser-item"&gt;
+    &lt;div class="teaser-media"&gt;
+      &lt;div class="teaser-img"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="teaser-content"&gt;
+      &lt;h4&gt;Title&lt;/h4&gt;
+      &lt;p&gt;Description&lt;/p&gt;
+      &lt;button&gt;Click me!&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  </code></pre>
+                <pre><code class="language-css">.teaser-item,
+.teaser-media,
+.teaser-content {
+  display: grid;
+  grid-template-rows: subgrid;
+}
+.teaser-item {
+  grid-row: span 4;
+}
+.teaser-media {
+  grid-row: span 1;
+}
+.teaser-content {
+  grid-row: span 3;
+}
+</code></pre>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="samples-section samples-section--rows">
+          <h2>Subgrid on rows and columns</h2>
+          <div class="samples">
+            <div class="sample sample-2-dimensions">
+              <div class="preview">
+                <ul class="teaser-list">
+                  <li class="teaser-item">
+                    <div class="teaser-intro">
+                      <div class="teaser-img"></div>
+                      <h4>Title</h4>
+                      <p class="intro">I'm an intro text</p>
+                    </div>
+                    <div class="teaser-content">
+                      <p>I'm a description</p>
+                      <button>Click me!</button>
+                    </div>
+                  </li>
+
+                  <li class="teaser-item">
+                    <div class="teaser-intro">
+                      <div class="teaser-img"></div>
+                      <h4>Title</h4>
+                      <p class="intro">
+                        I'm an intro text Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                      </p>
+                    </div>
+                    <div class="teaser-content">
+                      <p>I'm a description</p>
+                      <button>Click me!</button>
+                    </div>
+                  </li>
+
+                  <li class="teaser-item">
+                    <div class="teaser-intro">
+                      <div class="teaser-img"></div>
+                      <h4>Title</h4>
+                      <p class="intro">I'm an intro text</p>
+                    </div>
+                    <div class="teaser-content">
+                      <p>Description</p>
+                      <button>Click me!</button>
+                    </div>
+                  </li>
+
+                  <li class="teaser-item">
+                    <div class="teaser-intro">
+                      <div class="teaser-img"></div>
+                      <h4>Title</h4>
+                      <p class="intro">I'm an intro text</p>
+                    </div>
+                    <div class="teaser-content">
+                      <p>I'm the first paragraph of this interesting article</p>
+                      <button>Click me!</button>
+                    </div>
+                  </li>
+
+                  <li class="teaser-item">
+                    <div class="teaser-intro">
+                      <div class="teaser-img"></div>
+                      <h4>Title</h4>
+                      <p class="intro">I'm an intro text</p>
+                    </div>
+                    <div class="teaser-content">
+                      <p>Description</p>
+                      <button>Click me!</button>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="explanation">
+                <p>
+                  Define both <code>grid-template-rows: subgrid</code> and
+                  <code>grid-template-columns: subgrid</code> and the appropriate value for
+                  <code>grid-row</code>'s and <code>grid-column</code>'s <code>span</code> on each
+                  item
+                </p>
+                <p>
+                  Because we now have two columns for every teaser, we can no longer use
+                  <code>grid-template-columns: repeat(auto-fit, minmax(&hellip;));</code>, since
+                  <code>auto-fit</code> can only be used with one value. So we have to return to
+                  something like <code>grid-template-columns: repeat(3, 2fr 3fr);</code>, and adjust
+                  the number of repeats based on media queries or content queries.
+                </p>
+                <p>
+                  if you use <code>fr</code> units instead of <code>auto</code> for rows or columns,
+                  those <code>fr</code> units will be identical for all rows and columns. In the
+                  example: <code>p</code>s with "I'm an intro text" in teasers 4 and 5 are as high
+                  as those in 1, 2 and 3, even their row wouldn't need that height.
+                </p>
               </div>
             </div>
           </div>
