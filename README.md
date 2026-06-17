@@ -7,5 +7,4 @@ Simple PoC to understand and explain how stuff works
 - Container queries
 - `border-shape`
 - Anchor positioning
-- Subgrid
 - Practical examples of view transitions

@@ -1,0 +1,9 @@
+.o-content-width {
+  max-width: 90rem;
+}
+
+.samples-section--rows {
+  .sample {
+    grid-template-columns: 2fr 1fr;
+  }
+}

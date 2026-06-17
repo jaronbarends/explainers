@@ -7,19 +7,69 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="stylesheet" href="css/reset.css" />
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="../assets/css/shared.css" />
+
+    <link rel="stylesheet" href="css/layout-override.css" />
+    <link rel="stylesheet" href="css/container-queries.css" />
   </head>
   <body>
     <div class="o-content-width">
       <header>
         <a href="../" class="back-link">&laquo; Back to explainers</a>
       </header>
-      <main class="container">
-        <div class="container article"><article>bla</article></div>
-        <div class="container article"><article>bla</article></div>
-        <div class="container article"><article>bla</article></div>
-        make sure that the element to be queried has a container that's representative of its width
+      <main>
+        <h1>Container queries</h1>
+        https://www.joshwcomeau.com/css/container-queries-introduction/
+        <div class="samples-section samples-section--rows section-basics">
+          <h2>Container queries basics</h2>
+          <div class="samples">
+            <div class="sample">
+              <div class="preview">
+                <ul class="items">
+                  <li class="item-container"><div class="item">bla</div></li>
+                  <li class="item-container"><div class="item">bla</div></li>
+                  <li class="item-container"><div class="item">bla</div></li>
+                </ul>
+              </div>
+              <div class="explanation">
+                <p>
+                  The element you want to control needs to have a container with
+                  <code>container-type</code> property set to <code>size</code> or
+                  <code>inline-size</code>. The container should be representative for the element's
+                  queried dimension(s), so don't give the container any <code>border</code> or
+                  <code>padding</code>.<br />(In these examples I <em>have</em> given them a dashed
+                  <code>border</code> and <code>padding</code> for easier identification)
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="samples-section samples-section--rows section-container-type">
+          <div class="samples">
+            <div class="sample">
+              <h3><code>container-type: inline-size</code></h3>
+              <div class="preview">
+                <div class="grid">
+                  <div class="cell"><h4>one</h4></div>
+                  <div class="cell"><h4>two</h4></div>
+                </div>
+              </div>
+              <div class="explanation"></div>
+            </div>
+
+            <div class="sample">
+              <h3><code>container-type: size</code></h3>
+              <div class="preview">
+                <div class="grid">
+                  <div class="cell cell--type-size"><h4>one</h4></div>
+                  <div class="cell cell--type-size"><h4>two explicit height</h4></div>
+                </div>
+              </div>
+              <div class="explanation"></div>
+            </div>
+          </div>
+        </div>
       </main>
     </div>
     <script src="js/main.js"></script>

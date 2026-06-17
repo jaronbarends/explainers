@@ -324,11 +324,11 @@
               </div>
               <div class="explanation">
                 <p>
-                  Define both <code>grid-template-rows: subgrid</code> and
-                  <code>grid-template-columns: subgrid</code> and the appropriate value for
-                  <code>grid-row</code>'s and <code>grid-column</code>'s <code>span</code> on each
-                  item
+                  On each item, define both <code>grid-template-rows: subgrid</code> and
+                  <code>grid-template-columns: subgrid</code>, and set the appropriate value for
+                  <code>grid-row</code>'s and <code>grid-column</code>'s <code>span</code>.
                 </p>
+                <h4>No <code>repeat(auto-fit, minmax(&hellip;))</code></h4>
                 <p>
                   Because we now have two columns for every teaser, we can no longer use
                   <code>grid-template-columns: repeat(auto-fit, minmax(&hellip;));</code>, since
@@ -336,11 +336,15 @@
                   something like <code>grid-template-columns: repeat(3, 2fr 3fr);</code>, and adjust
                   the number of repeats based on media queries or content queries.
                 </p>
+                <h4><code>fr</code> units vs <code>auto</code></h4>
                 <p>
-                  if you use <code>fr</code> units instead of <code>auto</code> for rows or columns,
-                  those <code>fr</code> units will be identical for all rows and columns. In the
-                  example: <code>p</code>s with "I'm an intro text" in teasers 4 and 5 are as high
-                  as those in 1, 2 and 3, even their row wouldn't need that height.
+                  if you use <code>fr</code> units for rows or columns with subgrid, those
+                  <code>fr</code> units will be identical for all rows and columns. If you use
+                  <code>auto</code>, the size will be determined on a per-row basis. In the example,
+                  the <code>p</code>s with "I'm an intro text" have a height of <code>1fr</code>. In
+                  teasers 4 and 5, the <code>p</code>s are as high as those in 1, 2 and 3, even
+                  their row doesn't need that height. The Description's row has a height of
+                  <code>auto</code>; those in items 1,2 and 3 are lower than those in 4 and 5.
                 </p>
               </div>
             </div>
