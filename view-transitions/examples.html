@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <title>View transitions - Examples</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="../assets/css/shared.css" />
+    <link rel="stylesheet" href="css/article.css" />
+    <link rel="stylesheet" href="css/examples.css" />
+  </head>
+
+  <body>
+    <div class="o-content-width">
+      <header>
+        <a href="../" class="back-link">&laquo; Back to explainers</a>
+        <a href="./index.html" class="back-link">&laquo; Back to View transitions</a>
+      </header>
+      <main>
+        <section class="text-content">
+          <h1>Examples</h1>
+        </section>
+
+        <!-- ##########################################
+        ##
+        ## Basic: transition on list; append items
+        ##
+        #############################################-->
+
+        <section class="samples-section samples-section--rows">
+          <h2>FAQ</h2>
+          <!-- <div class="section-controls">
+            <div class="section-control">
+              <button id="section-basic__btn-add-item">Add item</button>
+            </div>
+            <div class="section-control">
+              <div class="duration-picker" data-duration-id="section-basic"></div>
+            </div>
+          </div> -->
+
+          <div class="samples">
+            <div class="sample">
+              <div class="preview">
+                <div id="faq-list" class="faq-list">
+                  <details class="faq-list__item">
+                    <summary class="faq-btn">Question 1</summary>
+                    <div class="content">content here</div>
+                  </details>
+                </div>
+              </div>
+
+              <div class="explanation">
+                <p>
+                  The most basic transition is to just give a <code>view-transition-name</code> to
+                  the list. Then the complete old and new states simply crossfade in the set
+                  <code>--duration</code>. If you always add the item to the end of the list that is
+                  fine: it looks like only that list-item fades in.
+                </p>
+                <p>
+                  The <code>&lt;p&gt;</code> after the list is not part of the named
+                  view-transition, but of the root view-transition. That causes it to get its new
+                  position with the browser's default duration of 0.25s
+                </p>
+                <pre><code class="language-html">&lt;ul class="section-basic__list"&gt;...&lt;/ul&gt;</code></pre>
+                <pre><code class="language-css">.section-basic__list {
+  view-transition-name: section-basic__list;
+}
+
+::view-transition-group(section-basic__list) {
+  animation-duration: var(--duration-section-basic);
+}</code></pre>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div class="transitions-in-progress-indicator"></div>
+
+    <script src="js/examples.js" type="module"></script>
+    <script src="../lib/prism/prism.js"></script>
+  </body>
+</html>

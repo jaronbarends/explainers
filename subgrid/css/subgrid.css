@@ -1,0 +1,120 @@
+/* general settings, define grid-related settings per sample */
+.teaser-item {
+  background-color: var(--bg-color-primary);
+  padding: 1rem;
+}
+
+.teaser-img {
+  aspect-ratio: 4/3;
+  max-width: 100%;
+  background-color: var(--color-primary);
+}
+
+.sample-direct-children-no-auto-fit {
+  .teaser-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto auto 1fr auto;
+    gap: 0.75rem;
+  }
+
+  .teaser-item {
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: 1/-1;
+  }
+}
+
+.sample-direct-children-auto-fit {
+  .teaser-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+    grid-auto-rows: auto auto 1fr auto;
+    gap: 0.75rem;
+  }
+
+  .teaser-item {
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: span 4;
+  }
+}
+
+.sample-nested-children {
+  .teaser-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+    grid-auto-rows: auto auto 1fr auto;
+    gap: 0.75rem;
+  }
+
+  .teaser-item,
+  .teaser-media,
+  .teaser-content {
+    display: grid;
+    grid-template-rows: subgrid;
+  }
+
+  .teaser-item {
+    grid-row: span 4;
+  }
+
+  .teaser-media {
+    grid-row: span 1;
+  }
+
+  .teaser-content {
+    grid-row: span 3;
+  }
+}
+
+.samples-section--rows .sample-2-dimensions {
+  grid-template-columns: 2fr 1fr;
+
+  .teaser-list {
+    display: grid;
+    grid-auto-rows: auto 1fr auto auto;
+    grid-template-columns: repeat(3, 2fr 3fr);
+    gap: 0.75rem;
+  }
+
+  .teaser-item,
+  .teaser-intro,
+  .teaser-content {
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-template-columns: subgrid;
+  }
+  .teaser-item {
+    grid-row: span 4;
+    grid-column: span 2;
+  }
+  .teaser-intro {
+    grid-row: span 2;
+    grid-column: span 2;
+    align-items: start;
+
+    h4 {
+      align-self: start;
+    }
+    p {
+      align-self: start;
+    }
+  }
+  .teaser-img {
+    grid-row: span 2;
+  }
+  .teaser-content {
+    grid-row: span 2;
+    grid-column: span 2;
+  }
+  .teaser-content > * {
+    grid-column: span 2;
+  }
+
+  .teaser-item:nth-child(1) .teaser-img {
+    width: 30%;
+    height: 100%;
+    aspect-ratio: auto;
+  }
+}
