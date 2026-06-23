@@ -17,6 +17,9 @@
         <a href="../" class="back-link">&laquo; Back to explainers</a>
       </header>
       <main>
+        <div class="reset-wrapper">
+          <button id="reset-btn" class="btn-reset-resizers">Reset container sizes</button>
+        </div>
         <h1>Container queries</h1>
         https://www.joshwcomeau.com/css/container-queries-introduction/
         <div class="samples-section samples-section--rows section-basics">
@@ -38,8 +41,10 @@
             <div class="sample">
               <h3><code>container-type: inline-size</code></h3>
               <div class="preview">
-                <div class="item-container">
-                  <div class="item">Item</div>
+                <div class="resizer" data-resizer>
+                  <div class="item-container">
+                    <div class="item">Item</div>
+                  </div>
                 </div>
               </div>
               <div class="explanation">
@@ -80,11 +85,13 @@
           <div class="samples">
             <div class="sample">
               <div class="preview">
-                <ul class="items">
-                  <li class="item-container"><div class="item">Item</div></li>
-                  <li class="item-container"><div class="item">Item</div></li>
-                  <li class="item-container"><div class="item">Item</div></li>
-                </ul>
+                <div class="resizer" data-resizer>
+                  <ul class="items">
+                    <li class="item-container"><div class="item">Item</div></li>
+                    <li class="item-container"><div class="item">Item</div></li>
+                    <li class="item-container"><div class="item">Item</div></li>
+                  </ul>
+                </div>
               </div>
               <div class="explanation"></div>
             </div>
@@ -96,9 +103,11 @@
             <div class="sample">
               <h3><code>container-type: inline-size</code></h3>
               <div class="preview">
-                <div class="grid">
-                  <div class="cell"><h4>one</h4></div>
-                  <div class="cell"><h4>two</h4></div>
+                <div class="resizer" data-resizer>
+                  <div class="grid">
+                    <div class="cell"><h4>one</h4></div>
+                    <div class="cell"><h4>two</h4></div>
+                  </div>
                 </div>
               </div>
               <div class="explanation"></div>
@@ -107,9 +116,11 @@
             <div class="sample">
               <h3><code>container-type: size</code></h3>
               <div class="preview">
-                <div class="grid">
-                  <div class="cell cell--type-size"><h4>one</h4></div>
-                  <div class="cell cell--type-size"><h4>two explicit height</h4></div>
+                <div class="resizer" data-resizer>
+                  <div class="grid">
+                    <div class="cell cell--type-size"><h4>one</h4></div>
+                    <div class="cell cell--type-size"><h4>two explicit height</h4></div>
+                  </div>
                 </div>
               </div>
               <div class="explanation"></div>

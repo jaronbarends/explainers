@@ -2,6 +2,10 @@
   max-width: 90rem;
 }
 
+.main {
+  position: relative;
+}
+
 .samples-section--rows {
   .sample {
     grid-template-columns: 1fr 1fr;
