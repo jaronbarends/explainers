@@ -8,7 +8,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <link rel="stylesheet" href="../assets/css/shared.css" />
-
     <link rel="stylesheet" href="css/layout-override.css" />
     <link rel="stylesheet" href="css/container-queries.css" />
   </head>
@@ -21,16 +20,10 @@
         <h1>Container queries</h1>
         https://www.joshwcomeau.com/css/container-queries-introduction/
         <div class="samples-section samples-section--rows section-basics">
-          <h2>Container queries basics</h2>
           <div class="samples">
             <div class="sample">
-              <div class="preview">
-                <ul class="items">
-                  <li class="item-container"><div class="item">bla</div></li>
-                  <li class="item-container"><div class="item">bla</div></li>
-                  <li class="item-container"><div class="item">bla</div></li>
-                </ul>
-              </div>
+              <h2>Container queries basics</h2>
+              <div class="preview"></div>
               <div class="explanation">
                 <p>
                   The element you want to control needs to have a container with
@@ -41,6 +34,59 @@
                   <code>border</code> and <code>padding</code> for easier identification)
                 </p>
               </div>
+            </div>
+            <div class="sample">
+              <h3><code>container-type: inline-size</code></h3>
+              <div class="preview">
+                <div class="item-container">
+                  <div class="item">Item</div>
+                </div>
+              </div>
+              <div class="explanation">
+                <p>
+                  Most regular use case: only let the size along the inline-axis to determine the
+                  styling, and don't take the size along the block-axis into account.
+                </p>
+                <p>
+                  Use
+                  <code>container-type: inline-size</code>
+                </p>
+                <pre><code class="language-html">&lt;div class="item-container"&gt;
+  &lt;div class="item"&gt;Item&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+                <pre><code class="language-css">.item-container {
+  container-type: inline-size;
+}
+
+.item {
+  border-color: var(--color-secondary);
+  background-color: var(--bg-color-secondary);
+}
+
+@container (min-width: 50rem) {
+  .item {
+    border-color: var(--color-primary);
+    background-color: var(--bg-color-primary);
+  }
+}
+</code></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="samples-section samples-section--rows section-basics-flex">
+          <h2>Container queries basics flex box</h2>
+          <div class="samples">
+            <div class="sample">
+              <div class="preview">
+                <ul class="items">
+                  <li class="item-container"><div class="item">Item</div></li>
+                  <li class="item-container"><div class="item">Item</div></li>
+                  <li class="item-container"><div class="item">Item</div></li>
+                </ul>
+              </div>
+              <div class="explanation"></div>
             </div>
           </div>
         </div>
@@ -72,6 +118,7 @@
         </div>
       </main>
     </div>
-    <script src="js/main.js"></script>
+    <script src="js/main.js" type="module"></script>
+    <script src="../lib/prism/prism.js"></script>
   </body>
 </html>

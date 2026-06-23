@@ -3,7 +3,7 @@ pre[class*='language-'] {
   background: var(--bg-color-code);
 }
 
-pre[class*='language-'] {
+pre:has(code[class*='language-']) {
   position: relative;
   margin: 0;
 
@@ -16,18 +16,18 @@ pre[class*='language-'] {
   }
 }
 
-pre[class*='language-js']::before {
+pre:has([class*='language-js'])::before {
   content: 'js';
 }
 
-pre[class*='language-json']::before {
+pre:has([class*='language-json'])::before {
   content: 'json';
 }
 
-pre[class*='language-css']::before {
+pre:has([class*='language-css'])::before {
   content: 'css';
 }
 
-pre[class*='language-html']::before {
+pre:has([class*='language-html'])::before {
   content: 'html';
 }
