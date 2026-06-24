@@ -13,6 +13,10 @@
   border-right: 1px dotted var(--color-primary);
   padding-right: 0.75rem;
   padding-bottom: 0.75rem; /* needed for resize to work */
+
+  &[data-resizer-size] {
+    resize: both;
+  }
 }
 
 [class*='container'] {
@@ -25,7 +29,7 @@
   padding: 2rem;
 }
 
-.section-basics {
+.section-basics .sample-inline-size {
   .item-container {
     container-type: inline-size;
   }
@@ -43,6 +47,40 @@
   }
 }
 
+.section-basics .sample-size {
+  .resizer {
+    height: 15rem;
+  }
+
+  .item-container {
+    container-type: size;
+    height: 100%;
+
+    &.item-container-no-height {
+      height: auto;
+    }
+  }
+
+  .item {
+    height: 100%;
+    border-color: var(--color-secondary);
+    background-color: var(--bg-color-secondary);
+  }
+
+  @container (min-width: 30rem) {
+    .item {
+      border-color: var(--color-primary);
+      background-color: var(--bg-color-primary);
+    }
+  }
+
+  @container (min-height: 10rem) {
+    .item {
+      background: linear-gradient(var(--bg-color-secondary), var(--bg-color-primary));
+    }
+  }
+}
+
 .section-basics-flex {
   .items {
     display: flex;
@@ -52,7 +90,7 @@
 
   .item-container {
     container-type: inline-size;
-    flex: 1 1 10rem; /* 30ch to force wrap */
+    flex: 1 1 10rem; /* 10rem to force wrap */
   }
 
   .item {
@@ -68,5 +106,38 @@
   }
 }
 
-.section-container-type {
+.section-basics-grid {
+  .items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+    gap: 0.5rem;
+  }
+
+  .item-container {
+    container-type: inline-size;
+  }
+
+  .item {
+    border-color: var(--color-secondary);
+    background-color: var(--bg-color-secondary);
+  }
+
+  @container (min-width: 20rem) {
+    .item {
+      border-color: var(--color-primary);
+      background-color: var(--bg-color-primary);
+    }
+  }
+
+  .sample-size {
+    .items {
+      display: grid;
+      grid-template-rows: 7.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+      gap: 0.5rem;
+    }
+    .item-container {
+      container-type: size;
+    }
+  }
 }

@@ -18,7 +18,7 @@
       </header>
       <main>
         <div class="reset-wrapper">
-          <button id="reset-btn" class="btn-reset-resizers">Reset container sizes</button>
+          <button id="reset-btn" class="btn-reset-resizers">Reset all container sizes</button>
         </div>
         <h1>Container queries</h1>
         https://www.joshwcomeau.com/css/container-queries-introduction/
@@ -38,8 +38,8 @@
                 </p>
               </div>
             </div>
-            <div class="sample">
-              <h3><code>container-type: inline-size</code></h3>
+            <div class="sample sample-inline-size">
+              <h3>Most cases: <code>container-type: inline-size</code></h3>
               <div class="preview">
                 <div class="resizer" data-resizer>
                   <div class="item-container">
@@ -78,52 +78,185 @@
 </code></pre>
               </div>
             </div>
+
+            <div class="sample sample-size">
+              <h3>Fixed height: <code>container-type: size</code></h3>
+              <div class="preview">
+                <div class="resizer" data-resizer data-resizer-size>
+                  <div class="item-container">
+                    <div class="item">Item</div>
+                  </div>
+                </div>
+
+                <br />
+                <div class="resizer" data-resizer data-resizer-size>
+                  <div class="item-container item-container-no-height">
+                    <div class="item">
+                      Item in <code>.item-container-no-height</code> with <code>height: auto</code>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="explanation">
+                <p>
+                  Container needs to have a set height (either set explicitly, or implicitly in case
+                  of grid). Here the <code>div.resizer</code> has a fixed <code>height</code>;
+                  <code>div.item-container</code> gets <code>100%</code> of that.
+                </p>
+                <p>
+                  When no <code>height</code> is set on the container with
+                  <code>container-type: size</code>, the container will shrink to a height of
+                  <code>0</code>. That is how size-containment works: it was invented to inform the
+                  browser that it can ignore the element's content for layout calculations, so if
+                  you don't specify a <code>height</code>, it will be <code>0</code>. Horizontal
+                  container-queries will still work.
+                </p>
+                <pre><code class="language-css">.item-container {
+  container-type: size;
+  height: 100%;
+}
+
+.item {
+  height: 100%;
+  border-color: var(--color-secondary);
+  background-color: var(--bg-color-secondary);
+}
+
+@container (min-width: 30rem) {
+  .item {
+    border-color: var(--color-primary);
+    background-color: var(--bg-color-primary);
+  }
+}
+
+@container (min-height: 10rem) {
+  .item {
+    background: linear-gradient(var(--bg-color-secondary), var(--bg-color-primary));
+  }
+}
+                </code></pre>
+              </div>
+            </div>
           </div>
         </div>
+
         <div class="samples-section samples-section--rows section-basics-flex">
-          <h2>Container queries basics flex box</h2>
+          <h2>Container queries basics with flex box</h2>
           <div class="samples">
             <div class="sample">
               <div class="preview">
                 <div class="resizer" data-resizer>
-                  <ul class="items">
-                    <li class="item-container"><div class="item">Item</div></li>
-                    <li class="item-container"><div class="item">Item</div></li>
-                    <li class="item-container"><div class="item">Item</div></li>
-                  </ul>
+                  <div class="items">
+                    <div class="item-container"><div class="item">Item</div></div>
+                    <div class="item-container"><div class="item">Item</div></div>
+                    <div class="item-container"><div class="item">Item</div></div>
+                  </div>
                 </div>
               </div>
-              <div class="explanation"></div>
+              <div class="explanation">
+                <pre><code class="language-html">&lt;div class="items"&gt;
+  &lt;div class="item-container"&gt;&lt;div class="item"&gt;Item&lt;/div&gt;&lt;/div&gt;
+  &lt;div class="item-container"&gt;&lt;div class="item"&gt;Item&lt;/div&gt;&lt;/div&gt;
+  &lt;div class="item-container"&gt;&lt;div class="item"&gt;Item&lt;/div&gt;&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+                <pre><code class="language-css">.items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.item-container {
+  container-type: inline-size;
+  flex: 1 1 10rem; /* 10rem to force wrap */
+}
+
+.item {
+  border-color: var(--color-secondary);
+  background-color: var(--bg-color-secondary);
+}
+
+@container (min-width: 20rem) {
+  .item {
+    border-color: var(--color-primary);
+    background-color: var(--bg-color-primary);
+  }
+}
+</code></pre>
+              </div>
             </div>
           </div>
         </div>
 
-        <div class="samples-section samples-section--rows section-container-type">
+        <div class="samples-section samples-section--rows section-basics-grid">
+          <h2>Container queries basics with grid</h2>
           <div class="samples">
             <div class="sample">
-              <h3><code>container-type: inline-size</code></h3>
               <div class="preview">
                 <div class="resizer" data-resizer>
-                  <div class="grid">
-                    <div class="cell"><h4>one</h4></div>
-                    <div class="cell"><h4>two</h4></div>
+                  <div class="items">
+                    <div class="item-container"><div class="item">Item</div></div>
+                    <div class="item-container"><div class="item">Item</div></div>
+                    <div class="item-container"><div class="item">Item</div></div>
                   </div>
                 </div>
               </div>
-              <div class="explanation"></div>
+              <h3>grid with <code>container-type: inline-size</code></h3>
+              <div class="explanation">
+                <pre><code class="language-html">&lt;div class="items"&gt;
+  &lt;div class="item-container"&gt;&lt;div class="item"&gt;Item&lt;/div&gt;&lt;/div&gt;
+  &lt;div class="item-container"&gt;&lt;div class="item"&gt;Item&lt;/div&gt;&lt;/div&gt;
+  &lt;div class="item-container"&gt;&lt;div class="item"&gt;Item&lt;/div&gt;&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+                <pre><code class="language-css">.items {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  gap: 0.5rem;
+}
+
+.item-container {
+  container-type: inline-size;
+}
+
+.item {
+  border-color: var(--color-secondary);
+  background-color: var(--bg-color-secondary);
+}
+
+@container (min-width: 20rem) {
+  .item {
+    border-color: var(--color-primary);
+    background-color: var(--bg-color-primary);
+  }
+}
+</code></pre>
+              </div>
             </div>
 
-            <div class="sample">
-              <h3><code>container-type: size</code></h3>
+            <div class="sample sample-size">
               <div class="preview">
                 <div class="resizer" data-resizer>
-                  <div class="grid">
-                    <div class="cell cell--type-size"><h4>one</h4></div>
-                    <div class="cell cell--type-size"><h4>two explicit height</h4></div>
+                  <div class="items">
+                    <div class="item-container">
+                      <div class="item">Item with more content to force multiple lines</div>
+                    </div>
+                    <div class="item-container"><div class="item">Item</div></div>
+                    <div class="item-container"><div class="item">Item</div></div>
                   </div>
                 </div>
               </div>
-              <div class="explanation"></div>
+              <h3>grid with <code>container-type: size</code></h3>
+              <div class="explanation">
+                <pre><code class="language-html">&lt;div class="items"&gt;
+  &lt;div class="item-container"&gt;&lt;div class="item"&gt;Item&lt;/div&gt;&lt;/div&gt;
+  &lt;div class="item-container"&gt;&lt;div class="item"&gt;Item&lt;/div&gt;&lt;/div&gt;
+  &lt;div class="item-container"&gt;&lt;div class="item"&gt;Item&lt;/div&gt;&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+                <pre><code class="language-css">
+</code></pre>
+              </div>
             </div>
           </div>
         </div>

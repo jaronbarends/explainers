@@ -101,7 +101,7 @@ main {
 
     &:has(> :nth-child(3)) {
       grid-template-areas:
-        'preview heading'
+        'empty   heading'
         'preview explanation';
       grid-template-rows: auto 1fr;
     }
