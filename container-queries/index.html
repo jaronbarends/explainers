@@ -24,7 +24,7 @@
         https://www.joshwcomeau.com/css/container-queries-introduction/
         <div class="samples-section samples-section--rows section-basics">
           <div class="samples">
-            <div class="sample">
+            <div class="sample sample-intro">
               <h2>Container queries basics</h2>
               <div class="preview"></div>
               <div class="explanation">
@@ -34,7 +34,8 @@
                   <code>inline-size</code>. The container should be representative for the element's
                   queried dimension(s), so don't give the container any <code>border</code> or
                   <code>padding</code>.<br />(In these examples I <em>have</em> given them a dashed
-                  <code>border</code> and <code>padding</code> for easier identification)
+                  <code>border</code> <span class="legend-container""></span> and
+                  <code>padding</code> for easier identification)
                 </p>
               </div>
             </div>
@@ -191,10 +192,10 @@
         <div class="samples-section samples-section--rows section-basics-grid">
           <h2>Container queries basics with grid</h2>
           <div class="samples">
-            <div class="sample">
+            <div class="sample sample-inline-size">
               <div class="preview">
                 <div class="resizer" data-resizer>
-                  <div class="items">
+                  <div class="grid">
                     <div class="item-container"><div class="item">Item</div></div>
                     <div class="item-container"><div class="item">Item</div></div>
                     <div class="item-container"><div class="item">Item</div></div>
@@ -203,13 +204,16 @@
               </div>
               <h3>grid with <code>container-type: inline-size</code></h3>
               <div class="explanation">
-                <pre><code class="language-html">&lt;div class="items"&gt;
+                <p>
+                  Each grid-cell acts as a container, and needs a child element that can be styled.
+                </p>
+                <pre><code class="language-html">&lt;div class="grid"&gt;
   &lt;div class="item-container"&gt;&lt;div class="item"&gt;Item&lt;/div&gt;&lt;/div&gt;
   &lt;div class="item-container"&gt;&lt;div class="item"&gt;Item&lt;/div&gt;&lt;/div&gt;
   &lt;div class="item-container"&gt;&lt;div class="item"&gt;Item&lt;/div&gt;&lt;/div&gt;
 &lt;/div&gt;
 </code></pre>
-                <pre><code class="language-css">.items {
+                <pre><code class="language-css">.grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
   gap: 0.5rem;
@@ -236,8 +240,8 @@
 
             <div class="sample sample-size">
               <div class="preview">
-                <div class="resizer" data-resizer>
-                  <div class="items">
+                <div class="resizer" data-resizer data-resizer-size>
+                  <div class="grid">
                     <div class="item-container">
                       <div class="item">Item with more content to force multiple lines</div>
                     </div>
@@ -248,13 +252,49 @@
               </div>
               <h3>grid with <code>container-type: size</code></h3>
               <div class="explanation">
-                <pre><code class="language-html">&lt;div class="items"&gt;
+                <pre><code class="language-html">&lt;div class="grid"&gt;
   &lt;div class="item-container"&gt;&lt;div class="item"&gt;Item&lt;/div&gt;&lt;/div&gt;
   &lt;div class="item-container"&gt;&lt;div class="item"&gt;Item&lt;/div&gt;&lt;/div&gt;
   &lt;div class="item-container"&gt;&lt;div class="item"&gt;Item&lt;/div&gt;&lt;/div&gt;
 &lt;/div&gt;
 </code></pre>
-                <pre><code class="language-css">
+                <p>
+                  Each grid-cell acts as a container, and needs a child element that can be styled. The containers need to have a set <code>height</code>. That can be done by setting a fixed <code>height</code> on the <code>grid-template-rows</code>, or you can use <code>fr</code> units for <code>grid-template-rows</code> when the grid itself has a fixed height.
+                  <br>
+                  Here the <code>div.resizer</code> has a fixed height; <code>div.grid</code> gets 100% of that.
+                </p>
+                <pre><code class="language-css">.resizer {
+  height: 20rem;
+}
+.grid {
+  display: grid;
+  height: 100%;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 2fr 1fr;
+}
+
+.item-container {
+  container-type: size;
+}
+
+.item {
+  height: 100%;
+  border-color: var(--color-secondary);
+  background-color: var(--bg-color-secondary);
+}
+
+@container (min-width: 20rem) {
+  .item {
+    border-color: var(--color-primary);
+    background-color: var(--bg-color-primary);
+  }
+}
+
+@container (min-height: 10rem) {
+  .item {
+    background: linear-gradient(var(--bg-color-secondary), var(--bg-color-primary));
+  }
+}
 </code></pre>
               </div>
             </div>
