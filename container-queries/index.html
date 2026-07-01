@@ -18,7 +18,7 @@
       </header>
       <main>
         <div class="reset-wrapper">
-          <button id="reset-btn" class="btn-reset-resizers">Reset all container sizes</button>
+          <button id="reset-btn" class="btn-reset-resizers">Reset all container widths</button>
         </div>
         <h1>Container queries</h1>
         <p>
@@ -379,7 +379,7 @@
 &lt;/div&gt;
 </code></pre>
                 <pre><code class="language-css">@container (max-width: 20rem) {
-  .profile {
+  .profile-card {
     flex-direction: column;
     align-items: center;
   }
@@ -450,7 +450,7 @@
                   <code>cqmax</code>.
                 </p>
                 <pre><code class="language-css">.item {
-  font-size: max(1.25rem, 1rem + 2cqi);
+  font-size: max(1rem, 1rem + 1cqi);
   border-radius: 2cqi;
 }
 </code></pre>
