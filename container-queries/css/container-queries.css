@@ -29,6 +29,7 @@
 .resizer [class*='container'] {
   position: relative;
 
+  &::before,
   &::after {
     position: absolute;
     right: 0.5rem;
@@ -39,6 +40,11 @@
     background: rgba(255 255 255 / 0.9);
     border-radius: 0.25rem;
     padding: 0.125rem 0.25rem;
+  }
+
+  &::after {
+    top: 2rem;
+    content: attr(data-height);
   }
 }
 

@@ -31,11 +31,15 @@
                 <p>
                   The element you want to control needs to have a container with
                   <code>container-type</code> property set to <code>size</code> or
-                  <code>inline-size</code>. The container should be representative for the element's
-                  queried dimension(s), so don't give the container any <code>border</code> or
-                  <code>padding</code>.<br />(In these examples I <em>have</em> given them a dashed
-                  <code>border</code> <span class="legend-container"></span> and
-                  <code>padding</code> for easier identification)
+                  <code>inline-size</code>. Container queries use the container's content-box for
+                  its size, so don't give the container any <code>border</code> or
+                  <code>padding</code>.
+                </p>
+                <p>
+                  (In these examples I <em>have</em> given them a dashed <code>border</code>
+                  <span class="legend-container"></span> and <code>padding</code> for easier
+                  identification; I have subtracted those values in the boxes showing the
+                  containers' widths)
                 </p>
               </div>
             </div>
