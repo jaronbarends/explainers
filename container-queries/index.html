@@ -34,7 +34,7 @@
                   <code>inline-size</code>. The container should be representative for the element's
                   queried dimension(s), so don't give the container any <code>border</code> or
                   <code>padding</code>.<br />(In these examples I <em>have</em> given them a dashed
-                  <code>border</code> <span class="legend-container""></span> and
+                  <code>border</code> <span class="legend-container"></span> and
                   <code>padding</code> for easier identification)
                 </p>
               </div>
@@ -259,9 +259,14 @@
 &lt;/div&gt;
 </code></pre>
                 <p>
-                  Each grid-cell acts as a container, and needs a child element that can be styled. The containers need to have a set <code>height</code>. That can be done by setting a fixed <code>height</code> on the <code>grid-template-rows</code>, or you can use <code>fr</code> units for <code>grid-template-rows</code> when the grid itself has a fixed height.
-                  <br>
-                  Here the <code>div.resizer</code> has a fixed height; <code>div.grid</code> gets 100% of that.
+                  Each grid-cell acts as a container, and needs a child element that can be styled.
+                  The containers need to have a set <code>height</code>. That can be done by setting
+                  a fixed <code>height</code> on the <code>grid-template-rows</code>, or you can use
+                  <code>fr</code> units for <code>grid-template-rows</code> when the grid itself has
+                  a fixed height.
+                  <br />
+                  Here the <code>div.resizer</code> has a fixed height; <code>div.grid</code> gets
+                  100% of that.
                 </p>
                 <pre><code class="language-css">.resizer {
   height: 20rem;
@@ -294,6 +299,150 @@
   .item {
     background: linear-gradient(var(--bg-color-secondary), var(--bg-color-primary));
   }
+}
+</code></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="samples-section samples-section--rows section-named-containers">
+          <h2>Named containers</h2>
+          <div class="samples">
+            <div class="sample">
+              <div class="preview">
+                <div class="resizer" data-resizer>
+                  <div class="profile-container">
+                    <div class="profile-card">
+                      <div class="avatar">
+                        <div class="avatar-img"></div>
+                      </div>
+                      <div class="user-info">
+                        <h4 class="user-name">John Doe</h4>
+                        <p>Member since 1905</p>
+                        <p>Rating: 1.234</p>
+                        <p>
+                          I'm just a random guy from Somewhere. Love to do stuff in my spare time.
+                          Dragons are my favorite animals.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="sidebar container">
+                    Side bar
+                    <div class="profile-container">
+                      <div class="profile-card">
+                        <div class="avatar">
+                          <div class="avatar-img"></div>
+                        </div>
+                        <div class="user-info">
+                          <h4 class="user-name">John Doe</h4>
+                          <p>Member since 1905</p>
+                          <p>Rating: 1.234</p>
+                          <p>
+                            I'm just a random guy from Somewhere. Love to do stuff in my spare time.
+                            Dragons are my favorite animals.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <h3>Nested containers</h3>
+              <div class="explanation">
+                <p>
+                  If you want to query a container that is not an element's nearest
+                  container-ancestor, give that container a <code>container-name</code>
+                </p>
+                <p>
+                  In the example, only the profile card inside the sidebar hides its avatar when the
+                  sidebar gets below a certain width.
+                </p>
+                <pre><code class="language-html">&lt;div class="sidebar"&gt;
+  &lt;div class="profile-container"&gt;
+    &lt;div class="profile-card"&gt;
+      &lt;div class="avatar"&gt;&hellip;&lt;/div&gt;
+      &lt;div class="user-info"&gt;&hellip;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+                <pre><code class="language-css">@container (max-width: 20rem) {
+  .profile {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .user-info {
+    text-align: center;
+  }
+}
+
+.sidebar {
+  container-type: inline-size;
+  container-name: sidebar;
+}
+
+@container sidebar (max-width: 15rem) {
+  .avatar {
+    display: none;
+  }
+}
+
+@container sidebar {
+  .avatar-img {
+    background-color: var(--color-primary);
+  }
+}
+</code></pre>
+                <p>
+                  I can't really think of a practical use case where you would want to query a
+                  higher ancestor, but it's good to know it's possible 😉
+                  <br />
+                  You can also use the <code>@container</code> with the container name without a
+                  size query, as I've done here for the avatar's color. The only advantage for doing
+                  that instead of using <code>.sidebar .avatar-img</code> as selector, is that
+                  <code>@container</code> has a specificity of 0.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="samples-section samples-section--rows section-container-units">
+          <h2>Container-based units</h2>
+          <div class="samples">
+            <div class="sample">
+              <div class="preview">
+                <div class="resizer" data-resizer>
+                  <div class="items-container">
+                    <div class="items">
+                      <div class="item">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor sint corporis
+                        labore inventore deserunt nihil dicta atque neque delectus, incidunt,
+                        voluptates veritatis, laboriosam deleniti consequuntur non numquam harum at
+                        esse.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="explanation">
+                <p>Similar to viewport-units, we have container query units</p>
+                <ul>
+                  <li><code>cqi</code>: 1% of container's inline size</li>
+                  <li><code>cqb</code>: 1% of container's block size</li>
+                </ul>
+                <p>
+                  Also available: <code>cqw</code> (width), <code>cqh</code> (height),
+                  <code>cqmin</code> (min of <code>cqi</code> and <code>cqb</code>),
+                  <code>cqmax</code>.
+                </p>
+                <pre><code class="language-css">.item {
+  font-size: max(1.25rem, 1rem + 2cqi);
+  border-radius: 2cqi;
 }
 </code></pre>
               </div>
