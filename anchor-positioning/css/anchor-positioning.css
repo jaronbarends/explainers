@@ -1,3 +1,7 @@
+.preview {
+  anchor-scope: all; /* ensure that only positioned elements inside the same .preview are allowed to tether to anchors */
+}
+
 .anchor-elm,
 .positioned-elm {
   width: fit-content;
@@ -14,12 +18,12 @@
 .samples-section-basics {
   .sample-basics {
     .anchor-elm {
-      anchor-name: --sample-basics-anchor;
+      anchor-name: --my-anchor;
     }
 
     .positioned-elm {
       position: fixed;
-      position-anchor: --sample-basics-anchor;
+      position-anchor: --my-anchor;
       position-area: bottom center;
       margin: 0.5rem;
     }
@@ -96,12 +100,12 @@
   }
 
   .anchor-elm {
-    anchor-name: --sample-position-area-anchor;
+    anchor-name: --my-anchor;
   }
 
   .positioned-elm {
     position: fixed;
-    position-anchor: --sample-position-area-anchor;
+    position-anchor: --my-anchor;
   }
 
   .positioned-elm--top-left {
@@ -124,14 +128,14 @@
 
 .sample-anchor-function {
   .anchor-elm {
-    anchor-name: --sample-anchor-function-anchor;
+    anchor-name: --my-anchor;
     width: 10rem;
     height: 20rem;
   }
 
   .positioned-elm {
     position: fixed;
-    position-anchor: --sample-anchor-function-anchor;
+    position-anchor: --my-anchor;
   }
 
   .positioned-elm--top-right {
