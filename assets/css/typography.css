@@ -62,16 +62,20 @@ pre {
   font-size: inherit;
   font-weight: normal;
   tab-size: 2;
+}
 
-  &::after {
-    position: absolute;
-    content: '';
-    display: block;
-    inset: 0.1em 0;
-    border-radius: 0.25em;
-    z-index: -1;
-    background: var(--bg-color-code);
-  }
+code::after {
+  position: absolute;
+  content: '';
+  display: block;
+  inset: 0.1em 0;
+  border-radius: 0.25em;
+  z-index: -1;
+  background: var(--bg-color-code);
+}
+
+pre code::after {
+  display: none;
 }
 
 code {

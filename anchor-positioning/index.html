@@ -27,7 +27,6 @@
           <h2>Anchor positioning basics</h2>
           <div class="samples">
             <div class="sample sample-basics">
-              <h3>Tooltip-like positioned element</h3>
               <div class="preview">
                 <div class="anchor-elm">Anchor</div>
                 <div class="positioned-elm">I'm the positioned element</div>
@@ -46,7 +45,7 @@
                   <li>
                     Tie positioned element to anchor element with <code>position-anchor</code>
                   </li>
-                  <li>Set position with <code>position-area</code></li>
+                  <li>Set position with <code>position-area</code> or <code>anchor()</code></li>
                   <li>Anchor can have multiple positioned elements</li>
                 </ul>
                 <pre class="language-html"><code>&lt;div class="anchor-elm"&gt;Anchor&lt;/div&gt;
@@ -60,6 +59,107 @@
   position-anchor: --sample-basics-anchor;
   position-area: bottom center;
 }</code></pre>
+              </div>
+            </div>
+
+            <div class="sample sample-anchor-scope">
+              <h3><code>anchor-scope</code>: which elements are allowed to tether</h3>
+              <div class="preview">
+                <div class="anchor-scope">
+                  <div class="anchor-elm anchor-elm1">
+                    Anchor 1 - not scoped;<br />Any element can tether
+                  </div>
+                  <div class="anchor-elm anchor-elm2">
+                    Anchor 2 - scoped;<br />Only elements within ancestor can tether
+                  </div>
+
+                  <div class="positioned-elm positioned-elm--anchor1-inside">
+                    Positioned element for Anchor 1, within ancestor
+                  </div>
+                  <div class="positioned-elm positioned-elm--anchor2-inside">
+                    Positioned element for Anchor 2, within ancestor
+                  </div>
+                </div>
+
+                <div class="positioned-elm positioned-elm--anchor1-outside">
+                  Positioned element for Anchor 1, outside ancestor
+                </div>
+                <div class="positioned-elm positioned-elm--anchor2-outside">
+                  Positioned element for Anchor 2, outside ancestor
+                </div>
+              </div>
+              <div class="explanation">
+                <p>
+                  When a page contains multiple anchors with the same <code>anchor-name</code>, a
+                  positioned element that is associated with that anchor name (by its
+                  <code>position-anchor</code> property) will be tethered to the last anchor element
+                  in the source order.
+                </p>
+                <p>
+                  To manage this, you can define an <code>anchor-scope</code> on an anchor's
+                  ancestor.
+                </p>
+                <ul>
+                  <li><code>anchor-scope</code> is defined on an anchor's ancestor</li>
+                  <li>
+                    Only positioned elements inside the same ancestor are allowed to tether to the
+                    specified anchor names
+                  </li>
+                  <li>
+                    Scope can define all anchor names (<code>anchor-scope: all</code>) or only
+                    specific ones (<code>anchor-scope: --my-anchor, --another-anchor</code>) to be
+                    scoped
+                  </li>
+                </ul>
+                <p>
+                  This is very useful for components that may occur multiple times on a page (or
+                  pages like this one where I don't want to have to come up with a unique name for
+                  every anchor).
+                </p>
+                <pre><code class="language-html">&lt;div class="anchor-scope"&gt;
+  &lt;div class="anchor-elm1"&gt;Anchor 1 &hellip;&lt;/div&gt;
+  &lt;div class="anchor-elm2"&gt;Anchor 2 &hellip;&lt;/div&gt; &lt;/div&gt;
+
+  &lt;div class="positioned-elm--anchor1-inside"&gt;&hellip;&lt;/div&gt;
+  &lt;div class="positioned-elm--anchor2-inside"&gt;&hellip;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="positioned-elm--anchor1-outside"&gt;&hellip;&lt;/div&gt;
+&lt;div class="positioned-elm--anchor2-outside"&gt;&hellip;&lt;/div&gt;
+</code></pre>
+                <pre><code class="language-css">.anchor-scope {
+  anchor-scope: --scoped-anchor;
+}
+
+.anchor-elm1 {
+  anchor-name: --non-scoped-anchor;
+}
+
+.anchor-elm2 {
+  anchor-name: --scoped-anchor;
+}
+
+.positioned-elm--anchor1-inside,
+.positioned-elm--anchor1-outside {
+  position-anchor: --non-scoped-anchor;
+}
+
+.positioned-elm--anchor2-inside,
+.positioned-elm--anchor2-outside {
+  position-anchor: --scoped-anchor;
+}
+
+.positioned-elm--anchor1-inside,
+.positioned-elm--anchor2-inside {
+  position-area: top right;
+  background-color: var(--color-primary);
+}
+
+.positioned-elm--anchor1-outside,
+.positioned-elm--anchor2-outside {
+  position-area: bottom right;
+}
+                </code></pre>
               </div>
             </div>
 
@@ -92,7 +192,7 @@
                   <div class="positioned-elm positioned-elm--bottom-span-all">bottom span-all</div>
                 </div>
               </div>
-              <h3><code>position-area</code></h3>
+              <h3>Set position with <code>position-area</code></h3>
               <div class="explanation">
                 <ul>
                   <li>
@@ -137,6 +237,67 @@
     position-area: bottom left;
   }
                 </code></pre>
+              </div>
+            </div>
+
+            <div class="sample sample-anchor-function">
+              <h3>Set position with the <code>anchor()</code> function</h3>
+              <div class="preview">
+                <div class="anchor-elm">Anchor</div>
+                <div class="positioned-elm positioned-elm--top-right">
+                  <code>
+                    top: anchor(top);
+                    <br />
+                    left: anchor(right);
+                  </code>
+                </div>
+
+                <div class="positioned-elm positioned-elm--center-perc">
+                  <code>
+                    bottom: anchor(center);
+                    <br />
+                    left: anchor(75%);
+                  </code>
+                </div>
+
+                <div class="positioned-elm positioned-elm--calc">
+                  <code>
+                    top: calc(anchor(center) + 1rem);
+                    <br />
+                    left: calc(anchor(left) + 1rem);
+                  </code>
+                </div>
+
+                <div class="positioned-elm positioned-elm--bottom-right">
+                  <code>
+                    bottom: anchor(bottom);
+                    <br />
+                    right: anchor(right);
+                  </code>
+                </div>
+              </div>
+              <div class="explanation">
+                <p>
+                  Syntax:
+                  <code>&lt;inset-value&gt;: anchor(&lt;anchor-name&gt; &lt;anchor-side&gt;)</code>
+                </p>
+                <ul>
+                  <li>Positions the positioned element relative to an anchor element</li>
+                  <li>
+                    You can usually omit <code>&lt;anchor-name&gt;</code>. Element will then be
+                    positioned relative to its associated anchor element. (You only need to specify
+                    &lt;anchor-name&gt; if you want to position the element relative to another
+                    anchor element than its associated anchor element. Can't think of a use case for
+                    that)
+                  </li>
+                  <li>
+                    <code>&lt;anchor-side&gt;</code> can also be <code>center</code> or a percentage
+                    of the anchor's width or height
+                  </li>
+                  <li>
+                    <code>anchor()</code> returns a value, so you can use it in <code>calc</code>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
