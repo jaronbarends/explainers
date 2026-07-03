@@ -1,0 +1,75 @@
+.anchor-elm,
+.positioned-elm {
+  width: fit-content;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  background-color: var(--bg-color-primary);
+}
+
+.positioned-elm {
+  background-color: rgba(0 0 0 / 0.9);
+  color: white;
+}
+
+.samples-section-basics {
+  .sample-basics {
+    .anchor-elm {
+      anchor-name: --sample-basics-anchor;
+    }
+
+    .positioned-elm {
+      position: fixed;
+      position-anchor: --sample-basics-anchor;
+      position-area: bottom center;
+      margin: 0.5rem;
+    }
+  }
+}
+
+.sample-position-area {
+  .preview {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+  }
+  .position-area-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr auto;
+    grid-template-rows: auto 1fr 1fr 1fr;
+    gap: 1px;
+
+    & > div {
+      padding: 0.25rem;
+    }
+  }
+
+  .position-area-grid-cell {
+    border: 1px dotted var(--color-primary);
+  }
+
+  .anchor-elm {
+    anchor-name: --sample-position-area-anchor;
+  }
+
+  .positioned-elm {
+    position: fixed;
+    position-anchor: --sample-position-area-anchor;
+  }
+
+  .positioned-elm--top-left {
+    position-area: top left;
+  }
+
+  .positioned-elm--top {
+    position-area: top; /* same as top center */
+  }
+
+  .positioned-elm--span-top-right {
+    max-width: 6rem; /* without max-width, elm will run on one line, so you won't see effect of span */
+    position-area: span-top right;
+  }
+
+  .positioned-elm--bottom-span-all {
+    position-area: bottom span-all;
+  }
+}

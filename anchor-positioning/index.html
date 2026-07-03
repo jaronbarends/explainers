@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <title>Anchor positioning</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="../assets/css/shared.css" />
+    <link rel="stylesheet" href="css/layout-override.css" />
+    <link rel="stylesheet" href="css/anchor-positioning.css" />
+
+    <style></style>
+  </head>
+  <body>
+    <div class="o-content-width">
+      <header>
+        <a href="../" class="back-link">&laquo; Back to explainers</a>
+      </header>
+      <main>
+        <div class="text-content">
+          <h1>Anchor positioning</h1>
+        </div>
+
+        <section class="samples-section samples-section--rows samples-section-basics">
+          <h2>Anchor positioning basics</h2>
+          <div class="samples">
+            <div class="sample sample-basics">
+              <h3>Tooltip-like positioned element</h3>
+              <div class="preview">
+                <div class="anchor-elm">Anchor</div>
+                <div class="positioned-elm">I'm the positioned element</div>
+              </div>
+
+              <div class="explanation">
+                <ul>
+                  <li>
+                    Create anchor element with <code>anchor-name</code> property (dashed ident)
+                  </li>
+
+                  <li>
+                    Pull positioned element out of document flow with
+                    <code>position: fixed</code> or <code>position: absolute</code>
+                  </li>
+                  <li>
+                    Tie positioned element to anchor element with <code>position-anchor</code>
+                  </li>
+                  <li>Set position with <code>position-area</code></li>
+                  <li>Anchor can have multiple positioned elements</li>
+                </ul>
+                <pre class="language-html"><code>&lt;div class="anchor-elm"&gt;Anchor&lt;/div&gt;
+&lt;div class="positioned-elm"&gt;I'm the positioned element&lt;/div&gt;</code></pre>
+                <pre class="language-css"><code>.anchor-elm {
+  anchor-name: --sample-basics-anchor;
+}
+
+.positioned-elm {
+  position: fixed;
+  position-anchor: --sample-basics-anchor;
+  position-area: bottom center;
+}</code></pre>
+              </div>
+            </div>
+
+            <div class="sample sample-position-area">
+              <div class="preview">
+                <div class="position-area-grid">
+                  <div>left / inline-start</div>
+                  <div>center</div>
+                  <div>right / block-end</div>
+                  <div></div>
+                  <div class="position-area-grid-cell"></div>
+                  <div class="position-area-grid-cell"></div>
+                  <div class="position-area-grid-cell"></div>
+                  <div>top / block-start</div>
+                  <div class="position-area-grid-cell"></div>
+                  <div class="position-area-grid-cell">Anchor</div>
+                  <div class="position-area-grid-cell"></div>
+                  <div>center</div>
+                  <div class="position-area-grid-cell"></div>
+                  <div class="position-area-grid-cell"></div>
+                  <div class="position-area-grid-cell"></div>
+                  <div>bottom / block-end</div>
+                </div>
+
+                <div>
+                  <div class="anchor-elm">Anchor</div>
+                  <div class="positioned-elm positioned-elm--top-left">top left</div>
+                  <div class="positioned-elm positioned-elm--top">top</div>
+                  <div class="positioned-elm positioned-elm--span-top-right">span-top right</div>
+                  <div class="positioned-elm positioned-elm--bottom-span-all">bottom span-all</div>
+                </div>
+              </div>
+              <h3><code>position-area</code></h3>
+              <div class="explanation">
+                <ul>
+                  <li>
+                    Uses 9-cell grid based on the size of the anchor and the positioned element
+                    (each positioned element uses its own grid, not influenced by other positioned
+                    elements' sizes)
+                  </li>
+                  <li>
+                    Physical (<code>top</code>, <code>left</code>) or logical
+                    (<code>block-start</code>, <code>inline-end</code>) values
+                  </li>
+                  <li>Missing values will be set to <code>center</code></li>
+                  <li>
+                    Use only physical (e.g. <code>top right</code>) or logical (e.g.
+                    <code>block-start inline-end</code>) values; mixing them (e.g.
+                    <code>top inline-end</code>) does not work
+                  </li>
+                  <li>
+                    <code>span-&hellip;</code> means "<code>center</code> +
+                    <code>specified value</code>"
+                  </li>
+                </ul>
+                <pre><code class="language-css">.anchor-elm {
+    anchor-name: --sample-position-area-anchor;
+  }
+
+  .positioned-elm {
+    position: fixed;
+    position-anchor: --sample-position-area-anchor;
+  }
+
+  .positioned-elm--top {
+    position-area: top; /* same as top center */
+  }
+
+  .positioned-elm--span-bottom-right {
+    max-width: 6rem; /* without max-width, elm will run on one line, so you won't see effect of span */
+    position-area: span-bottom right;
+  }
+
+  .positioned-elm--bottom-left {
+    position-area: bottom left;
+  }
+                </code></pre>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script src="../lib/prism/prism.js"></script>
+  </body>
+</html>
