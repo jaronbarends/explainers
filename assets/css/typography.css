@@ -45,7 +45,13 @@ p {
   font-size: 1rem;
 }
 
+:heading {
+  background: red;
+}
+
 p a,
+h2 a,
+h3 a,
 .text-content a {
   color: var(--color-link);
 

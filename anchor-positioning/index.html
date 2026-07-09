@@ -302,6 +302,71 @@
             </div>
           </div>
         </section>
+
+        <section class="samples-section samples-section-popover">
+          <h2>Anchor positioning with <a href="../popover">popovers</a></h2>
+          <div class="samples">
+            <div class="sample sample-default">
+              <h3>Overriding browser stylesheet</h3>
+              <div class="preview">
+                <button class="anchor-elm" popovertarget="popover-basic">
+                  Anchor for popover without override
+                </button>
+                <div id="popover-basic" class="positioned-elm popover" popover>
+                  Popover without UA stylesheet override
+                </div>
+              </div>
+              <div class="explanation">
+                <p>
+                  By default, popover has UA stylesheet setting
+                  <code>inset: 0; margin: auto;</code> That centers it on screen, so anchor positioning doesn't work.
+                </p>
+                <pre><code class="language-html">&lt;button class="anchor-elm" popovertarget="popover-basic"&gt;Anchor &hellip;&lt;/button&gt;
+&lt;div id="popover-basic" class="positioned-elm popover" popover&gt;&hellip;&lt;/div&gt;
+</code></pre>
+                <pre><code class="language-css">.popover {
+  position: fixed;
+  position-anchor: --my-anchor;
+  /* does not work without overruling UA stylesheet */
+  bottom: calc(anchor(top) + 0.5rem);
+  left: anchor(center);
+  translate: -50% 0;
+}
+</code></pre>
+              </div>
+            </div>
+
+            <div class="sample sample-override">
+              <h3>Overriding browser stylesheet</h3>
+              <div class="preview">
+                  <button class="anchor-elm" popovertarget="popover-override">
+                    Anchor for popover with override
+                  </button>
+                  <div id="popover-override" class="positioned-elm popover" popover>
+                    Popover with UA stylesheet override
+                  </div>
+                </div>
+                <div class="explanation">
+                  <p>Set <code>inset: auto; margin: 0;</code> to position it relative to anchor.
+                  </p>
+                  <pre><code class="language-html">&lt;button class="anchor-elm" popovertarget="popover-override"&gt;Anchor &hellip;&lt;/button&gt;
+&lt;div id="popover-override" class="positioned-elm popover" popover&gt;&hellip;&lt;/div&gt;
+</code></pre>
+                  <pre><code class="language-css">.popover {
+  position: fixed;
+  position-anchor: --my-anchor;
+  inset: auto; /* override UA stylesheet's inset: 0 */
+  margin: 0; /* override UA stylesheet's margin: auto */
+  bottom: calc(anchor(top) + 0.5rem);
+  left: anchor(center);
+  translate: -50% 0;
+}
+</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
     </div>
     <script src="../lib/prism/prism.js"></script>
