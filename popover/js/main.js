@@ -5,17 +5,17 @@ function init() {
 }
 
 function initBasicManualExample() {
-  const popoverBasicManual = document.getElementById('popover-basic-manual');
-  const popoverBasicManualShowBtn = document.getElementById('basic-manual-button-show');
-  const popoverBasicManualHideBtn = document.getElementById('basic-manual-button-hide');
-  const popoverBasicManualToggleBtn = document.getElementById('basic-manual-button-toggle');
-  popoverBasicManualShowBtn.addEventListener('click', () => {
-    popoverBasicManual.showPopover();
-  })
-  popoverBasicManualHideBtn.addEventListener('click', () => {
-    popoverBasicManual.hidePopover();
-  })
-  popoverBasicManualToggleBtn.addEventListener('click', () => {
-    popoverBasicManual.togglePopover();
-  })
+  const popover = document.getElementById('popover-basic-manual');
+  const popoverShowBtn = document.getElementById('basic-manual-button-show');
+  const popoverHideBtn = document.getElementById('basic-manual-button-hide');
+  const popoverToggleBtn = document.getElementById('basic-manual-button-toggle');
+  popoverShowBtn.addEventListener('click', () => {
+    popover.showPopover();
+  });
+  popoverHideBtn.addEventListener('click', () => {
+    popover.hidePopover();
+  });
+  popoverToggleBtn.addEventListener('click', () => {
+    popover.togglePopover();
+  });
 }

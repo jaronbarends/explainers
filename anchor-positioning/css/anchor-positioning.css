@@ -1,0 +1,277 @@
+.preview {
+  anchor-scope: all; /* ensure that only positioned elements inside the same .preview are allowed to tether to anchors */
+}
+
+.anchor,
+.target {
+  width: fit-content;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  background-color: var(--bg-color-primary);
+}
+
+.target {
+  background-color: rgba(0 0 0 / 0.9);
+  color: white;
+}
+
+.samples-section-basics {
+  .sample-basics {
+    .anchor {
+      anchor-name: --my-anchor;
+      margin-top: 2rem;
+    }
+
+    .target {
+      position: fixed;
+      position-anchor: --my-anchor;
+      position-area: top;
+      margin: 0.5rem;
+    }
+  }
+}
+
+.sample-anchor-scope {
+  .anchor-scope {
+    anchor-scope: --scoped-anchor;
+
+    display: flex;
+    flex-direction: column;
+    gap: 12rem;
+  }
+
+  .anchor {
+    max-width: 15rem;
+  }
+
+  .anchor1 {
+    anchor-name: --non-scoped-anchor;
+  }
+
+  .anchor2 {
+    anchor-name: --scoped-anchor;
+  }
+
+  .target {
+    position: absolute;
+    max-width: 10rem;
+  }
+
+  .target--anchor1-inside,
+  .target--anchor1-outside {
+    position-anchor: --non-scoped-anchor;
+  }
+
+  .target--anchor2-inside,
+  .target--anchor2-outside {
+    position-anchor: --scoped-anchor;
+  }
+
+  .target--anchor1-inside,
+  .target--anchor2-inside {
+    position-area: top right;
+    background-color: var(--color-primary);
+  }
+
+  .target--anchor1-outside,
+  .target--anchor2-outside {
+    position-area: bottom right;
+  }
+}
+
+.sample-position-area {
+  .preview {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+  }
+  .position-area-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr auto;
+    grid-template-rows: auto 1fr 1fr 1fr;
+    gap: 1px;
+
+    & > div {
+      padding: 0.25rem;
+    }
+  }
+
+  .position-area-grid-cell {
+    border: 1px dotted var(--color-primary);
+  }
+
+  .anchor {
+    anchor-name: --my-anchor;
+  }
+
+  .target {
+    position: fixed;
+    position-anchor: --my-anchor;
+  }
+
+  .target--top-left {
+    position-area: top left;
+  }
+
+  .target--top {
+    position-area: top; /* same as top span-all */
+  }
+
+  .target--span-top-right {
+    max-width: 6rem; /* without max-width, elm will run on one line, so you won't see effect of span */
+    position-area: span-top right;
+  }
+
+  .target--bottom-span-all {
+    position-area: bottom span-all;
+  }
+}
+
+.sample-anchor-function {
+  .anchor {
+    anchor-name: --my-anchor;
+    width: 10rem;
+    height: 20rem;
+  }
+
+  .target {
+    position: fixed;
+    position-anchor: --my-anchor;
+  }
+
+  .target--top-right {
+    top: anchor(top);
+    left: anchor(right);
+  }
+
+  .target--center-perc {
+    bottom: anchor(center);
+    left: anchor(75%);
+  }
+
+  .target--calc {
+    top: calc(anchor(center) + 1rem);
+    left: calc(anchor(left) + 1rem);
+  }
+
+  .target--bottom-right-center {
+    bottom: anchor(bottom);
+    right: anchor(center);
+  }
+}
+
+.samples-section-popover {
+  .preview {
+    anchor-scope: all;
+  }
+
+  .sample-default {
+    .anchor {
+      anchor-name: --my-anchor;
+    }
+
+    .popover {
+      position: fixed;
+      position-anchor: --my-anchor;
+      bottom: calc(anchor(top) + 0.5rem);
+      left: anchor(center);
+      translate: -50% 0;
+    }
+  }
+
+  .sample-override {
+    .anchor {
+      anchor-name: --my-anchor;
+    }
+
+    .popover {
+      position: fixed;
+      position-anchor: --my-anchor;
+      inset: auto; /* override UA stylesheet's inset: 0 */
+      margin: 0; /* override UA stylesheet's margin: auto */
+      bottom: calc(anchor(top) + 0.5rem);
+      left: anchor(center);
+      translate: -50% 0;
+    }
+  }
+
+  .anchor-override {
+    anchor-name: --my-anchor-override;
+  }
+
+  .popover-override {
+    position: fixed;
+    position-anchor: --my-anchor-override;
+    inset: auto; /* override browser stylesheet's inset: 0 */
+    margin: 0; /* override browser stylesheet's margin: auto */
+    bottom: calc(anchor(top) + 0.5rem);
+    left: anchor(center);
+    translate: -50% 0;
+  }
+}
+
+.samples-section-fallback {
+  .sample-single-fallback {
+    .anchor {
+      anchor-name: --my-anchor;
+      margin-top: 2rem;
+    }
+
+    .target {
+      position: fixed;
+      position-anchor: --my-anchor;
+      position-area: top span-right;
+      position-try: flip-block;
+      margin-bottom: 0.25rem;
+    }
+
+    .anchor-inline {
+      anchor-name: --my-anchor-inline;
+      margin-top: 4rem;
+    }
+
+    .target-inline {
+      position: fixed;
+      position-anchor: --my-anchor-inline;
+      position-area: left;
+      position-try: flip-inline;
+      margin-right: 0.25rem;
+    }
+  }
+
+  .sample-multiple-fallbacks,
+  .sample-multiple-fallbacks2 {
+    .anchor {
+      margin: 2rem 0 0;
+      anchor-name: --my-anchor;
+    }
+
+    .target {
+      position: fixed;
+      position-anchor: --my-anchor;
+      position-area: top left;
+      position-try: flip-inline, flip-block;
+    }
+  }
+
+  .sample-multiple-fallbacks2 {
+    .target {
+      position-try:
+        flip-inline,
+        flip-block,
+        flip-inline flip-block;
+    }
+  }
+
+  .scroll-container {
+    /* position: relative;
+    height: 10rem;
+    border: 1px dotted var(--color-primary);
+    overflow: auto; */
+  }
+
+  .content-container {
+    /* height: 20rem;
+    width: 200%; */
+  }
+}

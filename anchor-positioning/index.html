@@ -1,0 +1,511 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <title>Anchor positioning</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="../assets/css/shared.css" />
+    <link rel="stylesheet" href="css/layout-override.css" />
+    <link rel="stylesheet" href="css/anchor-positioning.css" />
+
+    <style></style>
+  </head>
+  <body>
+    <div class="o-content-width">
+      <header>
+        <a href="../" class="back-link">&laquo; Back to explainers</a>
+      </header>
+      <main>
+        <div class="text-content">
+          <h1>Anchor positioning</h1>
+          <p>
+            Good resources:
+            <a href="https://developer.chrome.com/docs/css-ui/anchor-positioning-api"
+              >https://developer.chrome.com/docs/css-ui/anchor-positioning-api</a
+            >,
+            <a href="https://www.joshwcomeau.com/css/anchor-positioning/"
+              >https://www.joshwcomeau.com/css/anchor-positioning/</a
+            >
+          </p>
+        </div>
+
+        <section class="samples-section samples-section--rows samples-section-basics">
+          <h2>Anchor positioning basics</h2>
+          <div class="samples">
+            <div class="sample sample-basics">
+              <div class="preview">
+                <div class="anchor">Anchor</div>
+                <div class="target">I'm the target</div>
+              </div>
+
+              <div class="explanation">
+                <ul>
+                  <li>
+                    A target element (positioned element) can be tethered to an anchor element
+                  </li>
+                  <li>
+                    Create anchor element with <code>anchor-name</code> property (dashed ident)
+                  </li>
+
+                  <li>
+                    Pull target out of document flow with
+                    <code>position: fixed</code> or <code>position: absolute</code>
+                  </li>
+                  <li>Tie target to anchor element with <code>position-anchor</code></li>
+                  <li>Set position with <code>position-area</code> or <code>anchor()</code></li>
+                  <li>Anchor can have multiple targets</li>
+                </ul>
+                <pre class="language-html"><code>&lt;div class="anchor"&gt;Anchor&lt;/div&gt;
+&lt;div class="target"&gt;I'm the target&lt;/div&gt;</code></pre>
+                <pre class="language-css"><code>.anchor {
+  anchor-name: --my-anchor;
+}
+
+.target {
+  position: fixed;
+  position-anchor: --my-anchor;
+  position-area: top;
+}</code></pre>
+              </div>
+            </div>
+
+            <div class="sample sample-anchor-scope">
+              <h3><code>anchor-scope</code>: which elements are allowed to tether</h3>
+              <div class="preview">
+                <div class="anchor-scope">
+                  <div class="anchor anchor1">
+                    Anchor 1 - not scoped;<br />Any element can tether
+                  </div>
+                  <div class="anchor anchor2">
+                    Anchor 2 - scoped;<br />Only elements within ancestor can tether
+                  </div>
+
+                  <div class="target target--anchor1-inside">
+                    Target for Anchor 1, within ancestor
+                  </div>
+                  <div class="target target--anchor2-inside">
+                    Target for Anchor 2, within ancestor
+                  </div>
+                </div>
+
+                <div class="target target--anchor1-outside">
+                  Target for Anchor 1, outside ancestor
+                </div>
+                <div class="target target--anchor2-outside">
+                  Target for Anchor 2, outside ancestor
+                </div>
+              </div>
+              <div class="explanation">
+                <p>
+                  When a page contains multiple anchors with the same <code>anchor-name</code>, a
+                  target that is associated with that anchor name (by its
+                  <code>position-anchor</code> property) will be tethered to the last anchor element
+                  in the source order.
+                </p>
+                <p>
+                  To manage this, you can define an <code>anchor-scope</code> on an anchor's
+                  ancestor.
+                </p>
+                <ul>
+                  <li><code>anchor-scope</code> is defined on an anchor's ancestor</li>
+                  <li>
+                    Only targets inside the same ancestor are allowed to tether to the specified
+                    anchor names
+                  </li>
+                  <li>
+                    Scope can define all anchor names (<code>anchor-scope: all</code>) or only
+                    specific ones (<code>anchor-scope: --my-anchor, --another-anchor</code>) to be
+                    scoped
+                  </li>
+                </ul>
+                <p>
+                  This is very useful for components that may occur multiple times on a page (or
+                  pages like this one where I don't want to have to come up with a unique name for
+                  every anchor).
+                </p>
+                <pre><code class="language-html">&lt;div class="anchor-scope"&gt;
+  &lt;div class="anchor1"&gt;Anchor 1 &hellip;&lt;/div&gt;
+  &lt;div class="anchor2"&gt;Anchor 2 &hellip;&lt;/div&gt;
+
+  &lt;div class="target--anchor1-inside"&gt;&hellip;&lt;/div&gt;
+  &lt;div class="target--anchor2-inside"&gt;&hellip;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="target--anchor1-outside"&gt;&hellip;&lt;/div&gt;
+&lt;div class="target--anchor2-outside"&gt;&hellip;&lt;/div&gt;
+</code></pre>
+                <pre><code class="language-css">.anchor-scope {
+  anchor-scope: --scoped-anchor;
+}
+
+.anchor1 {
+  anchor-name: --non-scoped-anchor;
+}
+
+.anchor2 {
+  anchor-name: --scoped-anchor;
+}
+
+.target--anchor1-inside,
+.target--anchor1-outside {
+  position-anchor: --non-scoped-anchor;
+}
+
+.target--anchor2-inside,
+.target--anchor2-outside {
+  position-anchor: --scoped-anchor;
+}
+
+.target--anchor1-inside,
+.target--anchor2-inside {
+  position-area: top right;
+  background-color: var(--color-primary);
+}
+
+.target--anchor1-outside,
+.target--anchor2-outside {
+  position-area: bottom right;
+}
+                </code></pre>
+              </div>
+            </div>
+
+            <div class="sample sample-position-area">
+              <div class="preview">
+                <div class="position-area-grid">
+                  <div>left / inline-start</div>
+                  <div>center</div>
+                  <div>right / inline-end</div>
+                  <div></div>
+                  <div class="position-area-grid-cell"></div>
+                  <div class="position-area-grid-cell"></div>
+                  <div class="position-area-grid-cell"></div>
+                  <div>top / block-start</div>
+                  <div class="position-area-grid-cell"></div>
+                  <div class="position-area-grid-cell">Anchor</div>
+                  <div class="position-area-grid-cell"></div>
+                  <div>center</div>
+                  <div class="position-area-grid-cell"></div>
+                  <div class="position-area-grid-cell"></div>
+                  <div class="position-area-grid-cell"></div>
+                  <div>bottom / block-end</div>
+                </div>
+
+                <div>
+                  <div class="anchor">Anchor</div>
+                  <div class="target target--top-left">top left</div>
+                  <div class="target target--top">top</div>
+                  <div class="target target--span-top-right">span-top right</div>
+                  <div class="target target--bottom-span-all">bottom span-all</div>
+                </div>
+              </div>
+              <h3>Set position with <code>position-area</code></h3>
+              <div class="explanation">
+                <ul>
+                  <li>
+                    Uses 9-cell grid based on the size of the anchor and the target (each target
+                    uses its own grid, not influenced by other positioned elements' sizes)
+                  </li>
+                  <li>
+                    Physical (<code>top</code>, <code>left</code>) or logical
+                    (<code>block-start</code>, <code>inline-end</code>) values
+                  </li>
+                  <li>Missing values will be treated as <code>span-all</code></li>
+                  <li>
+                    Use only physical (e.g. <code>top right</code>) or logical (e.g.
+                    <code>block-start inline-end</code>) values; mixing them (e.g.
+                    <code>top inline-end</code>) does not work
+                  </li>
+                  <li>
+                    <code>span-&hellip;</code> means "<code>center</code> +
+                    <code>specified value</code>"
+                  </li>
+                  <li>
+                    The div with <code>bottom span-all</code> is rendered on top op the anchor here.
+                    <br />TL;DR: That won't happen when you trigger the anchor with a popover.
+                    <br />When a target's containing block is a scroll container (the case here,
+                    because of <code>position: fixed</code>), and the target is outside view on
+                    initial render, the value used for <code>bottom</code> with
+                    <code>position-area</code> is zero-height, resulting in the target being
+                    positioned over the anchor. (See this
+                    <a href="https://github.com/w3c/csswg-drafts/issues/10999"
+                      >very technical w3c discussion</a
+                    >) That won't be recalculated when it scrolls into view, only when you
+                    re-trigger layout (for example by disabling/re-enabling
+                    <code>position-area</code> in the dev toolbar). <br />See section on
+                    <code>position: fixed</code> vs <code>position: absolute</code>.
+                  </li>
+                </ul>
+                <pre><code class="language-css">.anchor {
+    anchor-name: --my-anchor;
+  }
+
+  .target {
+    position: fixed;
+    position-anchor: --my-anchor;
+  }
+
+  .target--top {
+    position-area: top; /* same as top span-all */
+  }
+
+  .target--span-bottom-right {
+    max-width: 6rem; /* without max-width, elm will run on one line, so you won't see effect of span */
+    position-area: span-bottom right;
+  }
+
+  .target--bottom-left {
+    position-area: bottom left;
+  }
+                </code></pre>
+              </div>
+            </div>
+
+            <div class="sample sample-anchor-function">
+              <h3>Set position with the <code>anchor()</code> function</h3>
+              <div class="preview">
+                <div class="anchor">Anchor</div>
+                <div class="target target--top-right">
+                  <code>
+                    top: anchor(top);
+                    <br />
+                    left: anchor(right);
+                  </code>
+                </div>
+
+                <div class="target target--center-perc">
+                  <code>
+                    bottom: anchor(center);
+                    <br />
+                    left: anchor(75%);
+                  </code>
+                </div>
+
+                <div class="target target--calc">
+                  <code>
+                    top: calc(anchor(center) + 1rem);
+                    <br />
+                    left: calc(anchor(left) + 1rem);
+                  </code>
+                </div>
+
+                <div class="target target--bottom-right-center">
+                  <code>
+                    bottom: anchor(bottom);
+                    <br />
+                    right: anchor(center);
+                  </code>
+                </div>
+              </div>
+              <div class="explanation">
+                <p>
+                  Syntax:
+                  <code>&lt;inset-value&gt;: anchor(&lt;anchor-name&gt; &lt;anchor-side&gt;)</code>
+                </p>
+                <ul>
+                  <li>Positions the target relative to an anchor element</li>
+                  <li>
+                    You can usually omit <code>&lt;anchor-name&gt;</code>. Element will then be
+                    positioned relative to its associated anchor element. (You only need to specify
+                    &lt;anchor-name&gt; if you want to position the element relative to another
+                    anchor element than its associated anchor element. Can't think of a use case for
+                    that)
+                  </li>
+                  <li>
+                    <code>&lt;anchor-side&gt;</code> can also be <code>center</code> or a percentage
+                    of the anchor's width or height
+                  </li>
+                  <li>
+                    <code>anchor()</code> returns a value, so you can use it in <code>calc</code>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="samples-section samples-section-popover">
+          <h2>Anchor positioning with <a href="../popover">popovers</a></h2>
+          <div class="samples">
+            <div class="sample sample-default">
+              <h3>UA stylesheet trips up positioning</h3>
+              <div class="preview">
+                <button class="anchor" popovertarget="popover-basic">
+                  Anchor for popover without override
+                </button>
+                <div id="popover-basic" class="target popover" popover>
+                  Popover without UA stylesheet override
+                </div>
+              </div>
+              <div class="explanation">
+                <p>
+                  By default, the browser's stylesheet gives every <code>popover</code> an
+                  <code>inset: 0; margin: auto;</code> That centers it on screen, so anchor
+                  positioning doesn't work.
+                </p>
+                <pre><code class="language-html">&lt;button class="anchor" popovertarget="popover-basic"&gt;Anchor &hellip;&lt;/button&gt;
+&lt;div id="popover-basic" class="target popover" popover&gt;&hellip;&lt;/div&gt;
+</code></pre>
+                <pre><code class="language-css">.popover {
+  position: fixed;
+  position-anchor: --my-anchor;
+  /* does not work because of UA stylesheet */
+  bottom: calc(anchor(top) + 0.5rem);
+  left: anchor(center);
+  translate: -50% 0;
+}
+</code></pre>
+              </div>
+            </div>
+
+            <div class="sample sample-override">
+              <h3>Overriding browser stylesheet</h3>
+              <div class="preview">
+                <button class="anchor" popovertarget="popover-override">
+                  Anchor for popover with override
+                </button>
+                <div id="popover-override" class="target popover" popover>
+                  Popover with UA stylesheet override
+                </div>
+              </div>
+              <div class="explanation">
+                <p>
+                  Set <code>inset: auto; margin: 0;</code> on the popover to position it relative to
+                  its anchor.
+                </p>
+                <pre><code class="language-html">&lt;button class="anchor" popovertarget="popover-override"&gt;Anchor &hellip;&lt;/button&gt;
+&lt;div id="popover-override" class="target popover" popover&gt;&hellip;&lt;/div&gt;
+</code></pre>
+                <pre><code class="language-css">.popover {
+  position: fixed;
+  position-anchor: --my-anchor;
+  inset: auto; /* override UA's inset: 0 */
+  margin: 0; /* override UA's margin: auto */
+  bottom: calc(anchor(top) + 0.5rem);
+  left: anchor(center);
+  translate: -50% 0;
+}
+</code></pre>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="samples-section samples-section--rows samples-section-fallback">
+          <h2 id="position-fallbacks">Position fallbacks</h2>
+          <div class="samples">
+            <div class="sample sample-single-fallback">
+              <h3>
+                Simple single fallback with <code>flip-block</code> or <code>flip-inline</code>
+              </h3>
+              <div class="preview">
+                <div class="anchor">Anchor</div>
+                <div class="target">Target with <code>flip-block</code></div>
+
+                <div class="anchor anchor-inline">Anchor</div>
+                <div class="target target-inline">Target with <code>flip-block</code></div>
+              </div>
+              <div class="explanation">
+                <ul>
+                  <li>use <code>position: fixed</code></li>
+                  <li>add <code>position-try: flip-block</code> (or <code>flip-inline</code>)</li>
+                  <li>margins will also flip</li>
+                  <li>if you scroll back up, fallback position won't change back</li>
+                  <li>
+                    For simple cases, specify only one direction for
+                    <code>position-area</code> (e.g. <code>position-area: top</code> and not
+                    <code>position-area: top center</code>), see below.
+                  </li>
+                </ul>
+                <pre><code class="language-css">.target {
+  position: fixed;
+  position-anchor: --my-anchor;
+  position-area: top;
+  position-try: flip-block;
+  margin-bottom: 0.25rem;
+}
+</code></pre>
+              </div>
+            </div>
+
+            <div class="sample sample-multiple-fallbacks">
+              <h3>Multiple fallbacks</h3>
+              <div class="preview">
+                <div class="anchor">Anchor</div>
+                <div class="target">I'm the target</div>
+              </div>
+              <div class="explanation">
+                <p>
+                  <p>If you specify <code>flip-inline</code> and <code>flip-block</code> as a fallback, the browser picks only one of them, not both. So If you first scroll up, triggering the block flip, and then to the right, the inline flip will not be triggered.
+                  </p>
+                </p>
+                <pre><code class="language-css">.target {
+  position: fixed;
+  position-anchor: --my-anchor;
+  position-area: top left;
+  position-try: flip-inline, flip-block;
+}
+</code></pre>
+              </div>
+            </div>
+
+            <div class="sample sample-multiple-fallbacks2">
+              <div class="preview">
+                <div class="anchor">Anchor</div>
+                <div class="target">I'm the target</div>
+              </div>
+              <div class="explanation">
+                <p>
+                  If you also specify the combination <code>flip-inline flip-block</code>, the it <em>will</em> trigger the second flip.
+                </p>
+                <pre><code class="language-css">.target {
+  &hellip;
+  position-try:
+    flip-inline,
+    flip-block,
+    flip-inline flip-block;
+}
+</code></pre>
+              </div>
+            </div>
+          </div>
+
+          <div class="sample sample-not-covered">
+            <h3>Fallback concepts not covered</h3>
+            <div class="preview"></div>
+            <div class="explanation">
+              <ul>
+                <li>
+                  Use same kind of positioning (<code>position-area: &hellip;</code> or
+                  <code>top: anchor(&hellip;)</code>) for fallback
+                </li>
+                <li>Custom fallback options with <code>@position-try</code></li>
+                <li>
+                  Using <code>position-area: top center</code> and a target with a
+                  <code>display: inline child</code> will push target down over anchor instead of
+                  flipping
+                </li>
+                <li>Container queries like <code>@container anchored(fallback: bottom) {&hellip;}</code> to check fallbacks</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <div class="text-content">
+            <h2>Concepts not covered</h2>
+            <ul>
+              <li>when to use <code>position: fixed</code> vs <code>position: absolute</code></li>
+              <li><code>anchor-size()</code></li>
+              <li><code>position-visibility</code></li>
+            </ul>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script src="../lib/prism/prism.js"></script>
+  </body>
+</html>

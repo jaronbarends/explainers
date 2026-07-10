@@ -45,6 +45,7 @@
 &lt;button popovertarget=&quot;popover-basic-auto&quot;&gt;
   toggle popover
 &lt;/button&gt;</code></pre>
+              <pre><code class="language-css">/* no css necessary */</code></pre>
             </div>
 
             <div class="sample">
@@ -66,6 +67,11 @@
                   <code>hide</code> or <code>toggle</code>. Without
                   <code>popovertargetaction</code>, behavior defaults to <code>toggle</code>.
                 </p>
+                <pre><code class="language-html">&lt;div id="popover-basic-auto-action" popover&gt;basic auto action popover content&lt;/div&gt;
+&lt;button popovertarget="popover-basic-auto-action" popovertargetaction="show"&gt;show popover&lt;/button&gt;
+&lt;button popovertarget="popover-basic-auto-action" popovertargetaction="hide"&gt;hide popover&lt;/button&gt;
+&lt;button popovertarget="popover-basic-auto-action" popovertargetaction="toggle"&gt;toggle popover&lt;/button&gt;
+</code></pre>
               </div>
             </div>
           </div>
@@ -115,8 +121,10 @@
               <button popovertarget="popover-multiple-1">toggle #1</button>
               <button popovertarget="popover-multiple-2">toggle #2</button>
               <div class="explanation">
-                With <code>popover="manual"</code> you can have multiple popovers open at the same
-                time
+                <p>
+                  With <code>popover="manual"</code> you can have multiple popovers open at the same
+                  time
+                </p>
               </div>
             </div>
           </div>
@@ -154,7 +162,7 @@
               </div>
               <button popovertarget="popover-focus">toggle popover</button>
               <div class="explanation">
-                a popover does <strong>not</strong> trap the user's focus
+                <p>a popover does <strong>not</strong> trap the user's focus</p>
               </div>
             </div>
           </div>
