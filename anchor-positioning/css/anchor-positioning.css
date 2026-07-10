@@ -153,9 +153,9 @@
     left: calc(anchor(left) + 1rem);
   }
 
-  .positioned-elm--bottom-right {
+  .positioned-elm--bottom-right-center {
     bottom: anchor(bottom);
-    right: anchor(right);
+    right: anchor(center);
   }
 }
 
@@ -206,5 +206,39 @@
     bottom: calc(anchor(top) + 0.5rem);
     left: anchor(center);
     translate: -50% 0;
+  }
+}
+
+.samples-section-fallback {
+  .sample-flip {
+  }
+  .scroll-container {
+    /* position: relative;
+    height: 10rem;
+    border: 1px dotted var(--color-primary);
+    overflow: auto; */
+  }
+
+  .content-container {
+    /* height: 20rem;
+    width: 200%; */
+  }
+
+  .anchor-elm {
+    margin: 2rem 0 0;
+    anchor-name: --my-anchor;
+  }
+
+  .positioned-elm {
+    position: fixed;
+    position-anchor: --my-anchor;
+    /* position-area: top left; */
+    right: anchor(left);
+    bottom: anchor(top);
+    position-try:
+      flip-inline,
+      flip-block,
+      flip-inline flip-block;
+    /* position-try: bottom left; */
   }
 }

@@ -21,7 +21,50 @@
       <main>
         <div class="text-content">
           <h1>Anchor positioning</h1>
+          <p>
+            Good resources:
+            <a href="https://developer.chrome.com/docs/css-ui/anchor-positioning-api"
+              >https://developer.chrome.com/docs/css-ui/anchor-positioning-api</a
+            >,
+            <a href="https://www.joshwcomeau.com/css/anchor-positioning/"
+              >https://www.joshwcomeau.com/css/anchor-positioning/</a
+            >
+          </p>
         </div>
+
+        <section class="samples-section samples-section--rows samples-section-fallback">
+          <h2 id="position-fallbacks">Position fallbacks</h2>
+          <div class="samples">
+            <div class="sample">
+              <div class="preview">
+                <div class="anchor-elm">Anchor</div>
+                <div class="positioned-elm">Positioned element</div>
+              </div>
+              <div class="explanation">
+                <p>
+                  Use same kind of positioning (<code>position-area: &hellip;</code> or
+                  <code>top: anchor(&hellip;)</code>) for fallback
+                </p>
+              </div>
+            </div>
+
+            <!-- <div class="preview">
+              <div class="scroll-container">
+                <div class="content-container">
+                  <div class="anchor-elm">Anchor</div>
+                  <div class="positioned-elm">Positioned element</div>
+                </div>
+              </div>
+            </div>
+            <div class="explanation">
+              <p>
+                Use same kind of positioning (<code>position-area: &hellip;</code> or
+                <code>top: anchor(&hellip;)</code>) for fallback
+              </p>
+            </div>
+          </div> -->
+          </div>
+        </section>
 
         <section class="samples-section samples-section--rows samples-section-basics">
           <h2>Anchor positioning basics</h2>
@@ -214,6 +257,21 @@
                     <code>span-&hellip;</code> means "<code>center</code> +
                     <code>specified value</code>"
                   </li>
+                  <li>
+                    The div with <code>bottom span-all</code> is rendered on top op the anchor here.
+                    <br />TL;DR: That won't happen when you trigger the anchor with a popover.
+                    <br />When a target's containing block is a scroll container (the case here,
+                    because of <code>position: fixed</code>), and the target is outside view on
+                    initial render, the value used for <code>bottom</code> with
+                    <code>position-area</code> is zero-height, resulting in the target being
+                    positioned over the anchor. (See this
+                    <a href="https://github.com/w3c/csswg-drafts/issues/10999"
+                      >very technical w3c discussion</a
+                    >) That won't be recalculated when it scrolls into view, only when you
+                    re-trigger layout (for example by disabling/re-enabling
+                    <code>position-area</code> in the dev toolbar). <br />See section on
+                    <code>position: fixed</code> vs <code>position: absolute</code>.
+                  </li>
                 </ul>
                 <pre><code class="language-css">.anchor-elm {
     anchor-name: --my-anchor;
@@ -268,11 +326,11 @@
                   </code>
                 </div>
 
-                <div class="positioned-elm positioned-elm--bottom-right">
+                <div class="positioned-elm positioned-elm--bottom-right-center">
                   <code>
                     bottom: anchor(bottom);
                     <br />
-                    right: anchor(right);
+                    right: anchor(center);
                   </code>
                 </div>
               </div>
@@ -307,7 +365,7 @@
           <h2>Anchor positioning with <a href="../popover">popovers</a></h2>
           <div class="samples">
             <div class="sample sample-default">
-              <h3>Overriding browser stylesheet</h3>
+              <h3>UA stylesheet trips up positioning</h3>
               <div class="preview">
                 <button class="anchor-elm" popovertarget="popover-basic">
                   Anchor for popover without override
@@ -318,8 +376,9 @@
               </div>
               <div class="explanation">
                 <p>
-                  By default, popover has UA stylesheet setting
-                  <code>inset: 0; margin: auto;</code> That centers it on screen, so anchor positioning doesn't work.
+                  By default, the browser's stylesheet gives every <code>popover</code> an
+                  <code>inset: 0; margin: auto;</code> That centers it on screen, so anchor
+                  positioning doesn't work.
                 </p>
                 <pre><code class="language-html">&lt;button class="anchor-elm" popovertarget="popover-basic"&gt;Anchor &hellip;&lt;/button&gt;
 &lt;div id="popover-basic" class="positioned-elm popover" popover&gt;&hellip;&lt;/div&gt;
@@ -327,7 +386,7 @@
                 <pre><code class="language-css">.popover {
   position: fixed;
   position-anchor: --my-anchor;
-  /* does not work without overruling UA stylesheet */
+  /* does not work because of UA stylesheet */
   bottom: calc(anchor(top) + 0.5rem);
   left: anchor(center);
   translate: -50% 0;
@@ -339,30 +398,31 @@
             <div class="sample sample-override">
               <h3>Overriding browser stylesheet</h3>
               <div class="preview">
-                  <button class="anchor-elm" popovertarget="popover-override">
-                    Anchor for popover with override
-                  </button>
-                  <div id="popover-override" class="positioned-elm popover" popover>
-                    Popover with UA stylesheet override
-                  </div>
+                <button class="anchor-elm" popovertarget="popover-override">
+                  Anchor for popover with override
+                </button>
+                <div id="popover-override" class="positioned-elm popover" popover>
+                  Popover with UA stylesheet override
                 </div>
-                <div class="explanation">
-                  <p>Set <code>inset: auto; margin: 0;</code> to position it relative to anchor.
-                  </p>
-                  <pre><code class="language-html">&lt;button class="anchor-elm" popovertarget="popover-override"&gt;Anchor &hellip;&lt;/button&gt;
+              </div>
+              <div class="explanation">
+                <p>
+                  Set <code>inset: auto; margin: 0;</code> on the popover to position it relative to
+                  its anchor.
+                </p>
+                <pre><code class="language-html">&lt;button class="anchor-elm" popovertarget="popover-override"&gt;Anchor &hellip;&lt;/button&gt;
 &lt;div id="popover-override" class="positioned-elm popover" popover&gt;&hellip;&lt;/div&gt;
 </code></pre>
-                  <pre><code class="language-css">.popover {
+                <pre><code class="language-css">.popover {
   position: fixed;
   position-anchor: --my-anchor;
-  inset: auto; /* override UA stylesheet's inset: 0 */
-  margin: 0; /* override UA stylesheet's margin: auto */
+  inset: auto; /* override UA's inset: 0 */
+  margin: 0; /* override UA's margin: auto */
   bottom: calc(anchor(top) + 0.5rem);
   left: anchor(center);
   translate: -50% 0;
 }
 </code></pre>
-                </div>
               </div>
             </div>
           </div>

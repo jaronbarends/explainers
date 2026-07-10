@@ -52,7 +52,8 @@ p {
 p a,
 h2 a,
 h3 a,
-.text-content a {
+.text-content a,
+li a {
   color: var(--color-link);
 
   &:hover,
