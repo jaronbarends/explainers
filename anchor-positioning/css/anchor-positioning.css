@@ -2,29 +2,30 @@
   anchor-scope: all; /* ensure that only positioned elements inside the same .preview are allowed to tether to anchors */
 }
 
-.anchor-elm,
-.positioned-elm {
+.anchor,
+.target {
   width: fit-content;
   padding: 0.25rem 0.5rem;
   border-radius: 0.25rem;
   background-color: var(--bg-color-primary);
 }
 
-.positioned-elm {
+.target {
   background-color: rgba(0 0 0 / 0.9);
   color: white;
 }
 
 .samples-section-basics {
   .sample-basics {
-    .anchor-elm {
+    .anchor {
       anchor-name: --my-anchor;
+      margin-top: 2rem;
     }
 
-    .positioned-elm {
+    .target {
       position: fixed;
       position-anchor: --my-anchor;
-      position-area: bottom center;
+      position-area: top;
       margin: 0.5rem;
     }
   }
@@ -39,41 +40,41 @@
     gap: 12rem;
   }
 
-  .anchor-elm {
+  .anchor {
     max-width: 15rem;
   }
 
-  .anchor-elm1 {
+  .anchor1 {
     anchor-name: --non-scoped-anchor;
   }
 
-  .anchor-elm2 {
+  .anchor2 {
     anchor-name: --scoped-anchor;
   }
 
-  .positioned-elm {
+  .target {
     position: absolute;
     max-width: 10rem;
   }
 
-  .positioned-elm--anchor1-inside,
-  .positioned-elm--anchor1-outside {
+  .target--anchor1-inside,
+  .target--anchor1-outside {
     position-anchor: --non-scoped-anchor;
   }
 
-  .positioned-elm--anchor2-inside,
-  .positioned-elm--anchor2-outside {
+  .target--anchor2-inside,
+  .target--anchor2-outside {
     position-anchor: --scoped-anchor;
   }
 
-  .positioned-elm--anchor1-inside,
-  .positioned-elm--anchor2-inside {
+  .target--anchor1-inside,
+  .target--anchor2-inside {
     position-area: top right;
     background-color: var(--color-primary);
   }
 
-  .positioned-elm--anchor1-outside,
-  .positioned-elm--anchor2-outside {
+  .target--anchor1-outside,
+  .target--anchor2-outside {
     position-area: bottom right;
   }
 }
@@ -99,61 +100,61 @@
     border: 1px dotted var(--color-primary);
   }
 
-  .anchor-elm {
+  .anchor {
     anchor-name: --my-anchor;
   }
 
-  .positioned-elm {
+  .target {
     position: fixed;
     position-anchor: --my-anchor;
   }
 
-  .positioned-elm--top-left {
+  .target--top-left {
     position-area: top left;
   }
 
-  .positioned-elm--top {
-    position-area: top; /* same as top center */
+  .target--top {
+    position-area: top; /* same as top span-all */
   }
 
-  .positioned-elm--span-top-right {
+  .target--span-top-right {
     max-width: 6rem; /* without max-width, elm will run on one line, so you won't see effect of span */
     position-area: span-top right;
   }
 
-  .positioned-elm--bottom-span-all {
+  .target--bottom-span-all {
     position-area: bottom span-all;
   }
 }
 
 .sample-anchor-function {
-  .anchor-elm {
+  .anchor {
     anchor-name: --my-anchor;
     width: 10rem;
     height: 20rem;
   }
 
-  .positioned-elm {
+  .target {
     position: fixed;
     position-anchor: --my-anchor;
   }
 
-  .positioned-elm--top-right {
+  .target--top-right {
     top: anchor(top);
     left: anchor(right);
   }
 
-  .positioned-elm--center-perc {
+  .target--center-perc {
     bottom: anchor(center);
     left: anchor(75%);
   }
 
-  .positioned-elm--calc {
+  .target--calc {
     top: calc(anchor(center) + 1rem);
     left: calc(anchor(left) + 1rem);
   }
 
-  .positioned-elm--bottom-right-center {
+  .target--bottom-right-center {
     bottom: anchor(bottom);
     right: anchor(center);
   }
@@ -165,7 +166,7 @@
   }
 
   .sample-default {
-    .anchor-elm {
+    .anchor {
       anchor-name: --my-anchor;
     }
 
@@ -179,7 +180,7 @@
   }
 
   .sample-override {
-    .anchor-elm {
+    .anchor {
       anchor-name: --my-anchor;
     }
 
@@ -194,7 +195,7 @@
     }
   }
 
-  .anchor-elm-override {
+  .anchor-override {
     anchor-name: --my-anchor-override;
   }
 
@@ -210,8 +211,58 @@
 }
 
 .samples-section-fallback {
-  .sample-flip {
+  .sample-single-fallback {
+    .anchor {
+      anchor-name: --my-anchor;
+      margin-top: 2rem;
+    }
+
+    .target {
+      position: fixed;
+      position-anchor: --my-anchor;
+      position-area: top span-right;
+      position-try: flip-block;
+      margin-bottom: 0.25rem;
+    }
+
+    .anchor-inline {
+      anchor-name: --my-anchor-inline;
+      margin-top: 4rem;
+    }
+
+    .target-inline {
+      position: fixed;
+      position-anchor: --my-anchor-inline;
+      position-area: left;
+      position-try: flip-inline;
+      margin-right: 0.25rem;
+    }
   }
+
+  .sample-multiple-fallbacks,
+  .sample-multiple-fallbacks2 {
+    .anchor {
+      margin: 2rem 0 0;
+      anchor-name: --my-anchor;
+    }
+
+    .target {
+      position: fixed;
+      position-anchor: --my-anchor;
+      position-area: top left;
+      position-try: flip-inline, flip-block;
+    }
+  }
+
+  .sample-multiple-fallbacks2 {
+    .target {
+      position-try:
+        flip-inline,
+        flip-block,
+        flip-inline flip-block;
+    }
+  }
+
   .scroll-container {
     /* position: relative;
     height: 10rem;
@@ -222,23 +273,5 @@
   .content-container {
     /* height: 20rem;
     width: 200%; */
-  }
-
-  .anchor-elm {
-    margin: 2rem 0 0;
-    anchor-name: --my-anchor;
-  }
-
-  .positioned-elm {
-    position: fixed;
-    position-anchor: --my-anchor;
-    /* position-area: top left; */
-    right: anchor(left);
-    bottom: anchor(top);
-    position-try:
-      flip-inline,
-      flip-block,
-      flip-inline flip-block;
-    /* position-try: bottom left; */
   }
 }
