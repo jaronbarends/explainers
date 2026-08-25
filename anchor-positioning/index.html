@@ -57,6 +57,7 @@
                   <li>Tie target to anchor element with <code>position-anchor</code></li>
                   <li>Set position with <code>position-area</code> or <code>anchor()</code></li>
                   <li>Anchor can have multiple targets</li>
+                  <li>You'll most likely use anchor positioning for dynamically shown content like tooltips or submenus, but you can also use it to position an element relative to another element that doesn't have the same positioning ancestor</li>
                 </ul>
                 <pre class="language-html"><code>&lt;div class="anchor"&gt;Anchor&lt;/div&gt;
 &lt;div class="target"&gt;I'm the target&lt;/div&gt;</code></pre>
@@ -406,7 +407,7 @@
                 <div class="target">Target with <code>flip-block</code></div>
 
                 <div class="anchor anchor-inline">Anchor</div>
-                <div class="target target-inline">Target with <code>flip-block</code></div>
+                <div class="target target-inline">Target with <code>flip-inline</code></div>
               </div>
               <div class="explanation">
                 <ul>
@@ -501,6 +502,7 @@
               <li>when to use <code>position: fixed</code> vs <code>position: absolute</code></li>
               <li><code>anchor-size()</code></li>
               <li><code>position-visibility</code></li>
+              <li>Positioning an element relative to another element with a different positioning context</li>
             </ul>
           </div>
         </section>

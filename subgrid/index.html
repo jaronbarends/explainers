@@ -135,11 +135,11 @@
                   <code>grid-template-columns: repeat(auto-fit(...))</code>, you can no longer use
                   <code>grid-row: 1/-1</code> (or something like <code>grid-row: 1/5</code>). If you
                   do that, you say that the rows <em>must</em> be on the explicit grid. Use
-                  <code>grid-row: span x</code> instead. That lets the browser's auto-placement
-                  algorithm decide where each item starts, so items can wrap to new rows normally.
-                  You should also use <code>grid-auto-rows</code> instead of
-                  <code>grid-template-rows</code>, because with <code>auto-fit</code>, all items are
-                  placed on the implicit grid.
+                  <code>grid-row: span x</code> (where <code>x</code> is the number of rows in an
+                  item) instead. That lets the browser's auto-placement algorithm decide where each
+                  item starts, so items can wrap to new rows normally. You should also use
+                  <code>grid-auto-rows</code> instead of <code>grid-template-rows</code>, because
+                  with <code>auto-fit</code>, all items are placed on the implicit grid.
                 </p>
                 <p>
                   (This is normal grid behavior and has nothing to do with subgrid. If you remove
